@@ -1,0 +1,11 @@
+@if (items.length === 0) {
+  <p>No items yet. Create one above.</p>
+} @else {
+  <ul class="item-list">
+    @for (item of items; track item.id) {
+      <li>
+        <app-item-card [item]="item" (deleteItem)="deleteItem.emit($event)" />
+      </li>
+    }
+  </ul>
+}

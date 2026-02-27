@@ -1,0 +1,83 @@
+id: react-vite
+name: "React + Vite + TypeScript"
+description: "React with Vite, TypeScript strict, ESLint, Vitest"
+type: frontend
+language: typescript
+framework: react
+requires_database: false
+agents: [frontend, dev, qa, architect, pm, sm]
+
+dev_command: "npm run dev"
+dev_port: 5173
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run dev"
+
+directories:
+  - src
+  - src/components
+  - src/components/ui
+  - src/components/layout
+  - src/hooks
+  - src/pages
+  - src/services
+  - src/store
+  - src/types
+  - src/utils
+  - src/assets
+  - src/styles
+  - public
+  - tests
+  - tests/unit
+  - tests/unit/components
+  - tests/unit/hooks
+  - tests/integration
+
+files:
+  # Config
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "tsconfig.node.json", dst: "tsconfig.node.json"}
+  - {src: "vite.config.ts", dst: "vite.config.ts"}
+  - {src: "index.html.j2", dst: "index.html"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: ".eslintrc.cjs", dst: ".eslintrc.cjs"}
+  - {src: "vitest.config.ts", dst: "vitest.config.ts"}
+
+  # Entry points
+  - {src: "src/main.tsx.j2", dst: "src/main.tsx"}
+  - {src: "src/App.tsx.j2", dst: "src/App.tsx"}
+  - {src: "src/vite-env.d.ts", dst: "src/vite-env.d.ts"}
+
+  # Types
+  - {src: "src/types/item.ts", dst: "src/types/item.ts"}
+
+  # Services
+  - {src: "src/services/api.ts", dst: "src/services/api.ts"}
+
+  # Utils
+  - {src: "src/utils/config.ts.j2", dst: "src/utils/config.ts"}
+
+  # Hooks
+  - {src: "src/hooks/useApi.ts", dst: "src/hooks/useApi.ts"}
+  - {src: "src/hooks/useItems.ts", dst: "src/hooks/useItems.ts"}
+
+  # Pages
+  - {src: "src/pages/HomePage.tsx", dst: "src/pages/HomePage.tsx"}
+  - {src: "src/pages/NotFoundPage.tsx", dst: "src/pages/NotFoundPage.tsx"}
+
+  # Components
+  - {src: "src/components/layout/AppLayout.tsx.j2", dst: "src/components/layout/AppLayout.tsx"}
+  - {src: "src/components/ui/ItemList.tsx", dst: "src/components/ui/ItemList.tsx"}
+  - {src: "src/components/ui/ItemCard.tsx", dst: "src/components/ui/ItemCard.tsx"}
+  - {src: "src/components/ui/ItemForm.tsx", dst: "src/components/ui/ItemForm.tsx"}
+
+  # Styles
+  - {src: "src/styles/index.css", dst: "src/styles/index.css"}
+
+  # Tests
+  - {src: "tests/setup.ts", dst: "tests/setup.ts"}
+  - {src: "tests/unit/components/ItemCard.test.tsx", dst: "tests/unit/components/ItemCard.test.tsx"}
+  - {src: "tests/unit/hooks/useApi.test.ts", dst: "tests/unit/hooks/useApi.test.ts"}

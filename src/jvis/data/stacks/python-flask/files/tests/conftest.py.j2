@@ -1,0 +1,19 @@
+"""Shared test fixtures."""
+
+import pytest
+from flask import Flask
+from flask.testing import FlaskClient
+
+from src.app import create_app
+from src.config import TestConfig
+
+
+@pytest.fixture
+def app() -> Flask:
+    app = create_app(config_class=TestConfig)
+    yield app
+
+
+@pytest.fixture
+def client(app: Flask) -> FlaskClient:
+    return app.test_client()

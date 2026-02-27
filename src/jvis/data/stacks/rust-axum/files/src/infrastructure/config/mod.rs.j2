@@ -1,0 +1,26 @@
+//! Application configuration.
+
+use std::env;
+
+pub struct Config {
+    pub database_url: String,
+    pub port: u16,
+}
+
+impl Config {
+    pub fn from_env() -> Self {
+        Self {
+{% if database_type == "postgresql" %}
+            database_url: env::var("DATABASE_URL")
+                .unwrap_or_else(|_| "postgresql://postgres:postgres@localhost:5432/{{ project_name }}".to_string()),
+{% elif database_type == "mysql" %}
+            database_url: env::var("DATABASE_URL")
+                .unwrap_or_else(|_| "mysql://root:root@localhost:3306/{{ project_name }}".to_string()),
+{% endif %}
+            port: env::var("PORT")
+                .ok()
+                .and_then(|p| p.parse().ok())
+                .unwrap_or(8000),
+        }
+    }
+}

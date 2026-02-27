@@ -1,0 +1,13 @@
+# Production Dependencies
+django>=5.1
+djangorestframework>=3.15
+python-dotenv>=1.0.0
+gunicorn>=22.0.0
+
+{% if database_type == "postgresql" %}
+# Database - PostgreSQL
+psycopg[binary]>=3.2.0
+{% elif database_type == "mysql" %}
+# Database - MySQL
+mysqlclient>=2.2.0
+{% endif %}

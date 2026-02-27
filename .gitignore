@@ -1,0 +1,114 @@
+# Dependencies
+node_modules/
+# Note: package-lock.json files are tracked for MCP servers (OWASP A08 integrity)
+
+# Build outputs
+dist/
+build/
+coverage/
+.nyc_output/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-*
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temp files
+*.tmp
+*.temp
+.cache/
+
+# Chromium (puppeteer)
+.local-chromium/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+*.egg
+*.egg-info/
+.eggs/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Removed legacy directories (preserved in git history)
+docs-site/
+saas-backend/
+saas-backend-aws/
+
+# Cloud credentials (NEVER commit these)
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+client-secrets.json
+service-account*.json
+*-credentials.json
+.aws/
+.azure/
+.config/gcloud/
+
+# Secrets
+*.secret
+secrets.yaml
+secrets.yml
+!secrets.example.yaml
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# JVIS specific ignores
+web-bundles/
+*.pyc
+scratchpad/
+.playwright-mcp/
+# .jvis/generated/ - Now versioned (single source of truth)
+
+# Build artifacts: content copied by scripts/build_dist.py
+src/jvis/data/agents/
+src/jvis/data/agent-engine/
+src/jvis/data/commands/
+src/jvis/data/.jvis/
+src/jvis/data/jvis
+src/jvis/data/*.yaml
+# Source files tracked in git:
+#   src/jvis/data/stacks/    — stack manifests + templates
+#   src/jvis/data/templates/  — project templates (CLAUDE.md.j2)
+
+# Test/build artifacts
+.coverage
+coverage.xml
+htmlcov/
+
+# Stray pip downloads (caused by pip install without -r)
+=*

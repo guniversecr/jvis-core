@@ -1,0 +1,307 @@
+# JVIS Security Audit Report Template
+# Version: 1.0
+# Usage: Document security audit findings and recommendations
+# Location: docs/security/security-audit-{{audit_date}}.md
+
+---
+template:
+  id: security-audit-template-v1
+  name: Security Audit Report
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/security/security-audit-{{audit_date}}.md
+    title: "Security Audit Report: {{project_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Report Header
+    template: |
+      ---
+      # Audit Metadata
+      project: "{{project_name}}"
+      audit_date: "{{audit_date}}"
+      auditor: "{{auditor_name}}"
+      scope: "{{audit_scope}}"
+      classification: "{{classification}}"
+      status: "{{status}}"
+      ---
+
+      # Security Audit Report
+
+      > {{project_name}} - {{audit_date}}
+
+      **CONFIDENTIAL - {{classification}}**
+
+      | Field | Value |
+      |-------|-------|
+      | **Project** | {{project_name}} |
+      | **Audit Date** | {{audit_date}} |
+      | **Auditor** | {{auditor_name}} |
+      | **Scope** | {{audit_scope}} |
+      | **Risk Level** | {{overall_risk_level}} |
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Provide a high-level summary of the audit findings.
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      ### Overview
+      {{audit_overview}}
+
+      ### Risk Summary
+      | Severity | Count | Status |
+      |----------|-------|--------|
+      | Critical | {{critical_count}} | {{critical_status}} |
+      | High | {{high_count}} | {{high_status}} |
+      | Medium | {{medium_count}} | {{medium_status}} |
+      | Low | {{low_count}} | {{low_status}} |
+      | Info | {{info_count}} | {{info_status}} |
+
+      ### Key Findings
+      1. {{key_finding_1}}
+      2. {{key_finding_2}}
+      3. {{key_finding_3}}
+
+      ### Immediate Actions Required
+      - {{immediate_action_1}}
+      - {{immediate_action_2}}
+
+  - id: audit-scope
+    title: Audit Scope
+    instruction: |
+      Define what was and wasn't included in the audit.
+    elicit: true
+    template: |
+      ## Audit Scope
+
+      ### In Scope
+      | Component | Description | Coverage |
+      |-----------|-------------|----------|
+      | {{component_1}} | {{desc_1}} | {{coverage_1}} |
+      | {{component_2}} | {{desc_2}} | {{coverage_2}} |
+      | {{component_3}} | {{desc_3}} | {{coverage_3}} |
+
+      ### Out of Scope
+      - {{out_of_scope_1}}
+      - {{out_of_scope_2}}
+
+      ### Methodology
+      {{audit_methodology}}
+
+      ### Tools Used
+      | Tool | Purpose | Version |
+      |------|---------|---------|
+      | {{tool_1}} | {{purpose_1}} | {{version_1}} |
+      | {{tool_2}} | {{purpose_2}} | {{version_2}} |
+      | {{tool_3}} | {{purpose_3}} | {{version_3}} |
+
+  - id: findings
+    title: Findings
+    instruction: |
+      Document all security findings in detail.
+    elicit: true
+    sections:
+      - id: critical-findings
+        title: Critical Findings
+        repeatable: true
+        template: |
+          ## Findings
+
+          ### Critical Severity
+
+          #### {{finding_id}}: {{finding_title}}
+
+          | Attribute | Value |
+          |-----------|-------|
+          | **Severity** | Critical |
+          | **CVSS Score** | {{cvss_score}} |
+          | **CWE** | {{cwe_id}} |
+          | **OWASP** | {{owasp_category}} |
+          | **Status** | {{finding_status}} |
+
+          **Description:**
+          {{finding_description}}
+
+          **Impact:**
+          {{finding_impact}}
+
+          **Affected Components:**
+          - {{affected_component_1}}
+          - {{affected_component_2}}
+
+          **Evidence:**
+          ```
+          {{evidence}}
+          ```
+
+          **Recommendation:**
+          {{recommendation}}
+
+          **Remediation Steps:**
+          1. {{remediation_step_1}}
+          2. {{remediation_step_2}}
+          3. {{remediation_step_3}}
+      - id: high-findings
+        title: High Severity Findings
+        repeatable: true
+        template: |
+          ### High Severity
+
+          #### {{finding_id}}: {{finding_title}}
+
+          | Attribute | Value |
+          |-----------|-------|
+          | **Severity** | High |
+          | **CVSS Score** | {{cvss_score}} |
+          | **CWE** | {{cwe_id}} |
+          | **Status** | {{finding_status}} |
+
+          **Description:**
+          {{finding_description}}
+
+          **Impact:**
+          {{finding_impact}}
+
+          **Evidence:**
+          ```
+          {{evidence}}
+          ```
+
+          **Recommendation:**
+          {{recommendation}}
+      - id: medium-findings
+        title: Medium Severity Findings
+        template: |
+          ### Medium Severity
+
+          | ID | Finding | CVSS | Status | Recommendation |
+          |----|---------|------|--------|----------------|
+          | {{med_id_1}} | {{med_finding_1}} | {{med_cvss_1}} | {{med_status_1}} | {{med_rec_1}} |
+          | {{med_id_2}} | {{med_finding_2}} | {{med_cvss_2}} | {{med_status_2}} | {{med_rec_2}} |
+          | {{med_id_3}} | {{med_finding_3}} | {{med_cvss_3}} | {{med_status_3}} | {{med_rec_3}} |
+      - id: low-findings
+        title: Low & Informational
+        template: |
+          ### Low & Informational
+
+          | ID | Finding | Severity | Recommendation |
+          |----|---------|----------|----------------|
+          | {{low_id_1}} | {{low_finding_1}} | {{low_sev_1}} | {{low_rec_1}} |
+          | {{low_id_2}} | {{low_finding_2}} | {{low_sev_2}} | {{low_rec_2}} |
+
+  - id: owasp-coverage
+    title: OWASP Coverage
+    instruction: |
+      Map findings to OWASP Top 10 categories.
+    elicit: true
+    template: |
+      ## OWASP Top 10 Coverage
+
+      | Category | Finding Count | Risk Level | Status |
+      |----------|---------------|------------|--------|
+      | A01:2021 Broken Access Control | {{a01_count}} | {{a01_risk}} | {{a01_status}} |
+      | A02:2021 Cryptographic Failures | {{a02_count}} | {{a02_risk}} | {{a02_status}} |
+      | A03:2021 Injection | {{a03_count}} | {{a03_risk}} | {{a03_status}} |
+      | A04:2021 Insecure Design | {{a04_count}} | {{a04_risk}} | {{a04_status}} |
+      | A05:2021 Security Misconfiguration | {{a05_count}} | {{a05_risk}} | {{a05_status}} |
+      | A06:2021 Vulnerable Components | {{a06_count}} | {{a06_risk}} | {{a06_status}} |
+      | A07:2021 Auth Failures | {{a07_count}} | {{a07_risk}} | {{a07_status}} |
+      | A08:2021 Data Integrity Failures | {{a08_count}} | {{a08_risk}} | {{a08_status}} |
+      | A09:2021 Logging Failures | {{a09_count}} | {{a09_risk}} | {{a09_status}} |
+      | A10:2021 SSRF | {{a10_count}} | {{a10_risk}} | {{a10_status}} |
+
+  - id: compliance
+    title: Compliance Assessment
+    instruction: |
+      Assess compliance with relevant standards.
+    elicit: true
+    template: |
+      ## Compliance Assessment
+
+      ### Standards Assessed
+
+      | Standard | Applicable | Compliant | Gaps |
+      |----------|------------|-----------|------|
+      | {{standard_1}} | {{applicable_1}} | {{compliant_1}} | {{gaps_1}} |
+      | {{standard_2}} | {{applicable_2}} | {{compliant_2}} | {{gaps_2}} |
+      | {{standard_3}} | {{applicable_3}} | {{compliant_3}} | {{gaps_3}} |
+
+      ### Compliance Gaps
+      {{compliance_gaps_detail}}
+
+  - id: recommendations
+    title: Recommendations
+    instruction: |
+      Provide prioritized recommendations.
+    elicit: true
+    template: |
+      ## Recommendations
+
+      ### Immediate (0-30 days)
+      | Priority | Recommendation | Owner | Effort |
+      |----------|----------------|-------|--------|
+      | 1 | {{immediate_rec_1}} | {{owner_1}} | {{effort_1}} |
+      | 2 | {{immediate_rec_2}} | {{owner_2}} | {{effort_2}} |
+      | 3 | {{immediate_rec_3}} | {{owner_3}} | {{effort_3}} |
+
+      ### Short-term (30-90 days)
+      | Priority | Recommendation | Owner | Effort |
+      |----------|----------------|-------|--------|
+      | 1 | {{shortterm_rec_1}} | {{st_owner_1}} | {{st_effort_1}} |
+      | 2 | {{shortterm_rec_2}} | {{st_owner_2}} | {{st_effort_2}} |
+
+      ### Long-term (90+ days)
+      | Priority | Recommendation | Owner | Effort |
+      |----------|----------------|-------|--------|
+      | 1 | {{longterm_rec_1}} | {{lt_owner_1}} | {{lt_effort_1}} |
+      | 2 | {{longterm_rec_2}} | {{lt_owner_2}} | {{lt_effort_2}} |
+
+  - id: remediation-tracking
+    title: Remediation Tracking
+    template: |
+      ## Remediation Tracking
+
+      ### Status Summary
+      | Status | Count |
+      |--------|-------|
+      | Open | {{open_count}} |
+      | In Progress | {{in_progress_count}} |
+      | Resolved | {{resolved_count}} |
+      | Accepted Risk | {{accepted_count}} |
+
+      ### Remediation Plan
+      | Finding | Owner | Due Date | Status | Notes |
+      |---------|-------|----------|--------|-------|
+      | {{finding_1}} | {{rem_owner_1}} | {{due_1}} | {{rem_status_1}} | {{notes_1}} |
+      | {{finding_2}} | {{rem_owner_2}} | {{due_2}} | {{rem_status_2}} | {{notes_2}} |
+
+  - id: appendix
+    title: Appendix
+    template: |
+      ## Appendix
+
+      ### A. Vulnerability Details
+      {{vulnerability_details}}
+
+      ### B. Test Evidence
+      {{test_evidence}}
+
+      ### C. Tool Output
+      {{tool_output}}
+
+      ### D. Glossary
+      {{glossary}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{auditor}} | Initial audit |

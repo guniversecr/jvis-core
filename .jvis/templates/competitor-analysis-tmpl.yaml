@@ -1,0 +1,336 @@
+# JVIS Competitor Analysis Template
+# Version: 1.0
+# Usage: Created by Analyst to evaluate competitive landscape
+# Location: docs/analysis/competitor-analysis.md
+
+---
+template:
+  id: competitor-analysis-template-v1
+  name: Competitor Analysis
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/analysis/competitor-analysis.md
+    title: "{{project_name}} Competitor Analysis"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Document Metadata
+      title: "Competitor Analysis"
+      project: "{{project_name}}"
+      created: "{{YYYY-MM-DD}}"
+      updated: "{{YYYY-MM-DD}}"
+      status: "Draft"
+      analyst: "Business Analyst Agent"
+      ---
+
+      # Competitor Analysis: {{project_name}}
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Provide a high-level summary of the competitive landscape:
+
+      1. Market overview
+      2. Key competitors identified
+      3. Main competitive threats
+      4. Potential opportunities
+      5. Strategic recommendations
+
+      Keep this concise (1 page max) for executive consumption.
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      ### Market Overview
+      {{market_overview}}
+
+      ### Key Findings
+      - {{finding_1}}
+      - {{finding_2}}
+      - {{finding_3}}
+
+      ### Strategic Recommendations
+      1. {{recommendation_1}}
+      2. {{recommendation_2}}
+      3. {{recommendation_3}}
+
+  - id: market-context
+    title: Market Context
+    instruction: |
+      Provide context about the market:
+
+      1. Market size and growth
+      2. Key trends
+      3. Regulatory environment
+      4. Technology landscape
+    elicit: true
+    sections:
+      - id: market-size
+        title: Market Size
+        template: |
+          ### Market Size & Growth
+
+          - **Total Addressable Market (TAM):** {{tam}}
+          - **Serviceable Addressable Market (SAM):** {{sam}}
+          - **Serviceable Obtainable Market (SOM):** {{som}}
+          - **Growth Rate:** {{growth_rate}}
+      - id: market-trends
+        title: Market Trends
+        type: bullet-list
+        template: "- **{{trend_name}}:** {{trend_description}}"
+      - id: regulatory
+        title: Regulatory Environment
+        template: |
+          ### Regulatory Considerations
+
+          {{regulatory_overview}}
+
+  - id: competitor-overview
+    title: Competitor Overview
+    instruction: |
+      List and categorize all identified competitors:
+
+      1. Direct competitors (same product category)
+      2. Indirect competitors (alternative solutions)
+      3. Potential future competitors
+    elicit: true
+    sections:
+      - id: competitor-matrix
+        title: Competitor Matrix
+        type: table
+        columns: [Competitor, Type, Market Share, Threat Level, Key Strength]
+        examples:
+          - "| Competitor A | Direct | 35% | High | Market leader |"
+          - "| Competitor B | Direct | 20% | Medium | Price leader |"
+          - "| Alternative X | Indirect | N/A | Low | Different approach |"
+      - id: threat-assessment
+        title: Threat Assessment
+        template: |
+          ### Threat Assessment
+
+          | Threat Level | Competitors | Rationale |
+          |--------------|-------------|-----------|
+          | High | {{high_threats}} | {{rationale}} |
+          | Medium | {{medium_threats}} | {{rationale}} |
+          | Low | {{low_threats}} | {{rationale}} |
+
+  - id: competitor-profiles
+    title: Competitor Profiles
+    instruction: |
+      Provide detailed profiles for each significant competitor.
+      Focus on top 3-5 competitors that pose the greatest threat.
+    elicit: true
+    repeatable: true
+    sections:
+      - id: profile
+        title: "{{competitor_name}}"
+        template: |
+          ### {{competitor_name}}
+
+          **Website:** {{website}}
+          **Founded:** {{founded}}
+          **Headquarters:** {{location}}
+          **Funding/Revenue:** {{funding_info}}
+
+          #### Company Overview
+          {{company_overview}}
+
+          #### Product/Service Offering
+          {{product_description}}
+
+          #### Target Market
+          - **Primary:** {{primary_market}}
+          - **Secondary:** {{secondary_market}}
+
+          #### Pricing Model
+          | Tier | Price | Features |
+          |------|-------|----------|
+          | {{tier_1}} | {{price_1}} | {{features_1}} |
+          | {{tier_2}} | {{price_2}} | {{features_2}} |
+
+          #### Strengths
+          - {{strength_1}}
+          - {{strength_2}}
+          - {{strength_3}}
+
+          #### Weaknesses
+          - {{weakness_1}}
+          - {{weakness_2}}
+          - {{weakness_3}}
+
+          #### Recent Developments
+          - {{development_1}}
+          - {{development_2}}
+
+  - id: feature-comparison
+    title: Feature Comparison
+    instruction: |
+      Create a feature-by-feature comparison matrix.
+      Include all key features relevant to your target market.
+    elicit: true
+    sections:
+      - id: feature-matrix
+        title: Feature Comparison Matrix
+        type: table
+        columns: [Feature, Our Product, Competitor A, Competitor B, Competitor C, Importance]
+        examples:
+          - "| Core Feature 1 | ✓ | ✓ | ✗ | ✓ | Critical |"
+          - "| Core Feature 2 | ✓ | ✓ | ✓ | ✓ | High |"
+          - "| Advanced Feature | Planned | ✓ | ✗ | ✗ | Medium |"
+      - id: feature-analysis
+        title: Feature Analysis
+        template: |
+          ### Feature Analysis
+
+          **Areas of Advantage:**
+          - {{advantage_1}}
+          - {{advantage_2}}
+
+          **Feature Gaps to Address:**
+          - {{gap_1}}
+          - {{gap_2}}
+
+          **Differentiation Opportunities:**
+          - {{opportunity_1}}
+          - {{opportunity_2}}
+
+  - id: pricing-analysis
+    title: Pricing Analysis
+    instruction: |
+      Analyze competitor pricing strategies and positioning.
+    elicit: true
+    sections:
+      - id: pricing-comparison
+        title: Pricing Comparison
+        type: table
+        columns: [Competitor, Entry Price, Mid-Tier, Enterprise, Pricing Model]
+        examples:
+          - "| Competitor A | $29/mo | $99/mo | Custom | Per user |"
+          - "| Competitor B | Free | $49/mo | $199/mo | Per seat |"
+      - id: pricing-strategy
+        title: Pricing Strategy Analysis
+        template: |
+          ### Pricing Strategy Analysis
+
+          **Market Positioning:**
+          - Premium: {{premium_competitors}}
+          - Mid-Market: {{midmarket_competitors}}
+          - Budget: {{budget_competitors}}
+
+          **Pricing Insights:**
+          - {{insight_1}}
+          - {{insight_2}}
+
+          **Recommended Pricing Position:**
+          {{pricing_recommendation}}
+
+  - id: swot-analysis
+    title: SWOT Analysis
+    instruction: |
+      Conduct a SWOT analysis of our position relative to competitors.
+    elicit: true
+    template: |
+      ## SWOT Analysis
+
+      ### Strengths
+      | Strength | Impact | Leverage Strategy |
+      |----------|--------|-------------------|
+      | {{strength}} | {{impact}} | {{strategy}} |
+
+      ### Weaknesses
+      | Weakness | Impact | Mitigation Strategy |
+      |----------|--------|---------------------|
+      | {{weakness}} | {{impact}} | {{strategy}} |
+
+      ### Opportunities
+      | Opportunity | Potential | Action Required |
+      |-------------|-----------|-----------------|
+      | {{opportunity}} | {{potential}} | {{action}} |
+
+      ### Threats
+      | Threat | Likelihood | Response Strategy |
+      |--------|------------|-------------------|
+      | {{threat}} | {{likelihood}} | {{strategy}} |
+
+  - id: competitive-positioning
+    title: Competitive Positioning
+    instruction: |
+      Define how we should position ourselves against competitors.
+    elicit: true
+    sections:
+      - id: positioning-map
+        title: Positioning Map
+        template: |
+          ### Positioning Map
+
+          **Axes:**
+          - X-Axis: {{x_axis}} (Low → High)
+          - Y-Axis: {{y_axis}} (Low → High)
+
+          | Competitor | X Position | Y Position | Quadrant |
+          |------------|------------|------------|----------|
+          | {{competitor}} | {{x}} | {{y}} | {{quadrant}} |
+
+          **Our Target Position:** {{target_position}}
+      - id: value-proposition
+        title: Differentiated Value Proposition
+        template: |
+          ### Differentiated Value Proposition
+
+          **For** {{target_customer}}
+          **Who** {{customer_need}}
+          **Our product is** {{product_category}}
+          **That** {{key_benefit}}
+          **Unlike** {{primary_competitor}}
+          **We** {{key_differentiator}}
+
+  - id: recommendations
+    title: Strategic Recommendations
+    instruction: |
+      Provide actionable recommendations based on the analysis.
+    elicit: true
+    sections:
+      - id: strategic-actions
+        title: Recommended Strategic Actions
+        type: numbered-list
+        items:
+          - "**Short-term (0-6 months):** {{short_term_action}}"
+          - "**Medium-term (6-12 months):** {{medium_term_action}}"
+          - "**Long-term (12+ months):** {{long_term_action}}"
+      - id: competitive-responses
+        title: Competitive Response Plan
+        template: |
+          ### Competitive Response Plan
+
+          | Competitor Action | Our Response | Timeline | Owner |
+          |-------------------|--------------|----------|-------|
+          | {{action}} | {{response}} | {{timeline}} | {{owner}} |
+      - id: monitoring-plan
+        title: Competitive Monitoring Plan
+        template: |
+          ### Ongoing Monitoring
+
+          **Metrics to Track:**
+          - {{metric_1}}
+          - {{metric_2}}
+          - {{metric_3}}
+
+          **Review Cadence:** {{cadence}}
+
+          **Data Sources:**
+          - {{source_1}}
+          - {{source_2}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | Business Analyst | Initial creation |

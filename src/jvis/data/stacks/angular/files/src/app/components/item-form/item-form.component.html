@@ -1,0 +1,5 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="item-form">
+  <input formControlName="name" placeholder="Item name" />
+  <input formControlName="description" placeholder="Description (optional)" />
+  <button type="submit" [disabled]="form.invalid">Add Item</button>
+</form>

@@ -1,0 +1,14 @@
+# Production Dependencies
+flask>=3.0.0
+flask-sqlalchemy>=3.1.0
+flask-migrate>=4.0.0
+python-dotenv>=1.0.0
+gunicorn>=22.0.0
+
+{% if database_type == "postgresql" %}
+# Database - PostgreSQL
+psycopg2-binary>=2.9.9
+{% elif database_type == "mysql" %}
+# Database - MySQL
+PyMySQL>=1.1.0
+{% endif %}

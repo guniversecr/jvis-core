@@ -1,0 +1,77 @@
+id: nodejs-nestjs
+name: "Node.js NestJS + TypeScript"
+description: "NestJS with TypeScript, Prisma ORM, modular architecture, class-validator"
+type: backend
+language: typescript
+framework: nestjs
+requires_database: true
+agents: [prisma, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "npm run start:dev"
+dev_port: 3001
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run start:dev"
+
+directories:
+  - src
+  - src/health
+  - src/common
+  - src/common/dto
+  - src/common/filters
+  - src/common/guards
+  - src/config
+  - src/prisma
+  - src/items
+  - src/items/dto
+  - src/items/entities
+  - prisma
+  - tests
+
+files:
+  # Config
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "tsconfig.build.json", dst: "tsconfig.build.json"}
+  - {src: "nest-cli.json", dst: "nest-cli.json"}
+  - {src: ".prettierrc", dst: ".prettierrc"}
+  - {src: ".eslintrc.js", dst: ".eslintrc.js"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: ".env.example.j2", dst: ".env.example"}
+
+  # Entry points
+  - {src: "src/main.ts.j2", dst: "src/main.ts"}
+  - {src: "src/app.module.ts.j2", dst: "src/app.module.ts"}
+  - {src: "src/app.controller.ts.j2", dst: "src/app.controller.ts"}
+  - {src: "src/app.service.ts", dst: "src/app.service.ts"}
+
+  # Health
+  - {src: "src/health/health.controller.ts", dst: "src/health/health.controller.ts"}
+  - {src: "src/health/health.module.ts", dst: "src/health/health.module.ts"}
+
+  # Prisma
+  - {src: "src/prisma/prisma.service.ts", dst: "src/prisma/prisma.service.ts"}
+  - {src: "src/prisma/prisma.module.ts", dst: "src/prisma/prisma.module.ts"}
+
+  # Items
+  - {src: "src/items/items.module.ts", dst: "src/items/items.module.ts"}
+  - {src: "src/items/items.controller.ts", dst: "src/items/items.controller.ts"}
+  - {src: "src/items/items.service.ts", dst: "src/items/items.service.ts"}
+  - {src: "src/items/dto/create-item.dto.ts", dst: "src/items/dto/create-item.dto.ts"}
+  - {src: "src/items/dto/update-item.dto.ts", dst: "src/items/dto/update-item.dto.ts"}
+  - {src: "src/items/entities/item.entity.ts", dst: "src/items/entities/item.entity.ts"}
+
+  # Common
+  - {src: "src/common/filters/http-exception.filter.ts", dst: "src/common/filters/http-exception.filter.ts"}
+
+  # Database
+  - {src: "prisma/schema.prisma.j2", dst: "prisma/schema.prisma"}
+
+  # Tests
+  - {src: "tests/jest-e2e.json", dst: "tests/jest-e2e.json"}
+  - {src: "tests/app.e2e-spec.ts.j2", dst: "tests/app.e2e-spec.ts"}
+  - {src: "tests/items.e2e-spec.ts.j2", dst: "tests/items.e2e-spec.ts"}

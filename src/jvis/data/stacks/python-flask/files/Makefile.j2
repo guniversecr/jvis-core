@@ -1,0 +1,40 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: dev
+dev:  ## Start development server
+	flask --app src.app:create_app run --reload --host 0.0.0.0 --port 8000
+
+.PHONY: test
+test:  ## Run tests
+	pytest --cov=src --cov-report=term-missing
+
+.PHONY: lint
+lint:  ## Run linters
+	ruff check src/ tests/
+	mypy src/
+
+.PHONY: format
+format:  ## Format code
+	ruff format src/ tests/
+	ruff check --fix src/ tests/
+
+.PHONY: migrate
+migrate:  ## Run database migrations
+	flask --app src.app:create_app db upgrade
+
+.PHONY: migration
+migration:  ## Create new migration (usage: make migration msg="description")
+	flask --app src.app:create_app db migrate -m "$(msg)"
+
+.PHONY: up
+up:  ## Start with Docker Compose
+	docker compose up --build
+
+.PHONY: down
+down:  ## Stop Docker Compose
+	docker compose down

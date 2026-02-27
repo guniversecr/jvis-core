@@ -1,0 +1,375 @@
+# JVIS Lean Canvas Template
+# Version: 1.0
+# Usage: Create lean canvas business model for products/ventures
+# Location: docs/strategy/lean-canvas-{{product_name}}.md
+
+---
+template:
+  id: lean-canvas-template-v1
+  name: Lean Canvas
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/strategy/lean-canvas-{{product_name}}.md
+    title: "Lean Canvas: {{product_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Lean Canvas Metadata
+      product: "{{product_name}}"
+      version: "{{canvas_version}}"
+      created: "{{YYYY-MM-DD}}"
+      status: "{{status}}"
+      owner: "{{canvas_owner}}"
+      ---
+
+      # Lean Canvas: {{product_name}}
+
+      | Field | Value |
+      |-------|-------|
+      | **Product/Venture** | {{product_name}} |
+      | **Version** | {{canvas_version}} |
+      | **Date** | {{canvas_date}} |
+      | **Author** | {{canvas_owner}} |
+      | **Stage** | {{product_stage}} |
+
+  - id: problem
+    title: 1. Problem
+    instruction: |
+      Identify the top 3 problems your target customers face.
+    elicit: true
+    template: |
+      ## 1. Problem
+
+      ### Top 3 Problems
+      1. **{{problem_1}}**
+         - Impact: {{problem_1_impact}}
+         - Current workaround: {{problem_1_workaround}}
+
+      2. **{{problem_2}}**
+         - Impact: {{problem_2_impact}}
+         - Current workaround: {{problem_2_workaround}}
+
+      3. **{{problem_3}}**
+         - Impact: {{problem_3_impact}}
+         - Current workaround: {{problem_3_workaround}}
+
+      ### Existing Alternatives
+      {{existing_alternatives}}
+
+      ### Problem Validation
+      | Method | Result |
+      |--------|--------|
+      | Customer Interviews | {{interview_results}} |
+      | Survey Data | {{survey_results}} |
+      | Market Research | {{market_research}} |
+
+  - id: customer-segments
+    title: 2. Customer Segments
+    instruction: |
+      Define who has these problems - be specific.
+    elicit: true
+    template: |
+      ## 2. Customer Segments
+
+      ### Target Customer
+      {{target_customer_description}}
+
+      ### Early Adopters
+      **Who are they:** {{early_adopter_description}}
+      **Why them:** {{early_adopter_why}}
+      **Where to find them:** {{early_adopter_where}}
+
+      ### Customer Personas
+
+      **Persona 1: {{persona_1_name}}**
+      | Attribute | Details |
+      |-----------|---------|
+      | Demographics | {{persona_1_demo}} |
+      | Role/Title | {{persona_1_role}} |
+      | Goals | {{persona_1_goals}} |
+      | Frustrations | {{persona_1_frustrations}} |
+
+      **Persona 2: {{persona_2_name}}**
+      | Attribute | Details |
+      |-----------|---------|
+      | Demographics | {{persona_2_demo}} |
+      | Role/Title | {{persona_2_role}} |
+      | Goals | {{persona_2_goals}} |
+      | Frustrations | {{persona_2_frustrations}} |
+
+      ### TAM / SAM / SOM
+      | Market | Size | Notes |
+      |--------|------|-------|
+      | TAM (Total) | {{tam}} | {{tam_notes}} |
+      | SAM (Serviceable) | {{sam}} | {{sam_notes}} |
+      | SOM (Obtainable) | {{som}} | {{som_notes}} |
+
+  - id: unique-value-proposition
+    title: 3. Unique Value Proposition
+    instruction: |
+      Define your compelling message that turns visitors into customers.
+    elicit: true
+    template: |
+      ## 3. Unique Value Proposition
+
+      ### One-Liner
+      {{uvp_one_liner}}
+
+      ### Detailed Value Proposition
+      {{uvp_detailed}}
+
+      ### Headline Formula
+      **For** {{uvp_for}}
+      **Who** {{uvp_who}}
+      **Our product is** {{uvp_product}}
+      **That** {{uvp_that}}
+      **Unlike** {{uvp_unlike}}
+      **We** {{uvp_we}}
+
+      ### High-Level Concept
+      {{high_level_concept}}
+      *(Example: "YouTube for cooking" or "Airbnb for parking")*
+
+      ### Key Differentiators
+      1. {{differentiator_1}}
+      2. {{differentiator_2}}
+      3. {{differentiator_3}}
+
+  - id: solution
+    title: 4. Solution
+    instruction: |
+      Outline the minimum features needed to solve the problems.
+    elicit: true
+    template: |
+      ## 4. Solution
+
+      ### Solution for Problem 1
+      **Problem:** {{problem_1}}
+      **Solution:** {{solution_1}}
+      **Key Features:**
+      - {{feature_1a}}
+      - {{feature_1b}}
+
+      ### Solution for Problem 2
+      **Problem:** {{problem_2}}
+      **Solution:** {{solution_2}}
+      **Key Features:**
+      - {{feature_2a}}
+      - {{feature_2b}}
+
+      ### Solution for Problem 3
+      **Problem:** {{problem_3}}
+      **Solution:** {{solution_3}}
+      **Key Features:**
+      - {{feature_3a}}
+      - {{feature_3b}}
+
+      ### MVP Definition
+      {{mvp_definition}}
+
+      ### What's NOT in MVP
+      {{not_in_mvp}}
+
+  - id: channels
+    title: 5. Channels
+    instruction: |
+      Identify paths to reach customers.
+    elicit: true
+    template: |
+      ## 5. Channels
+
+      ### Free/Organic Channels
+      | Channel | Strategy | Expected Impact |
+      |---------|----------|-----------------|
+      | {{free_channel_1}} | {{free_strategy_1}} | {{free_impact_1}} |
+      | {{free_channel_2}} | {{free_strategy_2}} | {{free_impact_2}} |
+      | {{free_channel_3}} | {{free_strategy_3}} | {{free_impact_3}} |
+
+      ### Paid Channels
+      | Channel | Strategy | CAC Target |
+      |---------|----------|------------|
+      | {{paid_channel_1}} | {{paid_strategy_1}} | {{paid_cac_1}} |
+      | {{paid_channel_2}} | {{paid_strategy_2}} | {{paid_cac_2}} |
+
+      ### Primary Acquisition Channel
+      {{primary_channel}}
+
+      ### Channel Priorities (for MVP)
+      1. {{channel_priority_1}}
+      2. {{channel_priority_2}}
+      3. {{channel_priority_3}}
+
+  - id: revenue-streams
+    title: 6. Revenue Streams
+    instruction: |
+      Define how you will make money.
+    elicit: true
+    template: |
+      ## 6. Revenue Streams
+
+      ### Revenue Model
+      {{revenue_model}}
+
+      ### Pricing Strategy
+      {{pricing_strategy}}
+
+      ### Pricing Tiers
+      | Tier | Price | Features | Target Customer |
+      |------|-------|----------|-----------------|
+      | {{tier_1_name}} | {{tier_1_price}} | {{tier_1_features}} | {{tier_1_target}} |
+      | {{tier_2_name}} | {{tier_2_price}} | {{tier_2_features}} | {{tier_2_target}} |
+      | {{tier_3_name}} | {{tier_3_price}} | {{tier_3_features}} | {{tier_3_target}} |
+
+      ### Key Metrics
+      | Metric | Target | Notes |
+      |--------|--------|-------|
+      | LTV | {{ltv_target}} | {{ltv_notes}} |
+      | ARPU | {{arpu_target}} | {{arpu_notes}} |
+      | Conversion Rate | {{conversion_target}} | {{conversion_notes}} |
+
+      ### Revenue Projections
+      | Timeline | Revenue | Assumptions |
+      |----------|---------|-------------|
+      | Year 1 | {{year_1_revenue}} | {{year_1_assumptions}} |
+      | Year 2 | {{year_2_revenue}} | {{year_2_assumptions}} |
+      | Year 3 | {{year_3_revenue}} | {{year_3_assumptions}} |
+
+  - id: cost-structure
+    title: 7. Cost Structure
+    instruction: |
+      List your fixed and variable costs.
+    elicit: true
+    template: |
+      ## 7. Cost Structure
+
+      ### Fixed Costs
+      | Cost Item | Monthly | Annual | Notes |
+      |-----------|---------|--------|-------|
+      | {{fixed_cost_1}} | {{fixed_monthly_1}} | {{fixed_annual_1}} | {{fixed_notes_1}} |
+      | {{fixed_cost_2}} | {{fixed_monthly_2}} | {{fixed_annual_2}} | {{fixed_notes_2}} |
+      | {{fixed_cost_3}} | {{fixed_monthly_3}} | {{fixed_annual_3}} | {{fixed_notes_3}} |
+      | {{fixed_cost_4}} | {{fixed_monthly_4}} | {{fixed_annual_4}} | {{fixed_notes_4}} |
+
+      ### Variable Costs
+      | Cost Item | Per Unit | At Scale | Notes |
+      |-----------|----------|----------|-------|
+      | {{var_cost_1}} | {{var_unit_1}} | {{var_scale_1}} | {{var_notes_1}} |
+      | {{var_cost_2}} | {{var_unit_2}} | {{var_scale_2}} | {{var_notes_2}} |
+      | {{var_cost_3}} | {{var_unit_3}} | {{var_scale_3}} | {{var_notes_3}} |
+
+      ### Customer Acquisition Cost
+      {{cac_breakdown}}
+
+      ### Burn Rate (Pre-Revenue)
+      {{burn_rate}}
+
+      ### Break-Even Analysis
+      {{break_even}}
+
+  - id: key-metrics
+    title: 8. Key Metrics
+    instruction: |
+      Define the key numbers that measure success.
+    elicit: true
+    template: |
+      ## 8. Key Metrics
+
+      ### Pirate Metrics (AARRR)
+      | Stage | Metric | Target | Current |
+      |-------|--------|--------|---------|
+      | Acquisition | {{acquisition_metric}} | {{acquisition_target}} | {{acquisition_current}} |
+      | Activation | {{activation_metric}} | {{activation_target}} | {{activation_current}} |
+      | Retention | {{retention_metric}} | {{retention_target}} | {{retention_current}} |
+      | Revenue | {{revenue_metric}} | {{revenue_target}} | {{revenue_current}} |
+      | Referral | {{referral_metric}} | {{referral_target}} | {{referral_current}} |
+
+      ### North Star Metric
+      **Metric:** {{north_star_metric}}
+      **Why:** {{north_star_why}}
+      **Target:** {{north_star_target}}
+
+      ### Leading Indicators
+      1. {{leading_indicator_1}}
+      2. {{leading_indicator_2}}
+      3. {{leading_indicator_3}}
+
+      ### Lagging Indicators
+      1. {{lagging_indicator_1}}
+      2. {{lagging_indicator_2}}
+
+  - id: unfair-advantage
+    title: 9. Unfair Advantage
+    instruction: |
+      Identify what cannot be easily copied or bought.
+    elicit: true
+    template: |
+      ## 9. Unfair Advantage
+
+      ### Current Advantages
+      | Advantage | Defensibility | Time to Replicate |
+      |-----------|--------------|-------------------|
+      | {{advantage_1}} | {{defensibility_1}} | {{replicate_1}} |
+      | {{advantage_2}} | {{defensibility_2}} | {{replicate_2}} |
+      | {{advantage_3}} | {{defensibility_3}} | {{replicate_3}} |
+
+      ### Building Unfair Advantages
+      {{building_advantages}}
+
+      ### Moat Strategy
+      {{moat_strategy}}
+
+      ### What's NOT an Unfair Advantage
+      {{not_advantages}}
+
+  - id: assumptions-risks
+    title: Assumptions & Risks
+    template: |
+      ## Assumptions & Risks
+
+      ### Critical Assumptions
+      | Assumption | Risk Level | How to Test |
+      |------------|------------|-------------|
+      | {{assumption_1}} | {{risk_level_1}} | {{test_1}} |
+      | {{assumption_2}} | {{risk_level_2}} | {{test_2}} |
+      | {{assumption_3}} | {{risk_level_3}} | {{test_3}} |
+      | {{assumption_4}} | {{risk_level_4}} | {{test_4}} |
+
+      ### Riskiest Assumption
+      {{riskiest_assumption}}
+
+      ### Risk Mitigation
+      {{risk_mitigation}}
+
+  - id: next-steps
+    title: Next Steps
+    template: |
+      ## Next Steps
+
+      ### Experiments to Run
+      | Experiment | Hypothesis | Success Criteria | Timeline |
+      |------------|------------|------------------|----------|
+      | {{experiment_1}} | {{hypothesis_1}} | {{criteria_1}} | {{timeline_1}} |
+      | {{experiment_2}} | {{hypothesis_2}} | {{criteria_2}} | {{timeline_2}} |
+      | {{experiment_3}} | {{hypothesis_3}} | {{criteria_3}} | {{timeline_3}} |
+
+      ### MVP Milestones
+      1. {{milestone_1}} - {{milestone_date_1}}
+      2. {{milestone_2}} - {{milestone_date_2}}
+      3. {{milestone_3}} - {{milestone_date_3}}
+
+      ### Decision Points
+      {{decision_points}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial canvas |

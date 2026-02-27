@@ -1,0 +1,9 @@
+<div class="item-card">
+  <div>
+    <strong>{{ item.name }}</strong>
+    @if (item.description) {
+      <p>{{ item.description }}</p>
+    }
+  </div>
+  <button (click)="onDelete()">Delete</button>
+</div>

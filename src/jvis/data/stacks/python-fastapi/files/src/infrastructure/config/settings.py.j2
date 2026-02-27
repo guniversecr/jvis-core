@@ -1,0 +1,19 @@
+"""Application settings — loaded from environment variables."""
+
+from pydantic_settings import BaseSettings
+
+
+class Settings(BaseSettings):
+    app_name: str = "{{ project_name }}"
+    app_env: str = "development"
+    app_port: int = 8000
+    debug: bool = True
+{% if database_type != "dynamodb" %}
+    database_url: str = "{{ 'postgresql+asyncpg://postgres:postgres@localhost:5432/' + project_name if database_type == 'postgresql' else 'mysql+aiomysql://root:root@localhost:3306/' + project_name }}"
+{% endif %}
+
+    class Config:
+        env_file = ".env"
+
+
+settings = Settings()

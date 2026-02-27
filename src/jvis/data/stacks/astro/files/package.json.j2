@@ -1,0 +1,30 @@
+{
+  "name": "{{ project_name }}",
+  "private": true,
+  "version": "0.1.0",
+  "description": "{{ project_description }}",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest",
+    "lint": "eslint src/",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.15.0",
+    "@astrojs/check": "^0.9.0",
+    "@astrojs/preact": "^3.5.0",
+    "preact": "^10.23.0",
+    "typescript": "^5.5.0"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-astro": "^1.2.0",
+    "prettier": "^3.3.0",
+    "prettier-plugin-astro": "^0.14.0"
+  }
+}

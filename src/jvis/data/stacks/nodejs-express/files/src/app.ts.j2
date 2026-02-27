@@ -1,0 +1,22 @@
+import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
+
+import { healthRouter } from './presentation/routes/health.js';
+import { itemsRouter } from './presentation/routes/items.js';
+import { errorHandler } from './presentation/middleware/error-handler.js';
+
+export const app = express();
+
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+
+app.use('/api', healthRouter);
+app.use('/api/items', itemsRouter);
+
+app.get('/', (_req, res) => {
+  res.json({ service: '{{ project_name }}', status: 'running' });
+});
+
+app.use(errorHandler);

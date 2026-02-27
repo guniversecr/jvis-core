@@ -1,0 +1,311 @@
+# JVIS Epic Template
+# Version: 1.0
+# Usage: Created by PM/SM after PRD sharding to organize stories
+# Location: docs/epics/{epicNum}.epic.md
+
+---
+template:
+  id: epic-template-v1
+  name: Epic Document
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/epics/{epicNum}.epic.md
+    title: "Epic {epicNum}: {{epic_title}}"
+
+workflow:
+  mode: interactive
+  elicitation: basic
+
+sections:
+  - id: header
+    title: Epic Header
+    template: |
+      ---
+      # Epic Metadata
+      epic_id: "{epicNum}"
+      title: "{{epic_title}}"
+      status: "Draft"  # Draft | Ready | In Progress | Review | Done | Blocked
+      priority: "{{priority}}"  # Critical | High | Medium | Low
+      created: "{{YYYY-MM-DD}}"
+      updated: "{{YYYY-MM-DD}}"
+
+      # Links
+      prd_ref: "docs/prd/PRD.md#{{prd_section}}"
+      architecture_ref: "docs/architecture/{{architecture_doc}}"
+
+      # Progress
+      total_stories: {{story_count}}
+      completed_stories: 0
+      ---
+
+      # Epic {epicNum}: {{epic_title}}
+
+  - id: overview
+    title: Epic Overview
+    instruction: |
+      Provide a high-level summary of this epic:
+
+      1. What business capability does this epic deliver?
+      2. What user needs does it address?
+      3. How does it fit into the overall product vision?
+
+      Reference the PRD sections this epic implements.
+    elicit: true
+    sections:
+      - id: summary
+        title: Summary
+        template: |
+          ## Overview
+
+          {{epic_summary}}
+
+          **PRD Reference:** {{prd_section}}
+      - id: business-value
+        title: Business Value
+        template: |
+          ### Business Value
+
+          {{business_value_description}}
+      - id: user-value
+        title: User Value
+        template: |
+          ### User Value
+
+          {{user_value_description}}
+
+  - id: goals
+    title: Epic Goals
+    instruction: |
+      Define the measurable goals for this epic:
+
+      1. What should be true when this epic is complete?
+      2. How will success be measured?
+      3. What are the acceptance criteria at the epic level?
+    elicit: true
+    sections:
+      - id: objectives
+        title: Objectives
+        type: bullet-list
+        template: "- [ ] {{objective}}"
+      - id: success-metrics
+        title: Success Metrics
+        type: table
+        columns: [Metric, Target, Measurement]
+        examples:
+          - "| Feature adoption | 70% of users | Analytics |"
+          - "| Task completion time | <30 seconds | Session logs |"
+
+  - id: scope
+    title: Scope
+    instruction: |
+      Clearly define what's in and out of scope for this epic.
+      This helps prevent scope creep during implementation.
+    elicit: true
+    sections:
+      - id: in-scope
+        title: In Scope
+        type: bullet-list
+        template: "- {{scope_item}}"
+      - id: out-of-scope
+        title: Out of Scope
+        type: bullet-list
+        template: "- {{out_of_scope_item}}"
+      - id: assumptions
+        title: Assumptions
+        type: bullet-list
+        template: "- {{assumption}}"
+
+  - id: stories
+    title: Stories
+    instruction: |
+      List all stories in this epic with their dependencies.
+      Stories should be ordered by implementation sequence.
+    elicit: true
+    sections:
+      - id: story-table
+        title: Story Overview
+        type: table
+        columns: [Story ID, Title, Priority, Complexity, Status, Dependencies]
+        examples:
+          - "| {epicNum}.1 | Setup project structure | High | S | Ready | - |"
+          - "| {epicNum}.2 | Implement data models | High | M | Ready | {epicNum}.1 |"
+          - "| {epicNum}.3 | Build API endpoints | High | L | Blocked | {epicNum}.2 |"
+      - id: story-details
+        title: Story Summaries
+        repeatable: true
+        template: |
+          ### {epicNum}.{{storyNum}} - {{story_title}}
+
+          **Priority:** {{priority}} | **Complexity:** {{complexity}} | **Status:** {{status}}
+
+          **Summary:** {{story_summary}}
+
+          **Key Deliverables:**
+          - {{deliverable_1}}
+          - {{deliverable_2}}
+
+          **Dependencies:** {{dependencies}}
+
+          **Story File:** `docs/stories/{epicNum}.{{storyNum}}.story.md`
+
+  - id: dependencies
+    title: Dependencies
+    instruction: |
+      Document dependencies on other epics, external systems, or teams.
+    elicit: true
+    sections:
+      - id: epic-dependencies
+        title: Epic Dependencies
+        condition: Has dependencies on other epics
+        type: table
+        columns: [Epic, Dependency Type, Description, Status]
+        examples:
+          - "| Epic 1 | Blocks | Authentication system needed | Complete |"
+          - "| Epic 3 | Blocked By | Needs data from this epic | Pending |"
+      - id: external-dependencies
+        title: External Dependencies
+        condition: Has external dependencies
+        type: table
+        columns: [System/Team, Dependency, Status, Risk]
+        examples:
+          - "| Payment Gateway | API integration | In Progress | Medium |"
+          - "| Design Team | UI mockups | Complete | Low |"
+
+  - id: technical-notes
+    title: Technical Notes
+    instruction: |
+      Document technical considerations specific to this epic:
+
+      1. Key architectural decisions
+      2. Technical constraints
+      3. Integration points
+      4. Performance considerations
+    elicit: true
+    sections:
+      - id: architecture
+        title: Architecture Considerations
+        template: |
+          ### Architecture
+
+          {{architecture_notes}}
+
+          **Key Components:**
+          - {{component_1}}
+          - {{component_2}}
+      - id: integration-points
+        title: Integration Points
+        type: bullet-list
+        template: "- **{{system}}:** {{integration_description}}"
+      - id: technical-risks
+        title: Technical Risks
+        type: table
+        columns: [Risk, Likelihood, Impact, Mitigation]
+
+  - id: acceptance-criteria
+    title: Epic Acceptance Criteria
+    instruction: |
+      Define the acceptance criteria at the epic level.
+      These are validated when all stories are complete.
+    elicit: true
+    sections:
+      - id: functional-criteria
+        title: Functional Criteria
+        type: bullet-list
+        template: "- [ ] {{criterion}}"
+      - id: non-functional-criteria
+        title: Non-Functional Criteria
+        type: bullet-list
+        template: "- [ ] {{criterion}}"
+      - id: integration-criteria
+        title: Integration Criteria
+        type: bullet-list
+        template: "- [ ] {{criterion}}"
+
+  - id: risks
+    title: Risks & Mitigations
+    instruction: |
+      Identify risks specific to this epic.
+    elicit: true
+    type: table
+    columns: [Risk, Probability, Impact, Mitigation, Owner]
+    examples:
+      - "| Scope creep | High | Medium | Strict change control | PM |"
+      - "| Technical complexity | Medium | High | Spike story first | Architect |"
+
+  - id: timeline
+    title: Timeline
+    instruction: |
+      Provide estimated timeline for this epic.
+      This is high-level - detailed estimates are in stories.
+    elicit: true
+    sections:
+      - id: milestones
+        title: Milestones
+        type: table
+        columns: [Milestone, Target Date, Stories Included]
+        examples:
+          - "| Foundation Complete | Week 1 | {epicNum}.1, {epicNum}.2 |"
+          - "| Core Features | Week 3 | {epicNum}.3, {epicNum}.4 |"
+          - "| Epic Complete | Week 4 | All stories |"
+      - id: critical-path
+        title: Critical Path
+        template: |
+          ### Critical Path
+
+          {{critical_path_description}}
+
+          1. {{step_1}}
+          2. {{step_2}}
+          3. {{step_3}}
+
+  - id: stakeholders
+    title: Stakeholders
+    instruction: |
+      Identify stakeholders for this epic.
+    elicit: true
+    type: table
+    columns: [Role, Name/Team, Responsibility]
+    examples:
+      - "| Product Owner | PM | Approval, priority decisions |"
+      - "| Tech Lead | Architect | Technical guidance |"
+      - "| QA Lead | QA Agent | Quality gates |"
+
+  - id: progress-tracking
+    title: Progress Tracking
+    template: |
+      ## Progress
+
+      ### Story Status
+      | Status | Count |
+      |--------|-------|
+      | Done | 0 |
+      | In Progress | 0 |
+      | Ready | {{ready_count}} |
+      | Blocked | 0 |
+      | Draft | {{draft_count}} |
+
+      ### Burndown
+      <!-- Updated as stories complete -->
+      - **Total Story Points:** {{total_points}}
+      - **Completed Points:** 0
+      - **Remaining Points:** {{total_points}}
+
+  - id: notes
+    title: Notes & Decisions
+    template: |
+      ## Notes & Decisions
+
+      ### Implementation Notes
+      <!-- Updated during development -->
+
+      ### Decisions Log
+      | Date | Decision | Rationale | Made By |
+      |------|----------|-----------|---------|
+      | {{date}} | {{decision}} | {{rationale}} | {{person}} |
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial creation |

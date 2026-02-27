@@ -1,0 +1,71 @@
+id: nodejs-fastify
+name: "Node.js Fastify + TypeScript"
+description: "Fastify with TypeScript, Prisma ORM, schema validation, high performance"
+type: backend
+language: typescript
+framework: fastify
+requires_database: true
+agents: [prisma, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "npm run dev"
+dev_port: 3001
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run dev"
+
+directories:
+  - src
+  - src/domain
+  - src/domain/entities
+  - src/domain/errors
+  - src/routes
+  - src/plugins
+  - src/schemas
+  - src/services
+  - src/infrastructure
+  - tests
+  - tests/unit
+  - prisma
+
+files:
+  # Config
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: ".env.example.j2", dst: ".env.example"}
+  - {src: ".prettierrc", dst: ".prettierrc"}
+  - {src: ".eslintrc.json", dst: ".eslintrc.json"}
+  - {src: "src/config.ts", dst: "src/config.ts"}
+
+  # Entry points
+  - {src: "src/index.ts.j2", dst: "src/index.ts"}
+  - {src: "src/app.ts.j2", dst: "src/app.ts"}
+
+  # Domain
+  - {src: "src/domain/entities/item.ts", dst: "src/domain/entities/item.ts"}
+  - {src: "src/domain/errors/app-error.ts", dst: "src/domain/errors/app-error.ts"}
+
+  # Schemas
+  - {src: "src/schemas/item.schema.ts", dst: "src/schemas/item.schema.ts"}
+
+  # Services
+  - {src: "src/services/item.service.ts", dst: "src/services/item.service.ts"}
+
+  # Infrastructure
+  - {src: "src/infrastructure/prisma-client.ts", dst: "src/infrastructure/prisma-client.ts"}
+
+  # Routes
+  - {src: "src/routes/health.ts", dst: "src/routes/health.ts"}
+  - {src: "src/routes/items.ts", dst: "src/routes/items.ts"}
+
+  # Database
+  - {src: "prisma/schema.prisma.j2", dst: "prisma/schema.prisma"}
+
+  # Tests
+  - {src: "tests/health.test.ts.j2", dst: "tests/health.test.ts"}
+  - {src: "tests/items.test.ts.j2", dst: "tests/items.test.ts"}
+  - {src: "tests/unit/item.service.test.ts", dst: "tests/unit/item.service.test.ts"}

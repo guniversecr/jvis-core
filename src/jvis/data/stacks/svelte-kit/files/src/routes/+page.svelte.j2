@@ -1,0 +1,31 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { items, loading, error, fetchItems, addItem, removeItem } from '$lib/stores/items';
+  import ItemForm from '$lib/components/ItemForm.svelte';
+  import ItemList from '$lib/components/ItemList.svelte';
+
+  onMount(() => {
+    fetchItems();
+  });
+</script>
+
+<svelte:head>
+  <title>{{ project_name }}</title>
+  <meta name="description" content="{{ project_description }}" />
+</svelte:head>
+
+{% raw %}
+<h1>Items</h1>
+
+{#if $error}
+  <p class="error-message">{$error}</p>
+{/if}
+
+<ItemForm on:submit={(e) => addItem(e.detail)} />
+
+{#if $loading}
+  <p>Loading...</p>
+{:else}
+  <ItemList items={$items} on:delete={(e) => removeItem(e.detail)} />
+{/if}
+{% endraw %}

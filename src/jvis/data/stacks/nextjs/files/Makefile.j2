@@ -1,0 +1,38 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: dev
+dev:  ## Start development server
+	npx next dev
+
+.PHONY: build
+build:  ## Build for production
+	npx next build
+
+.PHONY: start
+start:  ## Start production server
+	npx next start
+
+.PHONY: test
+test:  ## Run tests
+	npx vitest
+
+.PHONY: test-cov
+test-cov:  ## Run tests with coverage
+	npx vitest --coverage
+
+.PHONY: lint
+lint:  ## Run linter
+	npx next lint
+
+.PHONY: up
+up:  ## Start with Docker Compose
+	docker compose up --build
+
+.PHONY: down
+down:  ## Stop Docker Compose
+	docker compose down

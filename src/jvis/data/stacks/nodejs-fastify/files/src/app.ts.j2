@@ -1,0 +1,27 @@
+import Fastify, { type FastifyInstance } from 'fastify';
+import cors from '@fastify/cors';
+import sensible from '@fastify/sensible';
+
+import { healthRoutes } from './routes/health.js';
+import { itemRoutes } from './routes/items.js';
+
+export async function buildApp(): Promise<FastifyInstance> {
+  const app = Fastify({
+    logger: true,
+  });
+
+  // Register plugins
+  await app.register(cors);
+  await app.register(sensible);
+
+  // Register routes
+  await app.register(healthRoutes, { prefix: '/api' });
+  await app.register(itemRoutes, { prefix: '/api' });
+
+  // Root route
+  app.get('/', async () => {
+    return { service: '{{ project_name }}', status: 'running' };
+  });
+
+  return app;
+}

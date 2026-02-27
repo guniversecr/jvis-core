@@ -1,0 +1,33 @@
+id: custom
+name: "Custom (Pure Python)"
+description: "Pure Python stdlib HTTP server — zero dependencies, Item CRUD"
+type: backend
+language: python
+framework: ""
+requires_database: false
+agents: [dev, qa, architect, pm, sm]
+
+dev_command: "python -m src.main"
+dev_port: 8000
+getting_started:
+  prerequisites: "Python 3.12+"
+  commands:
+    - "python -m src.main"
+
+directories:
+  - src
+  - src/services
+  - tests
+  - docs
+
+files:
+  - {src: "pyproject.toml.j2", dst: "pyproject.toml"}
+  - {src: "Makefile", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "src/__init__.py", dst: "src/__init__.py"}
+  - {src: "src/main.py.j2", dst: "src/main.py"}
+  - {src: "src/models.py", dst: "src/models.py"}
+  - {src: "src/handlers.py", dst: "src/handlers.py"}
+  - {src: "src/services/__init__.py", dst: "src/services/__init__.py"}
+  - {src: "src/services/item_service.py", dst: "src/services/item_service.py"}
+  - {src: "tests/test_items.py", dst: "tests/test_items.py"}

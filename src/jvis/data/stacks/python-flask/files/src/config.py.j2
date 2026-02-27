@@ -1,0 +1,37 @@
+"""Application configuration — loaded from environment variables."""
+
+import os
+
+
+class Config:
+    """Base configuration."""
+
+    APP_NAME: str = os.getenv("APP_NAME", "{{ project_name }}")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "change-me-in-production")
+    FLASK_ENV: str = os.getenv("FLASK_ENV", "development")
+    DEBUG: bool = os.getenv("DEBUG", "true").lower() == "true"
+
+{% if database_type == "postgresql" %}
+    SQLALCHEMY_DATABASE_URI: str = os.getenv(
+        "DATABASE_URL",
+        "postgresql://postgres:postgres@localhost:5432/{{ project_name }}",
+    )
+{% elif database_type == "mysql" %}
+    SQLALCHEMY_DATABASE_URI: str = os.getenv(
+        "DATABASE_URL",
+        "mysql+pymysql://root:root@localhost:3306/{{ project_name }}",
+    )
+{% else %}
+    SQLALCHEMY_DATABASE_URI: str = os.getenv(
+        "DATABASE_URL",
+        "sqlite:///./{{ project_name }}.db",
+    )
+{% endif %}
+    SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
+
+
+class TestConfig(Config):
+    """Test configuration."""
+
+    TESTING: bool = True
+    SQLALCHEMY_DATABASE_URI: str = "sqlite:///:memory:"

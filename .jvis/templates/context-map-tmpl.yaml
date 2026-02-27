@@ -1,0 +1,22 @@
+name: context-map
+output_file: docs/notes/context-map.md
+description: Structured project reference for agent context loading
+format: yaml-frontmatter-markdown
+fields:
+  - key: project_root
+    source: project_path
+  - key: main_branch
+    source: git_default_branch
+    default: main
+  - key: remote
+    source: git_remote_url
+    default: "not configured"
+  - key: primary_language
+    source: detected_language
+  - key: stack
+    source: selected_stack
+  - key: database
+    source: selected_database
+    default: none
+  - key: last_updated
+    source: current_date

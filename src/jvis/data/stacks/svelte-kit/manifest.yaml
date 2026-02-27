@@ -1,0 +1,53 @@
+id: svelte-kit
+name: "SvelteKit + TypeScript"
+description: "SvelteKit with TypeScript, file-based routing, SSR ready"
+type: frontend
+language: typescript
+framework: svelte
+requires_database: false
+agents: [frontend, dev, qa, architect, pm, sm]
+
+dev_command: "npm run dev"
+dev_port: 5173
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run dev"
+
+directories:
+  - src
+  - src/routes
+  - src/lib
+  - src/lib/types
+  - src/lib/services
+  - src/lib/stores
+  - src/lib/components
+  - src/styles
+  - static
+  - tests
+  - tests/unit
+
+files:
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "svelte.config.js", dst: "svelte.config.js"}
+  - {src: "vite.config.ts", dst: "vite.config.ts"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: ".env.example", dst: ".env.example"}
+  - {src: "src/app.html.j2", dst: "src/app.html"}
+  - {src: "src/app.d.ts", dst: "src/app.d.ts"}
+  - {src: "src/routes/+layout.svelte.j2", dst: "src/routes/+layout.svelte"}
+  - {src: "src/routes/+page.svelte.j2", dst: "src/routes/+page.svelte"}
+  - {src: "src/routes/+error.svelte", dst: "src/routes/+error.svelte"}
+  - {src: "src/styles/global.css", dst: "src/styles/global.css"}
+  - {src: "src/lib/types/item.ts", dst: "src/lib/types/item.ts"}
+  - {src: "src/lib/config.ts.j2", dst: "src/lib/config.ts"}
+  - {src: "src/lib/services/api.ts", dst: "src/lib/services/api.ts"}
+  - {src: "src/lib/stores/items.ts", dst: "src/lib/stores/items.ts"}
+  - {src: "src/lib/components/ItemCard.svelte", dst: "src/lib/components/ItemCard.svelte"}
+  - {src: "src/lib/components/ItemForm.svelte", dst: "src/lib/components/ItemForm.svelte"}
+  - {src: "src/lib/components/ItemList.svelte", dst: "src/lib/components/ItemList.svelte"}
+  - {src: "static/.gitkeep", dst: "static/.gitkeep"}
+  - {src: "tests/unit/items.test.ts", dst: "tests/unit/items.test.ts"}

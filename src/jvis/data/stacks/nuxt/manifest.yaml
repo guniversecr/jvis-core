@@ -1,0 +1,71 @@
+id: nuxt
+name: "Nuxt + TypeScript"
+description: "Nuxt 3 with Vue 3, auto-imports, server routes, Prisma, TypeScript"
+type: fullstack
+language: typescript
+framework: nuxt
+requires_database: true
+agents: [frontend, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "npm run dev"
+dev_port: 3000
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run dev"
+
+directories:
+  - components
+  - composables
+  - layouts
+  - pages
+  - plugins
+  - public
+  - server/api
+  - server/api/items
+  - server/utils
+  - types
+  - tests
+  - prisma
+
+files:
+  # Config
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "nuxt.config.ts.j2", dst: "nuxt.config.ts"}
+  - {src: ".eslintrc.json", dst: ".eslintrc.json"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: ".env.example.j2", dst: ".env.example"}
+
+  # App shell
+  - {src: "app.vue.j2", dst: "app.vue"}
+  - {src: "layouts/default.vue", dst: "layouts/default.vue"}
+
+  # Types
+  - {src: "types/item.ts", dst: "types/item.ts"}
+
+  # Composables
+  - {src: "composables/useItems.ts", dst: "composables/useItems.ts"}
+
+  # Pages
+  - {src: "pages/index.vue.j2", dst: "pages/index.vue"}
+  - {src: "pages/items.vue", dst: "pages/items.vue"}
+
+  # Server API
+  - {src: "server/api/health.get.ts", dst: "server/api/health.get.ts"}
+  - {src: "server/utils/prisma.ts", dst: "server/utils/prisma.ts"}
+  - {src: "server/api/items/index.get.ts", dst: "server/api/items/index.get.ts"}
+  - {src: "server/api/items/index.post.ts", dst: "server/api/items/index.post.ts"}
+  - {src: "server/api/items/[id].get.ts", dst: "server/api/items/[id].get.ts"}
+  - {src: "server/api/items/[id].patch.ts", dst: "server/api/items/[id].patch.ts"}
+  - {src: "server/api/items/[id].delete.ts", dst: "server/api/items/[id].delete.ts"}
+
+  # Database
+  - {src: "prisma/schema.prisma.j2", dst: "prisma/schema.prisma"}
+
+  # Tests
+  - {src: "tests/health.test.ts.j2", dst: "tests/health.test.ts"}
+  - {src: "tests/items.test.ts", dst: "tests/items.test.ts"}

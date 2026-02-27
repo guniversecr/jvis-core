@@ -1,0 +1,27 @@
+{% if database_type == "postgresql" %}
+use sqlx::postgres::PgPoolOptions;
+pub type DbPool = sqlx::PgPool;
+
+pub async fn create_pool(database_url: &str) -> DbPool {
+    PgPoolOptions::new()
+        .max_connections(10)
+        .connect(database_url)
+        .await
+        .expect("Failed to create database pool")
+}
+{% elif database_type == "mysql" %}
+use sqlx::mysql::MySqlPoolOptions;
+pub type DbPool = sqlx::MySqlPool;
+
+pub async fn create_pool(database_url: &str) -> DbPool {
+    MySqlPoolOptions::new()
+        .max_connections(10)
+        .connect(database_url)
+        .await
+        .expect("Failed to create database pool")
+}
+{% else %}
+pub type DbPool = ();
+
+pub async fn create_pool(_database_url: &str) -> DbPool {}
+{% endif %}

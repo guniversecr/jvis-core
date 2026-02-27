@@ -1,0 +1,18 @@
+import { describe, it, expect } from 'vitest';
+
+describe('{{ project_name }}', () => {
+  it('should have valid project configuration', () => {
+    const projectName = '{{ project_name }}';
+    expect(projectName).toBeTruthy();
+    expect(projectName.length).toBeGreaterThan(0);
+  });
+
+  it('should define project metadata', () => {
+    const meta = {
+      name: '{{ project_name }}',
+      version: '0.1.0',
+    };
+    expect(meta.name).toBe('{{ project_name }}');
+    expect(meta.version).toBeDefined();
+  });
+});

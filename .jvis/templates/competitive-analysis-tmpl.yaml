@@ -1,0 +1,366 @@
+# JVIS Competitive Analysis Template
+# Version: 1.0
+# Usage: Document competitive landscape analysis
+# Location: docs/research/competitive-analysis-{{project_name}}.md
+
+---
+template:
+  id: competitive-analysis-template-v1
+  name: Competitive Analysis
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/research/competitive-analysis-{{project_name}}.md
+    title: "Competitive Analysis: {{project_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Competitive Analysis Metadata
+      project: "{{project_name}}"
+      market: "{{market}}"
+      created: "{{YYYY-MM-DD}}"
+      status: "{{status}}"
+      analyst: "{{analyst}}"
+      ---
+
+      # Competitive Analysis: {{project_name}}
+
+      | Field | Value |
+      |-------|-------|
+      | **Market** | {{market}} |
+      | **Analysis Date** | {{YYYY-MM-DD}} |
+      | **Analyst** | {{analyst}} |
+      | **Competitors Analyzed** | {{competitor_count}} |
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Provide high-level competitive landscape overview.
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      ### Market Overview
+      {{market_overview}}
+
+      ### Key Findings
+      1. {{finding_1}}
+      2. {{finding_2}}
+      3. {{finding_3}}
+
+      ### Competitive Position
+      {{competitive_position}}
+
+      ### Strategic Recommendations
+      - {{recommendation_1}}
+      - {{recommendation_2}}
+      - {{recommendation_3}}
+
+  - id: market-landscape
+    title: Market Landscape
+    instruction: |
+      Define the competitive market structure.
+    elicit: true
+    template: |
+      ## Market Landscape
+
+      ### Market Size
+      | Metric | Value | Source |
+      |--------|-------|--------|
+      | TAM | {{tam}} | {{tam_source}} |
+      | SAM | {{sam}} | {{sam_source}} |
+      | SOM | {{som}} | {{som_source}} |
+      | Growth Rate | {{growth_rate}} | {{growth_source}} |
+
+      ### Market Segments
+      | Segment | Size | Growth | Key Players |
+      |---------|------|--------|-------------|
+      | {{segment_1}} | {{size_1}} | {{growth_1}} | {{players_1}} |
+      | {{segment_2}} | {{size_2}} | {{growth_2}} | {{players_2}} |
+      | {{segment_3}} | {{size_3}} | {{growth_3}} | {{players_3}} |
+
+      ### Market Trends
+      - {{trend_1}}
+      - {{trend_2}}
+      - {{trend_3}}
+
+      ### Industry Forces
+      {{industry_forces}}
+
+  - id: competitor-profiles
+    title: Competitor Profiles
+    instruction: |
+      Document detailed competitor analysis.
+    elicit: true
+    sections:
+      - id: competitor-1
+        title: Competitor 1
+        template: |
+          ## Competitor Profiles
+
+          ### {{competitor_1_name}}
+
+          | Attribute | Details |
+          |-----------|---------|
+          | **Website** | {{c1_website}} |
+          | **Founded** | {{c1_founded}} |
+          | **Employees** | {{c1_employees}} |
+          | **Funding** | {{c1_funding}} |
+          | **Revenue** | {{c1_revenue}} |
+          | **Market Position** | {{c1_position}} |
+
+          **Product/Service:** {{c1_product}}
+
+          **Target Market:** {{c1_target}}
+
+          **Pricing:** {{c1_pricing}}
+
+          **Strengths:**
+          - {{c1_strength_1}}
+          - {{c1_strength_2}}
+          - {{c1_strength_3}}
+
+          **Weaknesses:**
+          - {{c1_weakness_1}}
+          - {{c1_weakness_2}}
+          - {{c1_weakness_3}}
+      - id: competitor-2
+        title: Competitor 2
+        template: |
+          ### {{competitor_2_name}}
+
+          | Attribute | Details |
+          |-----------|---------|
+          | **Website** | {{c2_website}} |
+          | **Founded** | {{c2_founded}} |
+          | **Employees** | {{c2_employees}} |
+          | **Funding** | {{c2_funding}} |
+          | **Revenue** | {{c2_revenue}} |
+          | **Market Position** | {{c2_position}} |
+
+          **Product/Service:** {{c2_product}}
+
+          **Target Market:** {{c2_target}}
+
+          **Pricing:** {{c2_pricing}}
+
+          **Strengths:**
+          - {{c2_strength_1}}
+          - {{c2_strength_2}}
+          - {{c2_strength_3}}
+
+          **Weaknesses:**
+          - {{c2_weakness_1}}
+          - {{c2_weakness_2}}
+          - {{c2_weakness_3}}
+      - id: competitor-3
+        title: Competitor 3
+        template: |
+          ### {{competitor_3_name}}
+
+          | Attribute | Details |
+          |-----------|---------|
+          | **Website** | {{c3_website}} |
+          | **Founded** | {{c3_founded}} |
+          | **Employees** | {{c3_employees}} |
+          | **Funding** | {{c3_funding}} |
+          | **Revenue** | {{c3_revenue}} |
+          | **Market Position** | {{c3_position}} |
+
+          **Product/Service:** {{c3_product}}
+
+          **Target Market:** {{c3_target}}
+
+          **Pricing:** {{c3_pricing}}
+
+          **Strengths:**
+          - {{c3_strength_1}}
+          - {{c3_strength_2}}
+          - {{c3_strength_3}}
+
+          **Weaknesses:**
+          - {{c3_weakness_1}}
+          - {{c3_weakness_2}}
+          - {{c3_weakness_3}}
+
+  - id: feature-comparison
+    title: Feature Comparison
+    instruction: |
+      Compare features across competitors.
+    elicit: true
+    template: |
+      ## Feature Comparison
+
+      ### Core Features
+      | Feature | Us | {{competitor_1_name}} | {{competitor_2_name}} | {{competitor_3_name}} |
+      |---------|----|-----------------------|-----------------------|-----------------------|
+      | {{feature_1}} | {{us_f1}} | {{c1_f1}} | {{c2_f1}} | {{c3_f1}} |
+      | {{feature_2}} | {{us_f2}} | {{c1_f2}} | {{c2_f2}} | {{c3_f2}} |
+      | {{feature_3}} | {{us_f3}} | {{c1_f3}} | {{c2_f3}} | {{c3_f3}} |
+      | {{feature_4}} | {{us_f4}} | {{c1_f4}} | {{c2_f4}} | {{c3_f4}} |
+      | {{feature_5}} | {{us_f5}} | {{c1_f5}} | {{c2_f5}} | {{c3_f5}} |
+
+      ### Feature Gaps
+      **Our Advantages:**
+      - {{advantage_1}}
+      - {{advantage_2}}
+
+      **Feature Gaps to Address:**
+      - {{gap_1}}
+      - {{gap_2}}
+
+  - id: pricing-comparison
+    title: Pricing Comparison
+    template: |
+      ## Pricing Comparison
+
+      ### Pricing Models
+      | Competitor | Model | Entry Price | Mid-Tier | Enterprise |
+      |------------|-------|-------------|----------|------------|
+      | Us | {{our_model}} | {{our_entry}} | {{our_mid}} | {{our_enterprise}} |
+      | {{competitor_1_name}} | {{c1_model}} | {{c1_entry}} | {{c1_mid}} | {{c1_enterprise}} |
+      | {{competitor_2_name}} | {{c2_model}} | {{c2_entry}} | {{c2_mid}} | {{c2_enterprise}} |
+      | {{competitor_3_name}} | {{c3_model}} | {{c3_entry}} | {{c3_mid}} | {{c3_enterprise}} |
+
+      ### Value Analysis
+      {{value_analysis}}
+
+      ### Pricing Insights
+      {{pricing_insights}}
+
+  - id: marketing-analysis
+    title: Marketing Analysis
+    instruction: |
+      Analyze competitor marketing strategies.
+    elicit: true
+    template: |
+      ## Marketing Analysis
+
+      ### Positioning
+      | Competitor | Positioning | Key Message |
+      |------------|-------------|-------------|
+      | {{competitor_1_name}} | {{c1_positioning}} | {{c1_message}} |
+      | {{competitor_2_name}} | {{c2_positioning}} | {{c2_message}} |
+      | {{competitor_3_name}} | {{c3_positioning}} | {{c3_message}} |
+
+      ### Marketing Channels
+      | Competitor | Primary Channels | Estimated Spend |
+      |------------|------------------|-----------------|
+      | {{competitor_1_name}} | {{c1_channels}} | {{c1_spend}} |
+      | {{competitor_2_name}} | {{c2_channels}} | {{c2_spend}} |
+      | {{competitor_3_name}} | {{c3_channels}} | {{c3_spend}} |
+
+      ### Content Strategy
+      {{content_strategy_analysis}}
+
+      ### Brand Perception
+      {{brand_perception}}
+
+  - id: swot
+    title: SWOT Analysis
+    template: |
+      ## SWOT Analysis
+
+      ### Strengths
+      - {{strength_1}}
+      - {{strength_2}}
+      - {{strength_3}}
+
+      ### Weaknesses
+      - {{weakness_1}}
+      - {{weakness_2}}
+      - {{weakness_3}}
+
+      ### Opportunities
+      - {{opportunity_1}}
+      - {{opportunity_2}}
+      - {{opportunity_3}}
+
+      ### Threats
+      - {{threat_1}}
+      - {{threat_2}}
+      - {{threat_3}}
+
+  - id: positioning-map
+    title: Competitive Positioning
+    template: |
+      ## Competitive Positioning Map
+
+      ### Positioning Dimensions
+      **X-Axis:** {{x_axis_dimension}}
+      **Y-Axis:** {{y_axis_dimension}}
+
+      ### Position Map
+      ```
+      {{positioning_map}}
+      ```
+
+      ### Positioning Analysis
+      {{positioning_analysis}}
+
+      ### White Space Opportunities
+      {{white_space}}
+
+  - id: strategic-implications
+    title: Strategic Implications
+    instruction: |
+      Define strategic recommendations based on analysis.
+    elicit: true
+    template: |
+      ## Strategic Implications
+
+      ### Competitive Threats
+      | Threat | Likelihood | Impact | Response |
+      |--------|------------|--------|----------|
+      | {{threat_1}} | {{likelihood_1}} | {{impact_1}} | {{response_1}} |
+      | {{threat_2}} | {{likelihood_2}} | {{impact_2}} | {{response_2}} |
+
+      ### Strategic Options
+      1. **{{option_1_name}}:** {{option_1_desc}}
+      2. **{{option_2_name}}:** {{option_2_desc}}
+      3. **{{option_3_name}}:** {{option_3_desc}}
+
+      ### Recommended Strategy
+      {{recommended_strategy}}
+
+      ### Key Actions
+      | Action | Priority | Timeline | Owner |
+      |--------|----------|----------|-------|
+      | {{action_1}} | {{priority_1}} | {{timeline_1}} | {{owner_1}} |
+      | {{action_2}} | {{priority_2}} | {{timeline_2}} | {{owner_2}} |
+      | {{action_3}} | {{priority_3}} | {{timeline_3}} | {{owner_3}} |
+
+  - id: monitoring
+    title: Competitive Monitoring
+    template: |
+      ## Competitive Monitoring Plan
+
+      ### Key Indicators to Track
+      - {{indicator_1}}
+      - {{indicator_2}}
+      - {{indicator_3}}
+
+      ### Monitoring Tools
+      | Tool | Purpose | Frequency |
+      |------|---------|-----------|
+      | {{tool_1}} | {{tool_purpose_1}} | {{tool_freq_1}} |
+      | {{tool_2}} | {{tool_purpose_2}} | {{tool_freq_2}} |
+
+      ### Update Cadence
+      {{update_cadence}}
+
+      ### Alert Triggers
+      {{alert_triggers}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial analysis |

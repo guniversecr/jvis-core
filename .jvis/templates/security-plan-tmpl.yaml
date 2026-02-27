@@ -1,0 +1,406 @@
+# JVIS Security Plan Template
+# Version: 1.0
+# Usage: Document security strategy and implementation plan
+# Location: docs/security/security-plan.md
+
+---
+template:
+  id: security-plan-template-v1
+  name: Security Plan
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/security/security-plan.md
+    title: "{{project_name}} Security Plan"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Security Plan Metadata
+      project: "{{project_name}}"
+      version: "{{version}}"
+      created: "{{YYYY-MM-DD}}"
+      updated: "{{YYYY-MM-DD}}"
+      status: "{{status}}"
+      owner: "{{security_owner}}"
+      classification: "{{classification}}"
+      ---
+
+      # Security Plan: {{project_name}}
+
+      > Comprehensive security strategy and implementation guide
+
+      | Field | Value |
+      |-------|-------|
+      | **Project** | {{project_name}} |
+      | **Security Owner** | {{security_owner}} |
+      | **Version** | {{version}} |
+      | **Last Review** | {{last_review}} |
+      | **Next Review** | {{next_review}} |
+
+  - id: security-overview
+    title: Security Overview
+    instruction: |
+      Define the security objectives and scope.
+    elicit: true
+    template: |
+      ## Security Overview
+
+      ### Security Objectives
+      1. {{objective_1}}
+      2. {{objective_2}}
+      3. {{objective_3}}
+      4. {{objective_4}}
+
+      ### Security Scope
+      {{security_scope}}
+
+      ### Compliance Requirements
+      | Requirement | Standard | Status |
+      |-------------|----------|--------|
+      | {{req_1}} | {{standard_1}} | {{status_1}} |
+      | {{req_2}} | {{standard_2}} | {{status_2}} |
+      | {{req_3}} | {{standard_3}} | {{status_3}} |
+
+      ### Risk Tolerance
+      {{risk_tolerance}}
+
+  - id: threat-model
+    title: Threat Model
+    instruction: |
+      Document the threat landscape and attack vectors.
+    elicit: true
+    sections:
+      - id: assets
+        title: Asset Inventory
+        template: |
+          ## Threat Model
+
+          ### Critical Assets
+
+          | Asset | Classification | Owner | Location |
+          |-------|----------------|-------|----------|
+          | {{asset_1}} | {{class_1}} | {{owner_1}} | {{location_1}} |
+          | {{asset_2}} | {{class_2}} | {{owner_2}} | {{location_2}} |
+          | {{asset_3}} | {{class_3}} | {{owner_3}} | {{location_3}} |
+
+          ### Data Classification
+          | Level | Description | Examples | Controls |
+          |-------|-------------|----------|----------|
+          | Public | {{public_desc}} | {{public_ex}} | {{public_controls}} |
+          | Internal | {{internal_desc}} | {{internal_ex}} | {{internal_controls}} |
+          | Confidential | {{conf_desc}} | {{conf_ex}} | {{conf_controls}} |
+          | Restricted | {{restricted_desc}} | {{restricted_ex}} | {{restricted_controls}} |
+      - id: threats
+        title: Threat Landscape
+        template: |
+          ### Threat Actors
+
+          | Actor | Motivation | Capability | Likelihood |
+          |-------|------------|------------|------------|
+          | {{actor_1}} | {{motivation_1}} | {{capability_1}} | {{likelihood_1}} |
+          | {{actor_2}} | {{motivation_2}} | {{capability_2}} | {{likelihood_2}} |
+          | {{actor_3}} | {{motivation_3}} | {{capability_3}} | {{likelihood_3}} |
+
+          ### Attack Vectors
+
+          | Vector | Target | Impact | Mitigation |
+          |--------|--------|--------|------------|
+          | {{vector_1}} | {{target_1}} | {{impact_1}} | {{mitigation_1}} |
+          | {{vector_2}} | {{target_2}} | {{impact_2}} | {{mitigation_2}} |
+          | {{vector_3}} | {{target_3}} | {{impact_3}} | {{mitigation_3}} |
+
+  - id: security-architecture
+    title: Security Architecture
+    instruction: |
+      Define the security architecture and controls.
+    elicit: true
+    sections:
+      - id: defense-in-depth
+        title: Defense in Depth
+        template: |
+          ## Security Architecture
+
+          ### Defense in Depth Layers
+
+          | Layer | Controls | Tools |
+          |-------|----------|-------|
+          | Network | {{network_controls}} | {{network_tools}} |
+          | Host | {{host_controls}} | {{host_tools}} |
+          | Application | {{app_controls}} | {{app_tools}} |
+          | Data | {{data_controls}} | {{data_tools}} |
+
+          ### Security Zones
+
+          ```
+          {{security_zones_diagram}}
+          ```
+      - id: authentication
+        title: Authentication & Authorization
+        template: |
+          ### Authentication
+
+          **Method:** {{auth_method}}
+          **MFA:** {{mfa_requirement}}
+          **Password Policy:** {{password_policy}}
+
+          ### Authorization
+
+          **Model:** {{authz_model}}
+          **Roles:**
+          | Role | Permissions | Scope |
+          |------|-------------|-------|
+          | {{role_1}} | {{perms_1}} | {{scope_1}} |
+          | {{role_2}} | {{perms_2}} | {{scope_2}} |
+          | {{role_3}} | {{perms_3}} | {{scope_3}} |
+      - id: encryption
+        title: Encryption
+        template: |
+          ### Encryption
+
+          **Data at Rest:**
+          - Algorithm: {{rest_algorithm}}
+          - Key Management: {{rest_key_mgmt}}
+
+          **Data in Transit:**
+          - Protocol: {{transit_protocol}}
+          - Minimum TLS: {{min_tls}}
+
+          **Key Management:**
+          {{key_management_strategy}}
+
+  - id: security-controls
+    title: Security Controls
+    instruction: |
+      Document specific security controls by OWASP category.
+    elicit: true
+    sections:
+      - id: input-validation
+        title: Input Validation
+        template: |
+          ## Security Controls
+
+          ### A03: Injection Prevention
+
+          **Input Validation:**
+          - {{input_validation_1}}
+          - {{input_validation_2}}
+
+          **Parameterized Queries:**
+          - {{param_query_standard}}
+
+          **Output Encoding:**
+          - {{output_encoding_standard}}
+      - id: access-control
+        title: Access Control
+        template: |
+          ### A01: Access Control
+
+          **Principles:**
+          - Least Privilege
+          - Separation of Duties
+          - Defense in Depth
+
+          **Implementation:**
+          - {{access_control_impl_1}}
+          - {{access_control_impl_2}}
+          - {{access_control_impl_3}}
+      - id: session-management
+        title: Session Management
+        template: |
+          ### A07: Session Management
+
+          **Session Configuration:**
+          | Setting | Value |
+          |---------|-------|
+          | Timeout | {{session_timeout}} |
+          | Secure Flag | {{secure_flag}} |
+          | HttpOnly | {{httponly}} |
+          | SameSite | {{samesite}} |
+
+          **Token Management:**
+          {{token_management}}
+      - id: logging-monitoring
+        title: Logging & Monitoring
+        template: |
+          ### A09: Logging & Monitoring
+
+          **What to Log:**
+          - {{log_item_1}}
+          - {{log_item_2}}
+          - {{log_item_3}}
+          - {{log_item_4}}
+
+          **Log Retention:** {{log_retention}}
+
+          **Monitoring Alerts:**
+          | Event | Threshold | Action |
+          |-------|-----------|--------|
+          | {{event_1}} | {{threshold_1}} | {{action_1}} |
+          | {{event_2}} | {{threshold_2}} | {{action_2}} |
+
+  - id: secure-sdlc
+    title: Secure SDLC
+    instruction: |
+      Define security practices in the development lifecycle.
+    elicit: true
+    template: |
+      ## Secure Development Lifecycle
+
+      ### Security Requirements
+      - {{security_req_1}}
+      - {{security_req_2}}
+      - {{security_req_3}}
+
+      ### Secure Coding Standards
+      | Category | Standard | Enforcement |
+      |----------|----------|-------------|
+      | {{code_cat_1}} | {{code_std_1}} | {{enforce_1}} |
+      | {{code_cat_2}} | {{code_std_2}} | {{enforce_2}} |
+      | {{code_cat_3}} | {{code_std_3}} | {{enforce_3}} |
+
+      ### Security Testing
+
+      | Test Type | Frequency | Tool | Owner |
+      |-----------|-----------|------|-------|
+      | SAST | {{sast_freq}} | {{sast_tool}} | {{sast_owner}} |
+      | DAST | {{dast_freq}} | {{dast_tool}} | {{dast_owner}} |
+      | SCA | {{sca_freq}} | {{sca_tool}} | {{sca_owner}} |
+      | Pentest | {{pentest_freq}} | {{pentest_tool}} | {{pentest_owner}} |
+
+      ### Code Review Requirements
+      {{code_review_requirements}}
+
+  - id: incident-response
+    title: Incident Response
+    instruction: |
+      Define incident response procedures.
+    elicit: true
+    template: |
+      ## Incident Response
+
+      ### Incident Categories
+      | Category | Severity | Response Time | Escalation |
+      |----------|----------|---------------|------------|
+      | {{category_1}} | {{severity_1}} | {{response_1}} | {{escalation_1}} |
+      | {{category_2}} | {{severity_2}} | {{response_2}} | {{escalation_2}} |
+      | {{category_3}} | {{severity_3}} | {{response_3}} | {{escalation_3}} |
+
+      ### Response Team
+      | Role | Primary | Backup | Contact |
+      |------|---------|--------|---------|
+      | Incident Lead | {{lead_primary}} | {{lead_backup}} | {{lead_contact}} |
+      | Technical | {{tech_primary}} | {{tech_backup}} | {{tech_contact}} |
+      | Communications | {{comm_primary}} | {{comm_backup}} | {{comm_contact}} |
+
+      ### Response Phases
+      1. **Detection:** {{detection_process}}
+      2. **Analysis:** {{analysis_process}}
+      3. **Containment:** {{containment_process}}
+      4. **Eradication:** {{eradication_process}}
+      5. **Recovery:** {{recovery_process}}
+      6. **Lessons Learned:** {{lessons_process}}
+
+  - id: vulnerability-management
+    title: Vulnerability Management
+    instruction: |
+      Define vulnerability management processes.
+    elicit: true
+    template: |
+      ## Vulnerability Management
+
+      ### Scanning Schedule
+      | Scan Type | Frequency | Scope | Owner |
+      |-----------|-----------|-------|-------|
+      | {{scan_type_1}} | {{scan_freq_1}} | {{scan_scope_1}} | {{scan_owner_1}} |
+      | {{scan_type_2}} | {{scan_freq_2}} | {{scan_scope_2}} | {{scan_owner_2}} |
+
+      ### Remediation SLAs
+      | Severity | SLA | Escalation |
+      |----------|-----|------------|
+      | Critical | {{critical_sla}} | {{critical_escalation}} |
+      | High | {{high_sla}} | {{high_escalation}} |
+      | Medium | {{medium_sla}} | {{medium_escalation}} |
+      | Low | {{low_sla}} | {{low_escalation}} |
+
+      ### Patch Management
+      {{patch_management_process}}
+
+  - id: third-party-security
+    title: Third-Party Security
+    instruction: |
+      Define third-party and vendor security requirements.
+    elicit: true
+    template: |
+      ## Third-Party Security
+
+      ### Vendor Assessment
+      | Criteria | Requirement | Validation |
+      |----------|-------------|------------|
+      | {{vendor_criteria_1}} | {{vendor_req_1}} | {{vendor_valid_1}} |
+      | {{vendor_criteria_2}} | {{vendor_req_2}} | {{vendor_valid_2}} |
+
+      ### Third-Party Dependencies
+      | Dependency | Risk Level | Mitigation |
+      |------------|------------|------------|
+      | {{dep_1}} | {{dep_risk_1}} | {{dep_mitigation_1}} |
+      | {{dep_2}} | {{dep_risk_2}} | {{dep_mitigation_2}} |
+
+      ### Supply Chain Security
+      {{supply_chain_security}}
+
+  - id: training
+    title: Security Training
+    instruction: |
+      Define security awareness and training requirements.
+    elicit: true
+    template: |
+      ## Security Training
+
+      ### Training Requirements
+      | Role | Training | Frequency | Provider |
+      |------|----------|-----------|----------|
+      | All Staff | {{all_training}} | {{all_freq}} | {{all_provider}} |
+      | Developers | {{dev_training}} | {{dev_freq}} | {{dev_provider}} |
+      | Ops | {{ops_training}} | {{ops_freq}} | {{ops_provider}} |
+
+      ### Awareness Program
+      {{awareness_program}}
+
+  - id: implementation-roadmap
+    title: Implementation Roadmap
+    instruction: |
+      Define the security implementation timeline.
+    elicit: true
+    template: |
+      ## Implementation Roadmap
+
+      ### Phase 1: Foundation ({{phase_1_timeline}})
+      - [ ] {{phase_1_item_1}}
+      - [ ] {{phase_1_item_2}}
+      - [ ] {{phase_1_item_3}}
+
+      ### Phase 2: Enhancement ({{phase_2_timeline}})
+      - [ ] {{phase_2_item_1}}
+      - [ ] {{phase_2_item_2}}
+      - [ ] {{phase_2_item_3}}
+
+      ### Phase 3: Maturity ({{phase_3_timeline}})
+      - [ ] {{phase_3_item_1}}
+      - [ ] {{phase_3_item_2}}
+      - [ ] {{phase_3_item_3}}
+
+      ### Resource Requirements
+      {{resource_requirements}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial plan |

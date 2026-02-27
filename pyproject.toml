@@ -1,0 +1,132 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jvis"
+version = "4.5.3"
+description = "Development framework for AI coding assistants — agent workflows, persistent memory, and project scaffolding"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.12"
+authors = [
+    { name = "JVIS Team" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Code Generators",
+]
+dependencies = [
+    "click>=8.1,<10",
+    "jinja2>=3.1,<4",
+    "pyyaml>=6.0,<7",
+]
+
+[project.optional-dependencies]
+test = ["jsonschema>=4.20,<5"]
+
+[project.urls]
+Homepage = "https://github.com/guniversecr/jvis-core"
+Repository = "https://github.com/guniversecr/jvis-core"
+
+[project.scripts]
+jvis = "jvis.cli:main"
+
+[tool.hatch.build]
+artifacts = ["src/jvis/data/"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jvis"]
+
+# Map framework files into the wheel so get_data_dir() finds them at install time.
+# Without this, `jvis add` silently fails because .jvis/ and .claude/ aren't in the package.
+[tool.hatch.build.targets.wheel.force-include]
+".jvis/agents" = "src/jvis/data/.jvis/agents"
+".jvis/templates" = "src/jvis/data/.jvis/templates"
+".jvis/workflows" = "src/jvis/data/.jvis/workflows"
+".jvis/utils" = "src/jvis/data/.jvis/utils"
+".jvis/journey" = "src/jvis/data/.jvis/journey"
+".jvis/agent-engine" = "src/jvis/data/.jvis/agent-engine"
+".jvis/core-config.yaml" = "src/jvis/data/.jvis/core-config.yaml"
+".jvis/version" = "src/jvis/data/.jvis/version"
+".jvis/VERSION.yaml" = "src/jvis/data/.jvis/VERSION.yaml"
+".jvis/user-guide.md" = "src/jvis/data/.jvis/user-guide.md"
+".jvis/install-manifest.yaml" = "src/jvis/data/.jvis/install-manifest.yaml"
+".claude/commands" = "src/jvis/data/commands"
+".claude/skills" = "src/jvis/data/skills"
+".claude/hooks" = "src/jvis/data/hooks"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+exclude = [
+    "node_modules/",
+    "docs-site/",
+    ".jvis/templates/",
+    "stacks/",
+    "__pycache__/",
+    ".git/",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "ARG",    # flake8-unused-arguments
+    "SIM",    # flake8-simplify
+]
+ignore = [
+    "E402",   # module-import-not-at-top (needed for test setup with mocked modules)
+    "E501",   # line-too-long (handled by formatter, not linter)
+    "ARG001", # unused-function-argument (common in tool handlers with optional params)
+    "ARG002", # unused-method-argument (common in test fixtures)
+    "UP046",  # non-pep695-generic-class (too new, low adoption)
+    "UP017",  # datetime-timezone-utc (datetime.UTC requires Python 3.11+)
+    "UP045",  # non-pep604-annotation-optional (Optional[X] is fine)
+    "B905",   # zip-without-explicit-strict (strict= requires Python 3.10+)
+    "UP043",  # unnecessary-default-type-args (conflicts with MyPy requiring explicit args)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["jvis", "server", "app"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+disable_error_code = ["import-untyped"]
+exclude = [
+    "node_modules/",
+    "docs-site/",
+    "stacks/",
+    ".jvis/templates/",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--import-mode=importlib --cov=jvis --cov-config=pyproject.toml --cov-report=term-missing --cov-report=xml:coverage.xml --cov-fail-under=80"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.coverage.run]
+source = ["jvis"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "if __name__",
+    "pragma: no cover",
+]

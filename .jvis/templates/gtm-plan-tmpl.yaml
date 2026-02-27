@@ -1,0 +1,466 @@
+# JVIS Go-To-Market Plan Template
+# Version: 1.0
+# Usage: Document product/feature launch strategy
+# Location: docs/marketing/gtm-plan-{{product_name}}.md
+
+---
+template:
+  id: gtm-plan-template-v1
+  name: Go-To-Market Plan
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/marketing/gtm-plan-{{product_name}}.md
+    title: "GTM Plan: {{product_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # GTM Plan Metadata
+      product: "{{product_name}}"
+      version: "{{version}}"
+      created: "{{YYYY-MM-DD}}"
+      launch_date: "{{launch_date}}"
+      status: "{{status}}"
+      owner: "{{gtm_owner}}"
+      ---
+
+      # Go-To-Market Plan: {{product_name}}
+
+      > Comprehensive launch strategy and execution plan
+
+      | Field | Value |
+      |-------|-------|
+      | **Product** | {{product_name}} |
+      | **Launch Date** | {{launch_date}} |
+      | **Market** | {{target_market}} |
+      | **GTM Owner** | {{gtm_owner}} |
+      | **Status** | {{status}} |
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Provide a high-level overview of the GTM strategy.
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      ### Product Overview
+      {{product_overview}}
+
+      ### Market Opportunity
+      {{market_opportunity}}
+
+      ### Launch Strategy Summary
+      {{launch_strategy_summary}}
+
+      ### Key Milestones
+      | Milestone | Date | Status |
+      |-----------|------|--------|
+      | {{milestone_1}} | {{date_1}} | {{status_1}} |
+      | {{milestone_2}} | {{date_2}} | {{status_2}} |
+      | {{milestone_3}} | {{date_3}} | {{status_3}} |
+
+      ### Success Metrics
+      | Metric | Target | Timeline |
+      |--------|--------|----------|
+      | {{metric_1}} | {{target_1}} | {{timeline_1}} |
+      | {{metric_2}} | {{target_2}} | {{timeline_2}} |
+      | {{metric_3}} | {{target_3}} | {{timeline_3}} |
+
+  - id: product-market-fit
+    title: Product-Market Fit
+    instruction: |
+      Document the product-market fit analysis.
+    elicit: true
+    sections:
+      - id: value-proposition
+        title: Value Proposition
+        template: |
+          ## Product-Market Fit
+
+          ### Value Proposition
+          {{value_proposition}}
+
+          ### Problem Statement
+          {{problem_statement}}
+
+          ### Solution
+          {{solution_description}}
+
+          ### Key Differentiators
+          1. {{differentiator_1}}
+          2. {{differentiator_2}}
+          3. {{differentiator_3}}
+      - id: competitive-positioning
+        title: Competitive Positioning
+        template: |
+          ### Competitive Positioning
+
+          | Competitor | Strengths | Weaknesses | Our Advantage |
+          |------------|-----------|------------|---------------|
+          | {{competitor_1}} | {{strength_1}} | {{weakness_1}} | {{advantage_1}} |
+          | {{competitor_2}} | {{strength_2}} | {{weakness_2}} | {{advantage_2}} |
+          | {{competitor_3}} | {{strength_3}} | {{weakness_3}} | {{advantage_3}} |
+
+          ### Positioning Statement
+          For **{{target_customer}}**
+          Who **{{customer_need}}**
+          **{{product_name}}** is a **{{product_category}}**
+          That **{{key_benefit}}**
+          Unlike **{{competitor}}**
+          We **{{differentiation}}**
+
+  - id: target-market
+    title: Target Market
+    instruction: |
+      Define the target market and customer segments.
+    elicit: true
+    sections:
+      - id: market-sizing
+        title: Market Sizing
+        template: |
+          ## Target Market
+
+          ### Market Size
+
+          | Metric | Value | Source |
+          |--------|-------|--------|
+          | TAM | {{tam}} | {{tam_source}} |
+          | SAM | {{sam}} | {{sam_source}} |
+          | SOM | {{som}} | {{som_source}} |
+
+          ### Market Growth
+          {{market_growth_analysis}}
+      - id: customer-segments
+        title: Customer Segments
+        template: |
+          ### Target Segments
+
+          | Segment | Size | Priority | Rationale |
+          |---------|------|----------|-----------|
+          | {{segment_1}} | {{size_1}} | {{priority_1}} | {{rationale_1}} |
+          | {{segment_2}} | {{size_2}} | {{priority_2}} | {{rationale_2}} |
+          | {{segment_3}} | {{size_3}} | {{priority_3}} | {{rationale_3}} |
+      - id: ideal-customer
+        title: Ideal Customer Profile
+        template: |
+          ### Ideal Customer Profile (ICP)
+
+          **Company Profile:**
+          - Industry: {{icp_industry}}
+          - Size: {{icp_size}}
+          - Revenue: {{icp_revenue}}
+          - Geography: {{icp_geography}}
+
+          **Buyer Profile:**
+          - Title: {{buyer_title}}
+          - Department: {{buyer_department}}
+          - Challenges: {{buyer_challenges}}
+          - Goals: {{buyer_goals}}
+
+          **Buying Triggers:**
+          - {{trigger_1}}
+          - {{trigger_2}}
+          - {{trigger_3}}
+
+  - id: pricing-strategy
+    title: Pricing Strategy
+    instruction: |
+      Define the pricing model and strategy.
+    elicit: true
+    template: |
+      ## Pricing Strategy
+
+      ### Pricing Model
+      **Model Type:** {{pricing_model}}
+
+      ### Price Points
+      | Tier | Price | Features | Target Segment |
+      |------|-------|----------|----------------|
+      | {{tier_1}} | {{price_1}} | {{features_1}} | {{target_1}} |
+      | {{tier_2}} | {{price_2}} | {{features_2}} | {{target_2}} |
+      | {{tier_3}} | {{price_3}} | {{features_3}} | {{target_3}} |
+
+      ### Competitive Pricing Analysis
+      | Competitor | Price | Positioning |
+      |------------|-------|-------------|
+      | {{comp_1}} | {{comp_price_1}} | {{comp_pos_1}} |
+      | {{comp_2}} | {{comp_price_2}} | {{comp_pos_2}} |
+
+      ### Pricing Rationale
+      {{pricing_rationale}}
+
+      ### Discount Strategy
+      {{discount_strategy}}
+
+  - id: channel-strategy
+    title: Channel Strategy
+    instruction: |
+      Define the sales and distribution channels.
+    elicit: true
+    sections:
+      - id: sales-channels
+        title: Sales Channels
+        template: |
+          ## Channel Strategy
+
+          ### Primary Sales Channels
+
+          | Channel | % Revenue | Investment | Owner |
+          |---------|-----------|------------|-------|
+          | {{channel_1}} | {{rev_1}} | {{invest_1}} | {{owner_1}} |
+          | {{channel_2}} | {{rev_2}} | {{invest_2}} | {{owner_2}} |
+          | {{channel_3}} | {{rev_3}} | {{invest_3}} | {{owner_3}} |
+      - id: sales-motion
+        title: Sales Motion
+        template: |
+          ### Sales Motion
+
+          **Model:** {{sales_model}}
+
+          **Sales Cycle:**
+          | Stage | Duration | Activities | Exit Criteria |
+          |-------|----------|------------|---------------|
+          | {{stage_1}} | {{duration_1}} | {{activities_1}} | {{exit_1}} |
+          | {{stage_2}} | {{duration_2}} | {{activities_2}} | {{exit_2}} |
+          | {{stage_3}} | {{duration_3}} | {{activities_3}} | {{exit_3}} |
+          | {{stage_4}} | {{duration_4}} | {{activities_4}} | {{exit_4}} |
+
+          **Average Deal Size:** {{average_deal_size}}
+          **Target Close Rate:** {{target_close_rate}}
+      - id: partnerships
+        title: Partner Strategy
+        template: |
+          ### Partner Strategy
+
+          | Partner Type | Examples | Value | Status |
+          |--------------|----------|-------|--------|
+          | {{partner_type_1}} | {{examples_1}} | {{value_1}} | {{partner_status_1}} |
+          | {{partner_type_2}} | {{examples_2}} | {{value_2}} | {{partner_status_2}} |
+
+          ### Partner Program
+          {{partner_program_description}}
+
+  - id: marketing-strategy
+    title: Marketing Strategy
+    instruction: |
+      Define the marketing approach and tactics.
+    elicit: true
+    sections:
+      - id: messaging
+        title: Messaging Framework
+        template: |
+          ## Marketing Strategy
+
+          ### Core Messaging
+
+          **Tagline:** {{tagline}}
+
+          **Elevator Pitch:**
+          {{elevator_pitch}}
+
+          **Key Messages:**
+          1. {{key_message_1}}
+          2. {{key_message_2}}
+          3. {{key_message_3}}
+
+          **Proof Points:**
+          - {{proof_point_1}}
+          - {{proof_point_2}}
+          - {{proof_point_3}}
+      - id: demand-gen
+        title: Demand Generation
+        template: |
+          ### Demand Generation
+
+          | Channel | Tactic | Budget | Expected Leads |
+          |---------|--------|--------|----------------|
+          | {{dg_channel_1}} | {{tactic_1}} | {{budget_1}} | {{leads_1}} |
+          | {{dg_channel_2}} | {{tactic_2}} | {{budget_2}} | {{leads_2}} |
+          | {{dg_channel_3}} | {{tactic_3}} | {{budget_3}} | {{leads_3}} |
+
+          **Lead Scoring Criteria:**
+          {{lead_scoring}}
+
+          **Nurture Strategy:**
+          {{nurture_strategy}}
+      - id: content-strategy
+        title: Content Strategy
+        template: |
+          ### Content Strategy
+
+          | Content Type | Purpose | Funnel Stage | Owner |
+          |--------------|---------|--------------|-------|
+          | {{content_1}} | {{purpose_1}} | {{stage_1}} | {{content_owner_1}} |
+          | {{content_2}} | {{purpose_2}} | {{stage_2}} | {{content_owner_2}} |
+          | {{content_3}} | {{purpose_3}} | {{stage_3}} | {{content_owner_3}} |
+
+          **Content Calendar:**
+          {{content_calendar_link}}
+
+  - id: launch-plan
+    title: Launch Plan
+    instruction: |
+      Define the detailed launch timeline and activities.
+    elicit: true
+    sections:
+      - id: launch-timeline
+        title: Launch Timeline
+        template: |
+          ## Launch Plan
+
+          ### Launch Phases
+
+          | Phase | Timeline | Focus | Owner |
+          |-------|----------|-------|-------|
+          | Pre-launch | {{prelaunch_timeline}} | {{prelaunch_focus}} | {{prelaunch_owner}} |
+          | Soft Launch | {{soft_timeline}} | {{soft_focus}} | {{soft_owner}} |
+          | Hard Launch | {{hard_timeline}} | {{hard_focus}} | {{hard_owner}} |
+          | Post-launch | {{post_timeline}} | {{post_focus}} | {{post_owner}} |
+      - id: launch-activities
+        title: Launch Activities
+        template: |
+          ### Pre-Launch Activities
+
+          - [ ] {{prelaunch_activity_1}}
+          - [ ] {{prelaunch_activity_2}}
+          - [ ] {{prelaunch_activity_3}}
+
+          ### Launch Day Activities
+
+          - [ ] {{launch_activity_1}}
+          - [ ] {{launch_activity_2}}
+          - [ ] {{launch_activity_3}}
+
+          ### Post-Launch Activities
+
+          - [ ] {{postlaunch_activity_1}}
+          - [ ] {{postlaunch_activity_2}}
+          - [ ] {{postlaunch_activity_3}}
+      - id: launch-readiness
+        title: Launch Readiness Checklist
+        template: |
+          ### Launch Readiness Checklist
+
+          **Product:**
+          - [ ] Feature complete
+          - [ ] QA approved
+          - [ ] Documentation ready
+          - [ ] Support team trained
+
+          **Marketing:**
+          - [ ] Website updated
+          - [ ] Press release ready
+          - [ ] Email campaigns queued
+          - [ ] Social content created
+
+          **Sales:**
+          - [ ] Sales deck ready
+          - [ ] Demo environment ready
+          - [ ] Pricing configured
+          - [ ] CRM updated
+
+          **Support:**
+          - [ ] Knowledge base updated
+          - [ ] Support team trained
+          - [ ] Escalation paths defined
+
+  - id: success-metrics
+    title: Success Metrics
+    instruction: |
+      Define how success will be measured.
+    elicit: true
+    template: |
+      ## Success Metrics
+
+      ### Launch Metrics (First 90 Days)
+
+      | Metric | Target | Measurement |
+      |--------|--------|-------------|
+      | {{launch_metric_1}} | {{launch_target_1}} | {{launch_measure_1}} |
+      | {{launch_metric_2}} | {{launch_target_2}} | {{launch_measure_2}} |
+      | {{launch_metric_3}} | {{launch_target_3}} | {{launch_measure_3}} |
+
+      ### Growth Metrics (Year 1)
+
+      | Metric | Q1 | Q2 | Q3 | Q4 |
+      |--------|----|----|----|----|
+      | Revenue | {{q1_rev}} | {{q2_rev}} | {{q3_rev}} | {{q4_rev}} |
+      | Customers | {{q1_cust}} | {{q2_cust}} | {{q3_cust}} | {{q4_cust}} |
+      | MRR | {{q1_mrr}} | {{q2_mrr}} | {{q3_mrr}} | {{q4_mrr}} |
+
+      ### Reporting Cadence
+      {{reporting_cadence}}
+
+  - id: budget
+    title: Budget
+    instruction: |
+      Define the GTM budget allocation.
+    elicit: true
+    template: |
+      ## Budget
+
+      **Total GTM Budget:** {{total_budget}}
+
+      ### Budget Allocation
+
+      | Category | Amount | % of Total |
+      |----------|--------|------------|
+      | Marketing | {{marketing_budget}} | {{marketing_pct}} |
+      | Sales | {{sales_budget}} | {{sales_pct}} |
+      | Product Marketing | {{pm_budget}} | {{pm_pct}} |
+      | Partner | {{partner_budget}} | {{partner_pct}} |
+      | Events | {{events_budget}} | {{events_pct}} |
+      | Other | {{other_budget}} | {{other_pct}} |
+
+      ### ROI Expectations
+      {{roi_expectations}}
+
+  - id: risks
+    title: Risks & Mitigation
+    instruction: |
+      Identify risks and mitigation strategies.
+    elicit: true
+    template: |
+      ## Risks & Mitigation
+
+      | Risk | Probability | Impact | Mitigation |
+      |------|-------------|--------|------------|
+      | {{risk_1}} | {{prob_1}} | {{impact_1}} | {{mitigation_1}} |
+      | {{risk_2}} | {{prob_2}} | {{impact_2}} | {{mitigation_2}} |
+      | {{risk_3}} | {{prob_3}} | {{impact_3}} | {{mitigation_3}} |
+      | {{risk_4}} | {{prob_4}} | {{impact_4}} | {{mitigation_4}} |
+
+      ### Contingency Plans
+      {{contingency_plans}}
+
+  - id: team
+    title: Team & Resources
+    template: |
+      ## Team & Resources
+
+      ### Core GTM Team
+
+      | Role | Name | Responsibility |
+      |------|------|----------------|
+      | GTM Lead | {{gtm_lead}} | {{gtm_lead_resp}} |
+      | Product Marketing | {{pm_lead}} | {{pm_lead_resp}} |
+      | Demand Gen | {{dg_lead}} | {{dg_lead_resp}} |
+      | Sales Lead | {{sales_lead}} | {{sales_lead_resp}} |
+      | Customer Success | {{cs_lead}} | {{cs_lead_resp}} |
+
+      ### External Resources
+      {{external_resources}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial plan |

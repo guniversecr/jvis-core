@@ -1,0 +1,577 @@
+# JVIS Component Library Template
+# Version: 1.0
+# Usage: Document frontend component library
+# Location: docs/design/component-library.md
+
+---
+template:
+  id: component-library-template-v1
+  name: Component Library
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/design/component-library.md
+    title: "{{project_name}} Component Library"
+
+workflow:
+  mode: interactive
+  elicitation: basic
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Component Library Metadata
+      project: "{{project_name}}"
+      version: "{{version}}"
+      created: "{{YYYY-MM-DD}}"
+      updated: "{{YYYY-MM-DD}}"
+      framework: "{{framework}}"
+      status: "{{status}}"
+      ---
+
+      # {{project_name}} Component Library
+
+      > Reusable UI components for consistent user interfaces.
+
+      | Field | Value |
+      |-------|-------|
+      | **Framework** | {{framework}} |
+      | **Version** | {{version}} |
+      | **Storybook** | {{storybook_url}} |
+      | **NPM Package** | {{npm_package}} |
+
+  - id: getting-started
+    title: Getting Started
+    instruction: |
+      Document how to use the component library.
+    elicit: true
+    template: |
+      ## Getting Started
+
+      ### Installation
+
+      ```bash
+      {{install_command}}
+      ```
+
+      ### Basic Usage
+
+      ```tsx
+      {{basic_usage_example}}
+      ```
+
+      ### Design System Integration
+
+      ```tsx
+      {{theme_provider_example}}
+      ```
+
+      ### Requirements
+      - {{requirement_1}}
+      - {{requirement_2}}
+      - {{requirement_3}}
+
+  - id: layout-components
+    title: Layout Components
+    instruction: |
+      Document layout and container components.
+    elicit: true
+    sections:
+      - id: container
+        title: Container
+        template: |
+          ## Layout Components
+
+          ### Container
+
+          Constrains content to a maximum width with responsive padding.
+
+          ```tsx
+          {{container_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `maxWidth` | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'lg'` | Maximum width |
+          | `padding` | `boolean` | `true` | Apply horizontal padding |
+          | `center` | `boolean` | `true` | Center content |
+      - id: grid
+        title: Grid
+        template: |
+          ### Grid
+
+          Responsive grid layout system.
+
+          ```tsx
+          {{grid_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `cols` | `number \| ResponsiveValue` | `12` | Number of columns |
+          | `gap` | `SpacingValue` | `4` | Gap between items |
+          | `alignItems` | `string` | `'stretch'` | Vertical alignment |
+      - id: stack
+        title: Stack
+        template: |
+          ### Stack
+
+          Vertical or horizontal stack layout.
+
+          ```tsx
+          {{stack_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `direction` | `'row' \| 'column'` | `'column'` | Stack direction |
+          | `spacing` | `SpacingValue` | `4` | Space between items |
+          | `align` | `string` | `'stretch'` | Alignment |
+          | `dividers` | `boolean` | `false` | Show dividers |
+      - id: flex
+        title: Flex
+        template: |
+          ### Flex
+
+          Flexible box layout component.
+
+          ```tsx
+          {{flex_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `direction` | `'row' \| 'column'` | `'row'` | Flex direction |
+          | `wrap` | `boolean` | `false` | Allow wrapping |
+          | `justify` | `string` | `'start'` | Justify content |
+          | `align` | `string` | `'center'` | Align items |
+          | `gap` | `SpacingValue` | `0` | Gap between items |
+
+  - id: typography-components
+    title: Typography
+    instruction: |
+      Document typography components.
+    elicit: true
+    template: |
+      ## Typography
+
+      ### Heading
+
+      ```tsx
+      {{heading_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `level` | `1 \| 2 \| 3 \| 4 \| 5 \| 6` | Required | Heading level |
+      | `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | Auto | Override size |
+      | `weight` | `'normal' \| 'medium' \| 'semibold' \| 'bold'` | `'bold'` | Font weight |
+
+      ### Text
+
+      ```tsx
+      {{text_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Text size |
+      | `color` | `ColorValue` | `'primary'` | Text color |
+      | `weight` | `string` | `'normal'` | Font weight |
+      | `truncate` | `boolean` | `false` | Truncate with ellipsis |
+      | `as` | `ElementType` | `'p'` | HTML element |
+
+      ### Label
+
+      ```tsx
+      {{label_example}}
+      ```
+
+  - id: button-components
+    title: Buttons
+    instruction: |
+      Document button components.
+    elicit: true
+    template: |
+      ## Buttons
+
+      ### Button
+
+      ```tsx
+      {{button_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'primary'` | Visual style |
+      | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+      | `disabled` | `boolean` | `false` | Disable button |
+      | `loading` | `boolean` | `false` | Show loading state |
+      | `fullWidth` | `boolean` | `false` | Full width button |
+      | `leftIcon` | `ReactNode` | - | Icon before text |
+      | `rightIcon` | `ReactNode` | - | Icon after text |
+
+      ### IconButton
+
+      ```tsx
+      {{icon_button_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `icon` | `ReactNode` | Required | Icon element |
+      | `label` | `string` | Required | Accessibility label |
+      | `variant` | `ButtonVariant` | `'ghost'` | Visual style |
+      | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Button size |
+
+      ### ButtonGroup
+
+      ```tsx
+      {{button_group_example}}
+      ```
+
+  - id: form-components
+    title: Form Components
+    instruction: |
+      Document form input components.
+    elicit: true
+    sections:
+      - id: input
+        title: Input
+        template: |
+          ## Form Components
+
+          ### Input
+
+          ```tsx
+          {{input_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `type` | `'text' \| 'email' \| 'password' \| 'number' \| 'tel' \| 'url'` | `'text'` | Input type |
+          | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Input size |
+          | `error` | `string \| boolean` | - | Error state/message |
+          | `disabled` | `boolean` | `false` | Disable input |
+          | `leftElement` | `ReactNode` | - | Left addon |
+          | `rightElement` | `ReactNode` | - | Right addon |
+      - id: select
+        title: Select
+        template: |
+          ### Select
+
+          ```tsx
+          {{select_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `options` | `Option[]` | Required | Select options |
+          | `placeholder` | `string` | - | Placeholder text |
+          | `multiple` | `boolean` | `false` | Allow multiple selection |
+          | `searchable` | `boolean` | `false` | Enable search |
+          | `clearable` | `boolean` | `false` | Show clear button |
+      - id: checkbox
+        title: Checkbox & Radio
+        template: |
+          ### Checkbox
+
+          ```tsx
+          {{checkbox_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `checked` | `boolean` | - | Checked state |
+          | `indeterminate` | `boolean` | `false` | Indeterminate state |
+          | `disabled` | `boolean` | `false` | Disable checkbox |
+          | `label` | `string` | - | Label text |
+
+          ### Radio
+
+          ```tsx
+          {{radio_example}}
+          ```
+      - id: textarea
+        title: Textarea
+        template: |
+          ### Textarea
+
+          ```tsx
+          {{textarea_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `rows` | `number` | `3` | Number of rows |
+          | `resize` | `'none' \| 'vertical' \| 'horizontal' \| 'both'` | `'vertical'` | Resize behavior |
+          | `autoResize` | `boolean` | `false` | Auto-resize height |
+      - id: form-field
+        title: FormField
+        template: |
+          ### FormField
+
+          Wrapper for form inputs with label, help text, and error handling.
+
+          ```tsx
+          {{form_field_example}}
+          ```
+
+          | Prop | Type | Default | Description |
+          |------|------|---------|-------------|
+          | `label` | `string` | - | Field label |
+          | `required` | `boolean` | `false` | Mark as required |
+          | `error` | `string` | - | Error message |
+          | `hint` | `string` | - | Help text |
+
+  - id: feedback-components
+    title: Feedback Components
+    instruction: |
+      Document feedback and notification components.
+    elicit: true
+    template: |
+      ## Feedback Components
+
+      ### Alert
+
+      ```tsx
+      {{alert_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `variant` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Alert type |
+      | `title` | `string` | - | Alert title |
+      | `dismissible` | `boolean` | `false` | Show dismiss button |
+
+      ### Toast
+
+      ```tsx
+      {{toast_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `variant` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Toast type |
+      | `duration` | `number` | `5000` | Auto-dismiss time (ms) |
+      | `position` | `ToastPosition` | `'bottom-right'` | Screen position |
+
+      ### Spinner
+
+      ```tsx
+      {{spinner_example}}
+      ```
+
+      ### Progress
+
+      ```tsx
+      {{progress_example}}
+      ```
+
+      ### Skeleton
+
+      ```tsx
+      {{skeleton_example}}
+      ```
+
+  - id: overlay-components
+    title: Overlay Components
+    instruction: |
+      Document modal and overlay components.
+    elicit: true
+    template: |
+      ## Overlay Components
+
+      ### Modal
+
+      ```tsx
+      {{modal_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `isOpen` | `boolean` | Required | Open state |
+      | `onClose` | `() => void` | Required | Close handler |
+      | `size` | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Modal size |
+      | `closeOnOverlay` | `boolean` | `true` | Close on overlay click |
+      | `closeOnEsc` | `boolean` | `true` | Close on Escape key |
+
+      ### Drawer
+
+      ```tsx
+      {{drawer_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `isOpen` | `boolean` | Required | Open state |
+      | `onClose` | `() => void` | Required | Close handler |
+      | `placement` | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` | Drawer position |
+      | `size` | `'sm' \| 'md' \| 'lg' \| 'full'` | `'md'` | Drawer size |
+
+      ### Popover
+
+      ```tsx
+      {{popover_example}}
+      ```
+
+      ### Tooltip
+
+      ```tsx
+      {{tooltip_example}}
+      ```
+
+  - id: data-display
+    title: Data Display
+    instruction: |
+      Document data display components.
+    elicit: true
+    template: |
+      ## Data Display
+
+      ### Card
+
+      ```tsx
+      {{card_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `variant` | `'default' \| 'elevated' \| 'outlined'` | `'default'` | Card style |
+      | `padding` | `SpacingValue` | `6` | Internal padding |
+      | `clickable` | `boolean` | `false` | Clickable state |
+
+      ### Table
+
+      ```tsx
+      {{table_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `data` | `T[]` | Required | Table data |
+      | `columns` | `Column[]` | Required | Column definitions |
+      | `sortable` | `boolean` | `false` | Enable sorting |
+      | `selectable` | `boolean` | `false` | Enable row selection |
+
+      ### Badge
+
+      ```tsx
+      {{badge_example}}
+      ```
+
+      ### Avatar
+
+      ```tsx
+      {{avatar_example}}
+      ```
+
+      ### Tag
+
+      ```tsx
+      {{tag_example}}
+      ```
+
+  - id: navigation-components
+    title: Navigation
+    instruction: |
+      Document navigation components.
+    elicit: true
+    template: |
+      ## Navigation
+
+      ### Tabs
+
+      ```tsx
+      {{tabs_example}}
+      ```
+
+      | Prop | Type | Default | Description |
+      |------|------|---------|-------------|
+      | `items` | `TabItem[]` | Required | Tab items |
+      | `variant` | `'line' \| 'enclosed' \| 'pills'` | `'line'` | Tab style |
+      | `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout |
+
+      ### Breadcrumb
+
+      ```tsx
+      {{breadcrumb_example}}
+      ```
+
+      ### Pagination
+
+      ```tsx
+      {{pagination_example}}
+      ```
+
+      ### Menu
+
+      ```tsx
+      {{menu_example}}
+      ```
+
+  - id: utilities
+    title: Utilities
+    template: |
+      ## Utility Components
+
+      ### Divider
+
+      ```tsx
+      {{divider_example}}
+      ```
+
+      ### Spacer
+
+      ```tsx
+      {{spacer_example}}
+      ```
+
+      ### VisuallyHidden
+
+      ```tsx
+      {{visually_hidden_example}}
+      ```
+
+      ### Portal
+
+      ```tsx
+      {{portal_example}}
+      ```
+
+  - id: hooks
+    title: Hooks
+    template: |
+      ## Hooks
+
+      ### useMediaQuery
+
+      ```tsx
+      {{use_media_query_example}}
+      ```
+
+      ### useDisclosure
+
+      ```tsx
+      {{use_disclosure_example}}
+      ```
+
+      ### useClickOutside
+
+      ```tsx
+      {{use_click_outside_example}}
+      ```
+
+      ### useDebounce
+
+      ```tsx
+      {{use_debounce_example}}
+      ```
+
+---
+## Version History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial library |

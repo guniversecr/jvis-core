@@ -1,0 +1,249 @@
+name: JVIS Tests
+
+on:
+  push:
+    branches: [main, jvis]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  # =============================================================================
+  # Lint and Format Check
+  # =============================================================================
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: '3.13'
+
+      - name: Install Ruff
+        run: pip install ruff==0.9.6
+
+      - name: Ruff check
+        run: ruff check src/ tests/
+
+      - name: Ruff format check
+        run: ruff format --check src/ tests/
+
+  # =============================================================================
+  # Unit and Integration Tests
+  # =============================================================================
+  test-python:
+    name: Python Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: '3.13'
+
+      - name: Install package and test dependencies
+        run: |
+          pip install -e ".[test]"
+          pip install pytest==8.3.5 pytest-asyncio==0.26.0 pytest-cov==7.0.0 pytest-mock==3.12.0
+
+      - name: Run unit tests
+        run: |
+          python -m pytest tests/unit/ -v --tb=short
+
+      - name: Run integration tests
+        run: |
+          python -m pytest tests/integration/ -v --tb=short
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: 30
+
+# =============================================================================
+  # Type Check
+  # =============================================================================
+  typecheck:
+    name: Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: '3.13'
+
+      - name: Install package and mypy
+        run: |
+          pip install -e ".[test]"
+          pip install mypy==1.14.1
+
+      - name: Run mypy
+        run: python -m mypy src/ --strict
+
+  # =============================================================================
+  # Agent Validation
+  # =============================================================================
+  validate-agents:
+    name: Validate Agents
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: '3.13'
+
+      - name: Install YAML validator
+        run: pip install pyyaml==6.0.2
+
+      - name: Validate agent YAML files
+        run: |
+          python3 << 'EOF'
+          import yaml
+          import sys
+          from pathlib import Path
+
+          agents_dir = Path('.jvis/agents')
+          if not agents_dir.exists():
+              print("Agents directory not found")
+              sys.exit(0)
+
+          errors = []
+          count = 0
+
+          for yaml_file in agents_dir.rglob('*.yaml'):
+              count += 1
+              try:
+                  with open(yaml_file) as f:
+                      data = yaml.safe_load(f)
+
+                  # Check required fields
+                  required = ['id', 'name', 'title']
+                  for field in required:
+                      if field not in data:
+                          errors.append(f"{yaml_file}: missing required field '{field}'")
+              except Exception as e:
+                  errors.append(f"{yaml_file}: {e}")
+
+          print(f"Validated {count} agent files")
+
+          if errors:
+              print("\nErrors found:")
+              for error in errors:
+                  print(f"  - {error}")
+              sys.exit(1)
+
+          print("All agent files are valid")
+          EOF
+
+# =============================================================================
+  # E2E Wheel Verification
+  # =============================================================================
+  wheel-e2e:
+    name: Wheel E2E
+    runs-on: ubuntu-latest
+    needs: [test-python]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: '3.13'
+
+      - name: Install build tools
+        run: pip install build
+
+      - name: Build wheel
+        run: python -m build --wheel --outdir dist/
+
+      - name: Install wheel in clean venv
+        run: |
+          python -m venv /tmp/jvis-test-venv
+          /tmp/jvis-test-venv/bin/pip install dist/jvis-*.whl
+
+      - name: Verify CLI works
+        run: |
+          /tmp/jvis-test-venv/bin/jvis --version
+          /tmp/jvis-test-venv/bin/jvis --help
+
+      - name: Verify jvis new (custom stack)
+        run: |
+          /tmp/jvis-test-venv/bin/python -m jvis new \
+            --name test-e2e --stack custom --path /tmp/test-e2e -y
+          test -d /tmp/test-e2e/.jvis
+          test -f /tmp/test-e2e/CLAUDE.md
+          test -d /tmp/test-e2e/.claude/commands
+
+      - name: Verify jvis add
+        run: |
+          mkdir -p /tmp/test-add-target
+          /tmp/jvis-test-venv/bin/python -m jvis add /tmp/test-add-target <<< "y"
+          test -d /tmp/test-add-target/.jvis/agents
+          test -d /tmp/test-add-target/.claude/commands
+
+      - name: Upload wheel artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        with:
+          name: jvis-wheel
+          path: dist/jvis-*.whl
+          retention-days: 7
+
+# =============================================================================
+  # Summary
+  # =============================================================================
+  test-summary:
+    name: Test Summary
+    runs-on: ubuntu-latest
+    needs: [lint, test-python, typecheck, validate-agents, wheel-e2e]
+    if: always()
+
+    steps:
+      - name: Check results
+        env:
+          LINT_RESULT: ${{ needs.lint.result }}
+          PYTHON_RESULT: ${{ needs.test-python.result }}
+          TYPECHECK_RESULT: ${{ needs.typecheck.result }}
+          AGENTS_RESULT: ${{ needs.validate-agents.result }}
+          WHEEL_RESULT: ${{ needs.wheel-e2e.result }}
+        run: |
+          echo "=== Test Results Summary ==="
+          echo "Lint & Format: ${LINT_RESULT}"
+          echo "Python Tests: ${PYTHON_RESULT}"
+          echo "Type Check: ${TYPECHECK_RESULT}"
+          echo "Agent Validation: ${AGENTS_RESULT}"
+          echo "Wheel E2E: ${WHEEL_RESULT}"
+
+          if [ "${LINT_RESULT}" != "success" ] || \
+             [ "${PYTHON_RESULT}" != "success" ] || \
+             [ "${TYPECHECK_RESULT}" != "success" ] || \
+             [ "${AGENTS_RESULT}" != "success" ] || \
+             [ "${WHEEL_RESULT}" != "success" ]; then
+            echo ""
+            echo "Some tests failed!"
+            exit 1
+          fi
+
+          echo ""
+          echo "All tests passed!"

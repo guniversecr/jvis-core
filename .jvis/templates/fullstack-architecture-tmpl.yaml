@@ -1,0 +1,596 @@
+# JVIS Fullstack Architecture Template
+# Version: 2.0
+# Usage: For projects requiring both backend and frontend in unified architecture
+# Location: docs/architecture/fullstack-architecture.md
+
+---
+template:
+  id: fullstack-architecture-template-v2
+  name: Fullstack Architecture Document
+  version: 2.0
+  output:
+    format: markdown
+    filename: docs/architecture/fullstack-architecture.md
+    title: "{{project_name}} Fullstack Architecture"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: introduction
+    title: Introduction
+    instruction: |
+      This template is for projects requiring BOTH backend and frontend architecture in a unified document.
+
+      REQUIRED INPUTS:
+      - Completed PRD (docs/prd/PRD.md)
+      - Technical preferences (.jvis/data/technical-preferences.yaml or provided)
+
+      Before proceeding:
+      1. Confirm this is a fullstack project (has both server-side and client-side components)
+      2. Verify the PRD covers both backend and frontend requirements
+      3. Identify if using a fullstack framework (Next.js, Nuxt, Rails, Django, etc.)
+    elicit: true
+    sections:
+      - id: intro-content
+        content: |
+          This document outlines the unified fullstack architecture for {{project_name}}, covering both backend systems and frontend applications. Its primary goal is to serve as the comprehensive blueprint for AI-driven development, ensuring consistency across the entire stack.
+
+          **Scope:**
+          - Backend services, APIs, and data layer
+          - Frontend application, components, and state management
+          - Integration patterns between frontend and backend
+          - Shared code, types, and utilities
+      - id: project-type
+        title: Project Type
+        instruction: |
+          Determine the fullstack approach:
+
+          1. **Monolithic Fullstack** (Next.js, Nuxt, Rails, Django, Laravel)
+             - Single codebase with integrated frontend/backend
+             - Server-side rendering or hybrid approach
+
+          2. **Separate Frontend + Backend**
+             - Independent repositories or packages
+             - REST/GraphQL API contract
+             - Independent deployments
+
+          3. **Monorepo Fullstack**
+             - Single repo with multiple packages
+             - Shared types and utilities
+             - Coordinated deployments
+
+          Document the approach and rationale.
+        elicit: true
+      - id: changelog
+        title: Change Log
+        type: table
+        columns: [Date, Version, Description, Author]
+        instruction: Track document versions and changes
+
+  - id: high-level-architecture
+    title: High-Level Architecture
+    instruction: |
+      Present the overall system architecture showing both frontend and backend components.
+    elicit: true
+    sections:
+      - id: technical-summary
+        title: Technical Summary
+        instruction: |
+          Provide a brief overview (3-5 sentences) of:
+          - Overall architecture style (monolithic, microservices, serverless)
+          - Frontend approach (SPA, SSR, SSG, hybrid)
+          - Key technology choices for both layers
+          - Data flow and API contract
+      - id: system-diagram
+        title: System Architecture Diagram
+        type: mermaid
+        mermaid_type: graph
+        instruction: |
+          Create a Mermaid diagram showing:
+          - User entry points (browser, mobile)
+          - Frontend application(s)
+          - API layer / BFF
+          - Backend services
+          - Data stores
+          - External integrations
+          - Authentication flow
+      - id: architectural-patterns
+        title: Architectural Patterns
+        instruction: |
+          List patterns used across the stack:
+
+          **Backend Patterns:**
+          - Service architecture (MVC, Clean Architecture, Hexagonal)
+          - Data patterns (Repository, Unit of Work, CQRS)
+          - API patterns (REST, GraphQL, gRPC)
+
+          **Frontend Patterns:**
+          - Component architecture (Atomic Design, Feature-based)
+          - State management (Redux, Zustand, Signals, Stores)
+          - Data fetching (SWR, React Query, Apollo)
+
+          **Integration Patterns:**
+          - API contract management
+          - Shared type definitions
+          - Authentication flow
+        template: "- **{{pattern_name}}:** {{pattern_description}} - _Rationale:_ {{rationale}}"
+
+  - id: tech-stack
+    title: Technology Stack
+    instruction: |
+      This is the DEFINITIVE technology selection for the ENTIRE stack.
+
+      Work with user to finalize:
+      1. Backend language/framework with versions
+      2. Frontend framework with versions
+      3. Database and caching solutions
+      4. API layer (REST/GraphQL/tRPC)
+      5. Authentication solution
+      6. Shared tooling (TypeScript, linting, testing)
+      7. Cloud provider and services
+
+      This table is the single source of truth for all development.
+    elicit: true
+    sections:
+      - id: backend-stack
+        title: Backend Stack
+        type: table
+        columns: [Category, Technology, Version, Purpose, Rationale]
+        examples:
+          - "| **Language** | Python | 3.13 | Primary backend language | Strong typing, modern features |"
+          - "| **Framework** | FastAPI | 0.109.0 | API framework | Async support, automatic docs |"
+          - "| **ORM** | SQLAlchemy | 2.0 | Database access | Mature, flexible |"
+      - id: frontend-stack
+        title: Frontend Stack
+        type: table
+        columns: [Category, Technology, Version, Purpose, Rationale]
+        examples:
+          - "| **Framework** | React | 18.2 | UI framework | Component ecosystem, team expertise |"
+          - "| **Meta-framework** | Next.js | 14.0 | SSR/SSG | Performance, SEO |"
+          - "| **State** | Zustand | 4.5 | Client state | Simple, performant |"
+      - id: shared-tooling
+        title: Shared Tooling
+        type: table
+        columns: [Category, Technology, Version, Purpose]
+        examples:
+          - "| **Types** | TypeScript | 5.3 | Type safety across stack |"
+          - "| **Linting** | ESLint + Ruff | Latest | Code quality |"
+          - "| **Testing** | Vitest + Pytest | Latest | Unified testing |"
+      - id: infrastructure-stack
+        title: Infrastructure
+        template: |
+          - **Cloud Provider:** {{cloud_provider}}
+          - **Compute:** {{compute_services}}
+          - **Database:** {{database_services}}
+          - **CDN/Edge:** {{cdn_services}}
+          - **CI/CD:** {{cicd_platform}}
+
+  - id: data-models
+    title: Data Models
+    instruction: |
+      Define core data models shared across the stack:
+
+      1. Backend database models
+      2. API response/request DTOs
+      3. Frontend TypeScript interfaces
+      4. Shared type definitions
+
+      Show how types flow from database to frontend.
+    elicit: true
+    sections:
+      - id: database-models
+        title: Database Models
+        instruction: |
+          Define the database schema with:
+          - Entity relationships
+          - Key constraints
+          - Indexes for performance
+        type: code
+        language: sql
+      - id: api-types
+        title: API Types (Shared)
+        instruction: |
+          Define TypeScript types used by both frontend and backend:
+          - Response types
+          - Request payloads
+          - Error types
+          - Enums and constants
+        type: code
+        language: typescript
+      - id: type-flow-diagram
+        title: Type Flow Diagram
+        type: mermaid
+        mermaid_type: flowchart
+        instruction: |
+          Show how types flow:
+          Database Schema → ORM Models → API DTOs → Frontend Types
+
+  - id: api-design
+    title: API Design
+    instruction: |
+      Define the API contract between frontend and backend.
+    elicit: true
+    sections:
+      - id: api-approach
+        title: API Approach
+        template: |
+          - **Style:** {{api_style}} (REST/GraphQL/tRPC)
+          - **Versioning:** {{versioning_strategy}}
+          - **Authentication:** {{auth_method}}
+          - **Documentation:** {{doc_tool}} (OpenAPI/GraphQL Schema)
+      - id: endpoints-overview
+        title: API Endpoints Overview
+        type: table
+        columns: [Method, Endpoint, Purpose, Auth Required]
+        instruction: List all API endpoints
+      - id: openapi-spec
+        title: OpenAPI Specification
+        condition: Using REST API
+        type: code
+        language: yaml
+        instruction: |
+          Provide OpenAPI 3.0 specification for the API.
+          Include request/response schemas, authentication, and examples.
+
+  - id: backend-architecture
+    title: Backend Architecture
+    instruction: |
+      Detail the backend service architecture.
+    elicit: true
+    sections:
+      - id: service-structure
+        title: Service Structure
+        type: code
+        language: plaintext
+        instruction: |
+          Define the backend source tree:
+          - API routes/controllers
+          - Services/use cases
+          - Repositories/data access
+          - Domain models
+          - Configuration
+      - id: backend-patterns
+        title: Backend Patterns
+        sections:
+          - id: service-layer
+            title: Service Layer
+            template: |
+              - **Pattern:** {{service_pattern}}
+              - **Responsibility:** Business logic, orchestration
+              - **Dependencies:** Repositories, external services
+          - id: data-layer
+            title: Data Access Layer
+            template: |
+              - **Pattern:** {{data_pattern}}
+              - **ORM/Query Builder:** {{orm_choice}}
+              - **Connection Pooling:** {{pool_config}}
+          - id: error-handling
+            title: Error Handling
+            template: |
+              - **Error Model:** {{error_model}}
+              - **HTTP Error Mapping:** {{http_error_mapping}}
+              - **Logging:** {{logging_approach}}
+
+  - id: frontend-architecture
+    title: Frontend Architecture
+    instruction: |
+      Detail the frontend application architecture.
+    elicit: true
+    sections:
+      - id: frontend-structure
+        title: Frontend Structure
+        type: code
+        language: plaintext
+        instruction: |
+          Define the frontend source tree:
+          - Pages/routes
+          - Components (shared, features)
+          - State management
+          - API clients
+          - Utilities
+      - id: component-architecture
+        title: Component Architecture
+        sections:
+          - id: component-organization
+            title: Component Organization
+            template: |
+              - **Pattern:** {{component_pattern}} (Atomic Design/Feature-based)
+              - **Styling:** {{styling_approach}}
+              - **Props Typing:** TypeScript interfaces
+          - id: component-template
+            title: Component Template
+            type: code
+            language: typescript
+            instruction: |
+              Provide a standard component template with:
+              - TypeScript interface for props
+              - Proper imports
+              - Styling approach
+      - id: state-management
+        title: State Management
+        sections:
+          - id: state-approach
+            title: State Approach
+            template: |
+              - **Global State:** {{global_state_tool}}
+              - **Server State:** {{server_state_tool}} (React Query/SWR)
+              - **Local State:** React useState/useReducer
+          - id: state-template
+            title: State Template
+            type: code
+            language: typescript
+            instruction: |
+              Provide state management template with:
+              - Store definition
+              - Actions/mutations
+              - Selectors
+
+  - id: integration-patterns
+    title: Frontend-Backend Integration
+    instruction: |
+      Define how frontend and backend communicate and share code.
+    elicit: true
+    sections:
+      - id: api-client
+        title: API Client
+        type: code
+        language: typescript
+        instruction: |
+          Define the frontend API client:
+          - Base configuration
+          - Authentication headers
+          - Error handling
+          - Request/response interceptors
+      - id: shared-code
+        title: Shared Code Strategy
+        template: |
+          **Shared Between Frontend and Backend:**
+          - **Types/Interfaces:** {{shared_types_location}}
+          - **Validation Schemas:** {{shared_validation}}
+          - **Constants/Enums:** {{shared_constants}}
+          - **Utilities:** {{shared_utils}}
+
+          **Sharing Mechanism:** {{sharing_mechanism}} (npm package/monorepo imports)
+      - id: authentication-flow
+        title: Authentication Flow
+        type: mermaid
+        mermaid_type: sequence
+        instruction: |
+          Show the authentication sequence:
+          - Login flow
+          - Token refresh
+          - Protected route access
+
+  - id: source-tree
+    title: Project Source Tree
+    instruction: |
+      Define the complete project structure based on the chosen approach:
+      - Monolithic: Single integrated structure
+      - Separate: Two independent structures
+      - Monorepo: Packages/apps structure
+    elicit: true
+    type: code
+    language: plaintext
+    examples:
+      - |
+        # Monorepo Example (Turborepo/Nx)
+        project-root/
+        ├── apps/
+        │   ├── web/                    # Frontend application
+        │   │   ├── src/
+        │   │   └── package.json
+        │   └── api/                    # Backend API
+        │       ├── src/
+        │       └── package.json
+        ├── packages/
+        │   ├── shared-types/           # Shared TypeScript types
+        │   ├── shared-utils/           # Shared utilities
+        │   └── ui/                     # Shared UI components
+        ├── turbo.json
+        └── package.json
+      - |
+        # Monolithic Example (Next.js)
+        project-root/
+        ├── src/
+        │   ├── app/                    # App Router pages
+        │   │   ├── api/                # API routes
+        │   │   └── (routes)/           # Page routes
+        │   ├── components/             # React components
+        │   ├── lib/                    # Shared utilities
+        │   ├── services/               # Backend services
+        │   └── types/                  # TypeScript types
+        ├── prisma/                     # Database schema
+        └── package.json
+
+  - id: deployment
+    title: Deployment Architecture
+    instruction: |
+      Define deployment strategy for the fullstack application.
+    elicit: true
+    sections:
+      - id: deployment-strategy
+        title: Deployment Strategy
+        template: |
+          **Frontend Deployment:**
+          - **Platform:** {{frontend_platform}} (Vercel/Netlify/CloudFront)
+          - **Build:** {{frontend_build_process}}
+          - **CDN:** {{cdn_configuration}}
+
+          **Backend Deployment:**
+          - **Platform:** {{backend_platform}} (ECS/Lambda/K8s)
+          - **Containerization:** {{container_strategy}}
+          - **Scaling:** {{scaling_approach}}
+
+          **Database:**
+          - **Service:** {{database_service}}
+          - **Backups:** {{backup_strategy}}
+      - id: deployment-diagram
+        title: Deployment Diagram
+        type: mermaid
+        mermaid_type: graph
+        instruction: |
+          Show deployment architecture:
+          - CDN/Edge distribution
+          - Frontend hosting
+          - API/Backend services
+          - Database and caching
+          - Load balancing
+      - id: environments
+        title: Environments
+        type: table
+        columns: [Environment, Frontend URL, Backend URL, Database, Purpose]
+        examples:
+          - "| Development | localhost:3000 | localhost:8000 | Local/Docker | Local dev |"
+          - "| Staging | staging.app.com | api.staging.app.com | RDS Staging | Testing |"
+          - "| Production | app.com | api.app.com | RDS Primary | Live |"
+
+  - id: coding-standards
+    title: Coding Standards
+    instruction: |
+      Define MANDATORY coding standards for both frontend and backend.
+      Focus on project-specific rules that AI agents must follow.
+    elicit: true
+    sections:
+      - id: backend-standards
+        title: Backend Standards
+        template: |
+          **Language:** {{backend_language}} {{backend_version}}
+          **Style Guide:** {{backend_style_guide}}
+          **Linter:** {{backend_linter}}
+
+          **Critical Rules:**
+          - {{backend_rule_1}}
+          - {{backend_rule_2}}
+          - {{backend_rule_3}}
+      - id: frontend-standards
+        title: Frontend Standards
+        template: |
+          **Framework:** {{frontend_framework}} {{frontend_version}}
+          **Style Guide:** {{frontend_style_guide}}
+          **Linter:** {{frontend_linter}}
+
+          **Critical Rules:**
+          - {{frontend_rule_1}}
+          - {{frontend_rule_2}}
+          - {{frontend_rule_3}}
+      - id: shared-standards
+        title: Shared Standards
+        template: |
+          **TypeScript:**
+          - Strict mode enabled
+          - No `any` types without justification
+          - All API types in shared package
+
+          **Git:**
+          - Conventional commits
+          - PR required for main branch
+          - CI must pass before merge
+
+  - id: testing-strategy
+    title: Testing Strategy
+    instruction: |
+      Define comprehensive testing approach across the stack.
+    elicit: true
+    sections:
+      - id: backend-testing
+        title: Backend Testing
+        template: |
+          **Unit Tests:**
+          - Framework: {{backend_test_framework}}
+          - Coverage Target: {{backend_coverage}}
+          - Location: {{backend_test_location}}
+
+          **Integration Tests:**
+          - Database: {{db_test_approach}}
+          - External APIs: {{api_mock_approach}}
+
+          **API Tests:**
+          - Framework: {{api_test_framework}}
+          - Contract Testing: {{contract_test_approach}}
+      - id: frontend-testing
+        title: Frontend Testing
+        template: |
+          **Unit Tests:**
+          - Framework: {{frontend_test_framework}}
+          - Coverage Target: {{frontend_coverage}}
+
+          **Component Tests:**
+          - Library: {{component_test_lib}}
+          - Approach: {{component_test_approach}}
+
+          **E2E Tests:**
+          - Framework: {{e2e_framework}} (Playwright/Cypress)
+          - Coverage: {{e2e_coverage}}
+      - id: integration-testing
+        title: Full Stack Integration Testing
+        template: |
+          **Approach:** {{integration_approach}}
+          **Test Environment:** {{test_environment}}
+          **Data Management:** {{test_data_approach}}
+
+  - id: security
+    title: Security
+    instruction: |
+      Define security requirements across the fullstack.
+    elicit: true
+    sections:
+      - id: authentication
+        title: Authentication
+        template: |
+          - **Method:** {{auth_method}} (JWT/Session/OAuth)
+          - **Provider:** {{auth_provider}}
+          - **Token Storage:** {{token_storage}} (HttpOnly cookies/localStorage)
+          - **Refresh Strategy:** {{refresh_strategy}}
+      - id: authorization
+        title: Authorization
+        template: |
+          - **Model:** {{authz_model}} (RBAC/ABAC)
+          - **Backend Enforcement:** {{backend_authz}}
+          - **Frontend Guards:** {{frontend_guards}}
+      - id: api-security
+        title: API Security
+        template: |
+          - **CORS:** {{cors_policy}}
+          - **Rate Limiting:** {{rate_limit}}
+          - **Input Validation:** {{validation_approach}}
+          - **CSRF Protection:** {{csrf_approach}}
+      - id: data-security
+        title: Data Security
+        template: |
+          - **Encryption at Rest:** {{encryption_rest}}
+          - **Encryption in Transit:** HTTPS/TLS
+          - **PII Handling:** {{pii_approach}}
+          - **Secrets Management:** {{secrets_manager}}
+
+  - id: next-steps
+    title: Next Steps
+    instruction: |
+      After completing the fullstack architecture:
+
+      1. Create stories with Story Manager
+      2. Begin implementation with Dev agent
+      3. Set up CI/CD pipeline
+      4. Configure deployment environments
+    sections:
+      - id: implementation-order
+        title: Recommended Implementation Order
+        type: numbered-list
+        items:
+          - "Set up monorepo/project structure"
+          - "Configure shared types package"
+          - "Implement database schema and migrations"
+          - "Build API layer with authentication"
+          - "Create frontend shell with routing"
+          - "Implement features incrementally"
+          - "Add comprehensive tests"
+          - "Configure CI/CD pipeline"
+      - id: handoff-prompt
+        title: Story Manager Handoff
+        instruction: |
+          Create a brief prompt for Story Manager to begin story creation:
+          - Reference this architecture document
+          - Key integration requirements
+          - First epic to implement
+          - Critical path dependencies

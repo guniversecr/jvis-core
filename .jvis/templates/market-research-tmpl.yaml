@@ -1,0 +1,410 @@
+# JVIS Market Research Template
+# Version: 1.0
+# Usage: Document market research findings
+# Location: docs/analysis/market-research.md
+
+---
+template:
+  id: market-research-template-v1
+  name: Market Research Report
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/analysis/market-research.md
+    title: "{{project_name}} Market Research"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Document Metadata
+      title: "Market Research Report"
+      project: "{{project_name}}"
+      created: "{{YYYY-MM-DD}}"
+      updated: "{{YYYY-MM-DD}}"
+      status: "Draft"
+      analyst: "Business Analyst Agent"
+      ---
+
+      # Market Research: {{project_name}}
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Provide a 1-page executive summary covering:
+
+      1. Market opportunity size
+      2. Key market dynamics
+      3. Target customer insights
+      4. Competitive landscape overview
+      5. Strategic recommendations
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      ### Market Opportunity
+      {{market_opportunity_summary}}
+
+      ### Key Findings
+      - {{finding_1}}
+      - {{finding_2}}
+      - {{finding_3}}
+      - {{finding_4}}
+
+      ### Strategic Implications
+      {{strategic_implications}}
+
+      ### Recommended Actions
+      1. {{action_1}}
+      2. {{action_2}}
+      3. {{action_3}}
+
+  - id: research-methodology
+    title: Research Methodology
+    instruction: |
+      Document how the research was conducted for credibility.
+    elicit: true
+    template: |
+      ## Research Methodology
+
+      ### Data Sources
+      | Source Type | Sources Used | Purpose |
+      |-------------|--------------|---------|
+      | Primary | {{primary_sources}} | {{primary_purpose}} |
+      | Secondary | {{secondary_sources}} | {{secondary_purpose}} |
+      | Quantitative | {{quant_sources}} | {{quant_purpose}} |
+      | Qualitative | {{qual_sources}} | {{qual_purpose}} |
+
+      ### Research Limitations
+      - {{limitation_1}}
+      - {{limitation_2}}
+
+      ### Confidence Level
+      {{confidence_assessment}}
+
+  - id: market-overview
+    title: Market Overview
+    instruction: |
+      Provide comprehensive market sizing and analysis.
+    elicit: true
+    sections:
+      - id: market-definition
+        title: Market Definition
+        template: |
+          ## Market Overview
+
+          ### Market Definition
+          {{market_definition}}
+
+          ### Market Boundaries
+          - **Included:** {{included}}
+          - **Excluded:** {{excluded}}
+      - id: market-size
+        title: Market Size
+        template: |
+          ### Market Size
+
+          | Metric | Value | Source | Year |
+          |--------|-------|--------|------|
+          | Total Addressable Market (TAM) | {{tam}} | {{tam_source}} | {{tam_year}} |
+          | Serviceable Addressable Market (SAM) | {{sam}} | {{sam_source}} | {{sam_year}} |
+          | Serviceable Obtainable Market (SOM) | {{som}} | {{som_source}} | {{som_year}} |
+
+          ### Market Breakdown
+          | Segment | Size | Share | Growth |
+          |---------|------|-------|--------|
+          | {{segment_1}} | {{size_1}} | {{share_1}} | {{growth_1}} |
+          | {{segment_2}} | {{size_2}} | {{share_2}} | {{growth_2}} |
+      - id: market-growth
+        title: Market Growth
+        template: |
+          ### Market Growth
+
+          **Historical Growth (5-year CAGR):** {{historical_cagr}}
+          **Projected Growth (5-year CAGR):** {{projected_cagr}}
+
+          #### Growth Drivers
+          - {{driver_1}}
+          - {{driver_2}}
+          - {{driver_3}}
+
+          #### Growth Inhibitors
+          - {{inhibitor_1}}
+          - {{inhibitor_2}}
+
+  - id: market-trends
+    title: Market Trends
+    instruction: |
+      Identify and analyze key market trends affecting the industry.
+    elicit: true
+    sections:
+      - id: macro-trends
+        title: Macro Trends
+        template: |
+          ## Market Trends
+
+          ### Macro Trends
+
+          | Trend | Impact | Timeframe | Opportunity/Threat |
+          |-------|--------|-----------|-------------------|
+          | {{trend_1}} | {{impact_1}} | {{timeframe_1}} | {{type_1}} |
+          | {{trend_2}} | {{impact_2}} | {{timeframe_2}} | {{type_2}} |
+      - id: industry-trends
+        title: Industry Trends
+        repeatable: true
+        template: |
+          ### {{trend_name}}
+
+          **Description:** {{trend_description}}
+
+          **Evidence:**
+          - {{evidence_1}}
+          - {{evidence_2}}
+
+          **Implications for Our Product:**
+          {{implications}}
+
+          **Recommended Response:**
+          {{response}}
+      - id: technology-trends
+        title: Technology Trends
+        template: |
+          ### Technology Trends
+
+          | Technology | Maturity | Adoption Rate | Relevance |
+          |------------|----------|---------------|-----------|
+          | {{tech_1}} | {{maturity_1}} | {{adoption_1}} | {{relevance_1}} |
+          | {{tech_2}} | {{maturity_2}} | {{adoption_2}} | {{relevance_2}} |
+
+  - id: customer-analysis
+    title: Customer Analysis
+    instruction: |
+      Deep dive into target customer segments.
+    elicit: true
+    sections:
+      - id: segmentation
+        title: Market Segmentation
+        template: |
+          ## Customer Analysis
+
+          ### Market Segmentation
+
+          | Segment | Size | Growth | Attractiveness | Priority |
+          |---------|------|--------|----------------|----------|
+          | {{segment_1}} | {{size_1}} | {{growth_1}} | {{attract_1}} | {{priority_1}} |
+          | {{segment_2}} | {{size_2}} | {{growth_2}} | {{attract_2}} | {{priority_2}} |
+      - id: customer-profiles
+        title: Customer Profiles
+        repeatable: true
+        template: |
+          ### Segment: {{segment_name}}
+
+          **Profile:**
+          - **Size:** {{segment_size}}
+          - **Demographics:** {{demographics}}
+          - **Psychographics:** {{psychographics}}
+
+          **Needs & Pain Points:**
+          - {{need_1}}
+          - {{need_2}}
+          - {{pain_1}}
+          - {{pain_2}}
+
+          **Buying Behavior:**
+          - **Decision Criteria:** {{decision_criteria}}
+          - **Buying Process:** {{buying_process}}
+          - **Budget Range:** {{budget_range}}
+
+          **Current Solutions:**
+          {{current_solutions}}
+
+          **Willingness to Pay:**
+          {{willingness_to_pay}}
+      - id: customer-journey
+        title: Customer Journey
+        template: |
+          ### Customer Journey Map
+
+          | Stage | Activities | Pain Points | Opportunities |
+          |-------|------------|-------------|---------------|
+          | Awareness | {{awareness_activities}} | {{awareness_pain}} | {{awareness_opp}} |
+          | Consideration | {{consider_activities}} | {{consider_pain}} | {{consider_opp}} |
+          | Decision | {{decision_activities}} | {{decision_pain}} | {{decision_opp}} |
+          | Purchase | {{purchase_activities}} | {{purchase_pain}} | {{purchase_opp}} |
+          | Retention | {{retention_activities}} | {{retention_pain}} | {{retention_opp}} |
+
+  - id: competitive-landscape
+    title: Competitive Landscape
+    instruction: |
+      Overview of the competitive environment (detailed analysis in separate doc).
+    elicit: true
+    sections:
+      - id: competitive-overview
+        title: Competitive Overview
+        template: |
+          ## Competitive Landscape
+
+          ### Market Structure
+          **Concentration:** {{market_concentration}} (Fragmented/Consolidated)
+          **Key Players:** {{num_key_players}}
+          **Barriers to Entry:** {{entry_barriers}}
+
+          ### Competitive Intensity
+          {{competitive_intensity_analysis}}
+      - id: market-share
+        title: Market Share
+        type: table
+        columns: [Competitor, Market Share, Trend, Key Strength]
+        examples:
+          - "| Leader A | 30% | Stable | Brand recognition |"
+          - "| Challenger B | 20% | Growing | Innovation |"
+      - id: competitive-dynamics
+        title: Competitive Dynamics
+        template: |
+          ### Competitive Dynamics
+
+          **Porter's Five Forces Summary:**
+
+          | Force | Intensity | Key Factors |
+          |-------|-----------|-------------|
+          | Rivalry | {{rivalry_level}} | {{rivalry_factors}} |
+          | New Entrants | {{entrants_level}} | {{entrants_factors}} |
+          | Substitutes | {{substitutes_level}} | {{substitutes_factors}} |
+          | Buyer Power | {{buyer_level}} | {{buyer_factors}} |
+          | Supplier Power | {{supplier_level}} | {{supplier_factors}} |
+
+  - id: regulatory-environment
+    title: Regulatory Environment
+    instruction: |
+      Document relevant regulations and compliance requirements.
+    elicit: true
+    template: |
+      ## Regulatory Environment
+
+      ### Key Regulations
+
+      | Regulation | Jurisdiction | Impact | Compliance Status |
+      |------------|--------------|--------|-------------------|
+      | {{reg_1}} | {{jurisdiction_1}} | {{impact_1}} | {{status_1}} |
+      | {{reg_2}} | {{jurisdiction_2}} | {{impact_2}} | {{status_2}} |
+
+      ### Upcoming Changes
+      {{upcoming_regulatory_changes}}
+
+      ### Compliance Implications
+      {{compliance_implications}}
+
+  - id: market-opportunities
+    title: Market Opportunities
+    instruction: |
+      Identify specific opportunities based on research findings.
+    elicit: true
+    sections:
+      - id: opportunity-analysis
+        title: Opportunity Analysis
+        repeatable: true
+        template: |
+          ## Market Opportunities
+
+          ### Opportunity: {{opportunity_name}}
+
+          **Description:** {{opportunity_description}}
+
+          **Size:** {{opportunity_size}}
+          **Growth:** {{opportunity_growth}}
+          **Timing:** {{opportunity_timing}}
+
+          **Requirements to Capture:**
+          - {{requirement_1}}
+          - {{requirement_2}}
+
+          **Risks:**
+          - {{risk_1}}
+          - {{risk_2}}
+
+          **Fit Score:** {{fit_score}}/10
+      - id: opportunity-matrix
+        title: Opportunity Prioritization
+        type: table
+        columns: [Opportunity, Size, Fit, Feasibility, Priority]
+
+  - id: market-risks
+    title: Market Risks
+    instruction: |
+      Identify market-related risks and mitigation strategies.
+    elicit: true
+    template: |
+      ## Market Risks
+
+      | Risk | Probability | Impact | Mitigation |
+      |------|-------------|--------|------------|
+      | {{risk_1}} | {{prob_1}} | {{impact_1}} | {{mitigation_1}} |
+      | {{risk_2}} | {{prob_2}} | {{impact_2}} | {{mitigation_2}} |
+      | {{risk_3}} | {{prob_3}} | {{impact_3}} | {{mitigation_3}} |
+
+      ### Risk Assessment Summary
+      {{risk_summary}}
+
+  - id: recommendations
+    title: Strategic Recommendations
+    instruction: |
+      Provide actionable recommendations based on research.
+    elicit: true
+    sections:
+      - id: strategic-direction
+        title: Strategic Direction
+        template: |
+          ## Strategic Recommendations
+
+          ### Recommended Strategic Direction
+          {{strategic_direction}}
+
+          ### Target Market Selection
+          **Primary Target:** {{primary_target}}
+          **Secondary Target:** {{secondary_target}}
+          **Rationale:** {{target_rationale}}
+      - id: go-to-market
+        title: Go-to-Market Implications
+        template: |
+          ### Go-to-Market Implications
+
+          **Positioning:** {{positioning_recommendation}}
+
+          **Pricing:** {{pricing_recommendation}}
+
+          **Channels:** {{channel_recommendation}}
+
+          **Messaging:** {{messaging_recommendation}}
+      - id: next-steps
+        title: Next Steps
+        type: numbered-list
+        items:
+          - "{{next_step_1}}"
+          - "{{next_step_2}}"
+          - "{{next_step_3}}"
+          - "{{next_step_4}}"
+
+  - id: appendix
+    title: Appendix
+    template: |
+      ## Appendix
+
+      ### Data Tables
+      {{detailed_data_tables}}
+
+      ### Source References
+      {{source_references}}
+
+      ### Glossary
+      {{glossary}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | Business Analyst | Initial research |

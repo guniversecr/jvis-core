@@ -1,0 +1,69 @@
+id: rust-axum
+name: "Rust + Axum"
+description: "Rust backend with Axum, Clean Architecture, SQLx, Tokio async"
+type: backend
+language: rust
+framework: axum
+requires_database: true
+agents: [rust, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "cargo watch -x run"
+dev_port: 8000
+getting_started:
+  prerequisites: "Rust 1.75+ (install via rustup)"
+  commands:
+    - "cargo build"
+    - "cargo run"
+
+directories:
+  - src
+  - src/domain
+  - src/domain/entities
+  - src/domain/repositories
+  - src/domain/errors
+  - src/application
+  - src/application/commands
+  - src/application/queries
+  - src/application/dto
+  - src/application/services
+  - src/infrastructure
+  - src/infrastructure/database
+  - src/infrastructure/config
+  - src/api
+  - src/api/routes
+  - src/api/middleware
+  - src/api/extractors
+  - tests
+  - tests/unit
+  - tests/integration
+  - migrations
+
+files:
+  - {src: "Cargo.toml.j2", dst: "Cargo.toml"}
+  - {src: "Dockerfile.j2", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "src/main.rs.j2", dst: "src/main.rs"}
+  - {src: "src/lib.rs", dst: "src/lib.rs"}
+  - {src: "src/api/mod.rs", dst: "src/api/mod.rs"}
+  - {src: "src/api/routes/mod.rs", dst: "src/api/routes/mod.rs"}
+  - {src: "src/api/routes/health.rs", dst: "src/api/routes/health.rs"}
+  - {src: "src/api/routes/items.rs", dst: "src/api/routes/items.rs"}
+  - {src: "src/domain/mod.rs", dst: "src/domain/mod.rs"}
+  - {src: "src/domain/entities/mod.rs", dst: "src/domain/entities/mod.rs"}
+  - {src: "src/domain/entities/item.rs", dst: "src/domain/entities/item.rs"}
+  - {src: "src/domain/errors/mod.rs", dst: "src/domain/errors/mod.rs"}
+  - {src: "src/domain/repositories/mod.rs", dst: "src/domain/repositories/mod.rs"}
+  - {src: "src/application/mod.rs", dst: "src/application/mod.rs"}
+  - {src: "src/application/dto/mod.rs", dst: "src/application/dto/mod.rs"}
+  - {src: "src/application/dto/item_dto.rs", dst: "src/application/dto/item_dto.rs"}
+  - {src: "src/application/services/mod.rs", dst: "src/application/services/mod.rs"}
+  - {src: "src/application/services/item_service.rs.j2", dst: "src/application/services/item_service.rs"}
+  - {src: "src/application/commands/mod.rs", dst: "src/application/commands/mod.rs"}
+  - {src: "src/application/queries/mod.rs", dst: "src/application/queries/mod.rs"}
+  - {src: "src/infrastructure/mod.rs", dst: "src/infrastructure/mod.rs"}
+  - {src: "src/infrastructure/config/mod.rs.j2", dst: "src/infrastructure/config/mod.rs"}
+  - {src: "src/infrastructure/database/mod.rs.j2", dst: "src/infrastructure/database/mod.rs"}
+  - {src: "migrations/001_create_items.sql", dst: "migrations/001_create_items.sql"}
+  - {src: "tests/integration/items_test.rs", dst: "tests/integration/items_test.rs"}
+  - {src: ".env.example.j2", dst: ".env.example"}

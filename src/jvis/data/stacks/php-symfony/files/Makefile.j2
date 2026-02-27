@@ -1,0 +1,43 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: dev
+dev:  ## Start development server
+	symfony server:start --port=8000
+
+.PHONY: test
+test:  ## Run tests
+	php bin/phpunit
+
+.PHONY: lint
+lint:  ## Run linters
+	php bin/console lint:yaml config/
+	php bin/console lint:container
+
+.PHONY: format
+format:  ## Format code with PHP CS Fixer (if installed)
+	php vendor/bin/php-cs-fixer fix src/
+
+.PHONY: migrate
+migrate:  ## Run database migrations
+	php bin/console doctrine:migrations:migrate --no-interaction
+
+.PHONY: migration
+migration:  ## Generate a new migration
+	php bin/console make:migration
+
+.PHONY: cache-clear
+cache-clear:  ## Clear Symfony cache
+	php bin/console cache:clear
+
+.PHONY: up
+up:  ## Start with Docker Compose
+	docker compose up --build
+
+.PHONY: down
+down:  ## Stop Docker Compose
+	docker compose down

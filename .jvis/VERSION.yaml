@@ -1,0 +1,24 @@
+# JVIS Version Information
+# This file tracks the current version and release date
+
+version: 4.5.3
+release_date: "2026-02-27"
+codename: "Journey"
+
+# Semantic versioning: MAJOR.MINOR.PATCH
+# MAJOR: Breaking changes
+# MINOR: New features (backwards compatible)
+# PATCH: Bug fixes (backwards compatible)
+
+minimum_compatible: "4.0.0"
+
+components:
+  cli: 4.5.3
+  agents: 4.5.3
+  agent_engine: 4.5.3
+  templates: 4.5.3
+  stacks: 4.5.3
+  cloud_templates: 4.5.3
+  tasks: 4.5.3
+
+changelog_url: "https://github.com/guniversecr/jvis/blob/main/CHANGELOG.md"

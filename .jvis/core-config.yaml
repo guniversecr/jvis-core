@@ -1,0 +1,99 @@
+markdownExploder: true
+qa:
+  qaLocation: docs/qa
+prd:
+  prdFile: docs/prd.md
+  prdVersion: v4
+  prdSharded: false
+  prdShardedLocation: docs/prd
+  epicFilePattern: epic-{n}*.md
+architecture:
+  architectureFile: docs/architecture.md
+  architectureVersion: v4
+  architectureSharded: false
+  architectureShardedLocation: docs/architecture
+customTechnicalDocuments: null
+devLoadAlwaysFiles:
+  - docs/architecture/coding-standards.md
+  - docs/architecture/tech-stack.md
+  - docs/architecture/source-tree.md
+devDebugLog: .ai/debug-log.md
+devStoryLocation: docs/stories
+# slashPrefix removed - agents now at root level (/dev, /qa, etc.)
+
+# Executable Development Plans (ADR-005)
+plans:
+  plansLocation: docs/plans
+  activePlan: docs/plans/active-plan.yaml
+  reportsLocation: docs/plans/reports
+  checkpointsLocation: docs/plans/checkpoints
+  archiveLocation: docs/plans/archive
+  checkpointFrequency: 5  # insert checkpoint every N implementation steps if no epic boundary
+  gateMatrix:
+    critical: [qa, architect, devsecops]
+    high: [qa, architect]
+    medium: [qa]
+    low: [self-review]
+
+# Security & DevSecOps Configuration
+security:
+  securityLocation: docs/security
+  plansLocation: docs/security/plans
+  auditsLocation: docs/security/audits
+  threatModelsLocation: docs/security/threat-models
+  vulnerabilitiesLocation: docs/security/vulnerabilities
+  complianceLocation: docs/security/compliance
+  incidentsLocation: docs/security/incidents
+
+# Inter-Agent Communication
+notes:
+  notesLocation: docs/notes
+  projectLog: docs/notes/project-log.md
+  lessonsLearned: docs/notes/lessons-learned.md
+  nextAction: docs/notes/next-action.md
+  ttlDays:
+    projectLog: 7
+    agentNotes: 14
+
+# Migration Configuration
+migration:
+  migrationLocation: docs/migration
+  analysisLocation: docs/migration/analysis
+  plansLocation: docs/migration/plans
+  statusLocation: docs/migration/status
+  mappingsLocation: docs/migration/mappings
+  supportedMigrations:
+    - source: laravel
+      target: flask
+      equivalencesFile: migration/laravel-flask.yaml
+    - source: express
+      target: flask
+      equivalencesFile: migration/express-flask.yaml  # Future
+    - source: express
+      target: fastapi
+      equivalencesFile: migration/express-fastapi.yaml  # Future
+
+# Stealth Mode Configuration
+# Separates internal JVIS artifacts from client-deliverable code
+# Enable with: jvis stealth enable
+stealth_mode:
+  enabled: false
+  client_repo_path: "gitCode"
+  auto_sync: false
+  sync_documents:
+    - source: "docs/prd.md"
+      destination: "docs/product-requirements.md"
+      sanitize: true
+    - source: "docs/architecture.md"
+      destination: "docs/technical-architecture.md"
+      sanitize: true
+  mirror_directories:
+    - "src"
+    - "tests"
+  copy_files:
+    - "package.json"
+    - "pyproject.toml"
+    - "README.md"
+  client_git:
+    separate_repo: true
+    default_branch: "main"

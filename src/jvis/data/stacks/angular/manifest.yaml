@@ -1,0 +1,73 @@
+id: angular
+name: "Angular + TypeScript"
+description: "Angular with standalone components, TypeScript strict, ESLint"
+type: frontend
+language: typescript
+framework: angular
+requires_database: false
+agents: [frontend, dev, qa, architect, pm, sm]
+
+dev_command: "npm run start"
+dev_port: 4200
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run start"
+
+directories:
+  - src
+  - src/app
+  - src/app/models
+  - src/app/services
+  - src/app/components
+  - src/app/components/item-card
+  - src/app/components/item-form
+  - src/app/components/item-list
+  - src/app/pages
+  - src/app/pages/home
+  - src/app/pages/not-found
+  - src/app/shared
+  - src/app/core
+  - src/environments
+  - src/assets
+
+files:
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "tsconfig.app.json", dst: "tsconfig.app.json"}
+  - {src: "tsconfig.spec.json", dst: "tsconfig.spec.json"}
+  - {src: "angular.json.j2", dst: "angular.json"}
+  - {src: "karma.conf.js", dst: "karma.conf.js"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: ".env.example", dst: ".env.example"}
+  - {src: ".eslintrc.json", dst: ".eslintrc.json"}
+  - {src: "src/main.ts", dst: "src/main.ts"}
+  - {src: "src/index.html.j2", dst: "src/index.html"}
+  - {src: "src/styles.css", dst: "src/styles.css"}
+  - {src: "src/environments/environment.ts", dst: "src/environments/environment.ts"}
+  - {src: "src/environments/environment.prod.ts", dst: "src/environments/environment.prod.ts"}
+  - {src: "src/assets/.gitkeep", dst: "src/assets/.gitkeep"}
+  - {src: "src/app/app.component.ts.j2", dst: "src/app/app.component.ts"}
+  - {src: "src/app/app.component.html.j2", dst: "src/app/app.component.html"}
+  - {src: "src/app/app.component.spec.ts.j2", dst: "src/app/app.component.spec.ts"}
+  - {src: "src/app/app.config.ts", dst: "src/app/app.config.ts"}
+  - {src: "src/app/app.routes.ts", dst: "src/app/app.routes.ts"}
+  - {src: "src/app/models/item.model.ts", dst: "src/app/models/item.model.ts"}
+  - {src: "src/app/services/item.service.ts", dst: "src/app/services/item.service.ts"}
+  - {src: "src/app/services/item.service.spec.ts", dst: "src/app/services/item.service.spec.ts"}
+  - {src: "src/app/components/item-card/item-card.component.ts", dst: "src/app/components/item-card/item-card.component.ts"}
+  - {src: "src/app/components/item-card/item-card.component.html", dst: "src/app/components/item-card/item-card.component.html"}
+  - {src: "src/app/components/item-card/item-card.component.spec.ts", dst: "src/app/components/item-card/item-card.component.spec.ts"}
+  - {src: "src/app/components/item-form/item-form.component.ts", dst: "src/app/components/item-form/item-form.component.ts"}
+  - {src: "src/app/components/item-form/item-form.component.html", dst: "src/app/components/item-form/item-form.component.html"}
+  - {src: "src/app/components/item-list/item-list.component.ts", dst: "src/app/components/item-list/item-list.component.ts"}
+  - {src: "src/app/components/item-list/item-list.component.html", dst: "src/app/components/item-list/item-list.component.html"}
+  - {src: "src/app/pages/home/home.component.ts", dst: "src/app/pages/home/home.component.ts"}
+  - {src: "src/app/pages/home/home.component.html", dst: "src/app/pages/home/home.component.html"}
+  - {src: "src/app/pages/home/home.component.css", dst: "src/app/pages/home/home.component.css"}
+  - {src: "src/app/pages/not-found/not-found.component.ts", dst: "src/app/pages/not-found/not-found.component.ts"}
+  - {src: "src/app/pages/not-found/not-found.component.html", dst: "src/app/pages/not-found/not-found.component.html"}
+  - {src: "src/app/shared/.gitkeep", dst: "src/app/shared/.gitkeep"}
+  - {src: "src/app/core/.gitkeep", dst: "src/app/core/.gitkeep"}

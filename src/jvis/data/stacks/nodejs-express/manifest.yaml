@@ -1,0 +1,84 @@
+id: nodejs-express
+name: "Node.js Express + TypeScript"
+description: "Express.js with TypeScript, Prisma ORM, layered architecture"
+type: backend
+language: typescript
+framework: express
+requires_database: true
+agents: [prisma, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "npm run dev"
+dev_port: 3001
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run dev"
+
+directories:
+  - src
+  - src/domain
+  - src/domain/entities
+  - src/domain/interfaces
+  - src/domain/errors
+  - src/application
+  - src/application/use-cases
+  - src/application/dto
+  - src/infrastructure
+  - src/infrastructure/database
+  - src/infrastructure/repositories
+  - src/infrastructure/services
+  - src/infrastructure/config
+  - src/presentation
+  - src/presentation/routes
+  - src/presentation/controllers
+  - src/presentation/middleware
+  - tests
+  - tests/unit
+  - tests/integration
+  - tests/e2e
+  - prisma
+  - prisma/migrations
+
+files:
+  # Config
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: ".env.example.j2", dst: ".env.example"}
+  - {src: "vitest.config.ts", dst: "vitest.config.ts"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+
+  # Entry points
+  - {src: "src/index.ts.j2", dst: "src/index.ts"}
+  - {src: "src/app.ts.j2", dst: "src/app.ts"}
+
+  # Domain
+  - {src: "src/domain/entities/item.ts", dst: "src/domain/entities/item.ts"}
+  - {src: "src/domain/interfaces/item-repository.interface.ts", dst: "src/domain/interfaces/item-repository.interface.ts"}
+  - {src: "src/domain/errors/app-error.ts", dst: "src/domain/errors/app-error.ts"}
+
+  # Application
+  - {src: "src/application/dto/item.dto.ts", dst: "src/application/dto/item.dto.ts"}
+  - {src: "src/application/use-cases/item.service.ts", dst: "src/application/use-cases/item.service.ts"}
+
+  # Infrastructure
+  - {src: "src/infrastructure/database/prisma-client.ts", dst: "src/infrastructure/database/prisma-client.ts"}
+  - {src: "src/infrastructure/config/env.ts", dst: "src/infrastructure/config/env.ts"}
+  - {src: "src/infrastructure/repositories/item.repository.ts", dst: "src/infrastructure/repositories/item.repository.ts"}
+
+  # Presentation
+  - {src: "src/presentation/routes/health.ts", dst: "src/presentation/routes/health.ts"}
+  - {src: "src/presentation/routes/items.ts", dst: "src/presentation/routes/items.ts"}
+  - {src: "src/presentation/controllers/item.controller.ts", dst: "src/presentation/controllers/item.controller.ts"}
+  - {src: "src/presentation/middleware/error-handler.ts", dst: "src/presentation/middleware/error-handler.ts"}
+  - {src: "src/presentation/middleware/validate-id.ts", dst: "src/presentation/middleware/validate-id.ts"}
+
+  # Database
+  - {src: "prisma/schema.prisma.j2", dst: "prisma/schema.prisma"}
+
+  # Tests
+  - {src: "tests/setup.ts", dst: "tests/setup.ts"}
+  - {src: "tests/unit/item.service.test.ts", dst: "tests/unit/item.service.test.ts"}
+  - {src: "tests/integration/items.test.ts.j2", dst: "tests/integration/items.test.ts"}

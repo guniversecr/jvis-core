@@ -1,0 +1,221 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - src/**
+      - tests/**
+      - pyproject.toml
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:
+  pythonVersion: '3.13'
+  vmImageName: 'ubuntu-latest'
+  dockerRegistryServiceConnection: 'docker-registry-connection'
+  imageRepository: 'api'
+  containerRegistry: 'yourregistry.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+
+stages:
+# ============================================
+# Lint Stage
+# ============================================
+- stage: Lint
+  displayName: 'Lint & Type Check'
+  jobs:
+  - job: Lint
+    displayName: 'Lint'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+
+    - script: |
+        python -m pip install --upgrade pip
+        pip install ruff mypy
+        pip install -e ".[dev]"
+      displayName: 'Install dependencies'
+
+    - script: |
+        ruff check src/
+        ruff format --check src/
+      displayName: 'Run Ruff'
+
+    - script: |
+        mypy src/ --strict
+      displayName: 'Run MyPy'
+
+# ============================================
+# Test Stage
+# ============================================
+- stage: Test
+  displayName: 'Test'
+  dependsOn: Lint
+  jobs:
+  - job: Test
+    displayName: 'Run Tests'
+    pool:
+      vmImage: $(vmImageName)
+    services:
+      postgres:
+        image: postgres:16
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+
+    - script: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+      displayName: 'Install dependencies'
+
+    - script: |
+        pytest tests/ -v --cov=src --cov-report=xml --cov-report=html --junitxml=junit/test-results.xml
+      displayName: 'Run tests'
+      env:
+        DATABASE_URL: postgresql://test:test@localhost:5432/test
+        REDIS_URL: redis://localhost:6379
+
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: '**/test-results.xml'
+        testRunTitle: 'Python Tests'
+
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+        reportDirectory: '$(System.DefaultWorkingDirectory)/htmlcov'
+
+# ============================================
+# Security Stage
+# ============================================
+- stage: Security
+  displayName: 'Security Scan'
+  dependsOn: Lint
+  jobs:
+  - job: Security
+    displayName: 'Security Scan'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+
+    - script: |
+        pip install bandit safety
+        bandit -r src/ -ll -f json -o $(Build.ArtifactStagingDirectory)/bandit-report.json || true
+        safety check --json > $(Build.ArtifactStagingDirectory)/safety-report.json || true
+      displayName: 'Run security scans'
+      continueOnError: true
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'security-reports'
+
+# ============================================
+# Build Stage
+# ============================================
+- stage: Build
+  displayName: 'Build & Push'
+  dependsOn:
+    - Test
+    - Security
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  jobs:
+  - job: Build
+    displayName: 'Build Docker Image'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: 'Build and push image'
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+          latest
+
+# ============================================
+# Deploy Staging
+# ============================================
+- stage: DeployStaging
+  displayName: 'Deploy to Staging'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: DeployStaging
+    displayName: 'Deploy to Staging'
+    environment: 'staging'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'azure-subscription'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az webapp config container set \
+                  --name staging-api \
+                  --resource-group staging-rg \
+                  --docker-custom-image-name $(containerRegistry)/$(imageRepository):$(tag)
+
+# ============================================
+# Deploy Production
+# ============================================
+- stage: DeployProduction
+  displayName: 'Deploy to Production'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployProduction
+    displayName: 'Deploy to Production'
+    environment: 'production'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureCLI@2
+            inputs:
+              azureSubscription: 'azure-subscription'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                az webapp config container set \
+                  --name production-api \
+                  --resource-group production-rg \
+                  --docker-custom-image-name $(containerRegistry)/$(imageRepository):$(tag)

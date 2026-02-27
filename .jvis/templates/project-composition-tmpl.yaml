@@ -1,0 +1,106 @@
+# Project Composition - JVIS v2.9+
+# Defines the complete project composition: stacks, integrations, and workflows
+#
+# Usage:
+#   jvis composition init    # Create interactively
+#   jvis composition verify  # Verify installation
+#   jvis composition agents  # View required agents
+#   jvis composition install # Install missing ones
+
+version: "1.0"
+
+# ============================================================================
+# PROJECT INFORMATION
+# ============================================================================
+project:
+  name: "${PROJECT_NAME}"
+  type: hybrid  # pure | hybrid | validation-only
+  description: "${PROJECT_DESCRIPTION}"
+  created_at: "${CREATED_AT}"
+
+# ============================================================================
+# PRIMARY STACK
+# Defines the main development stack
+# ============================================================================
+primary_stack:
+  # Frontend (optional)
+  # Options: react-vite, react-native, none
+  frontend: ${FRONTEND_STACK}
+
+  # Backend (optional)
+  # Options: python-fastapi, python-flask, nodejs-express, rust-axum, none
+  backend: ${BACKEND_STACK}
+
+  # Mobile (optional)
+  # Options: react-native, kotlin-android, swift-ios, none
+  mobile: ${MOBILE_STACK}
+
+  # Game Engine (optional)
+  # Options: unity, none
+  game: ${GAME_STACK}
+
+# ============================================================================
+# INTEGRATIONS
+# External services the project integrates with
+# ============================================================================
+integrations:
+  # Example:
+  # - name: bitrix24
+  #   agent: bitrix
+  #   reason: "CRM integration for leads management"
+  #   config_file: "src/integrations/bitrix_config.py"
+  ${INTEGRATIONS}
+
+# ============================================================================
+# WORKFLOWS
+# Defines the project workflows
+# ============================================================================
+workflows:
+  # Pre-development validation (market analysis, competitive analysis, etc.)
+  pre_development:
+    enabled: ${PRE_DEV_ENABLED}
+    type: ${PRE_DEV_TYPE}  # gaming-validation | saas-validation | ecommerce-validation | custom
+    status: not_started  # not_started | in_progress | completed | skipped
+    current_step: 0
+    completed_steps: []
+    gate_result: null  # null | approved | rejected
+    gate_score: null
+
+  # Development cycle (uses the standard JVIS cycle)
+  development:
+    enabled: true
+
+  # Launch workflow (optional)
+  launch:
+    enabled: ${LAUNCH_ENABLED}
+    type: ${LAUNCH_TYPE}  # product-launch | none
+
+# ============================================================================
+# ADDITIONAL AGENTS
+# Additional agents required (besides those inferred from the stack)
+# ============================================================================
+additional_agents:
+  # Example:
+  # - devsecops   # We always want security
+  # - finance     # Budget tracking
+  ${ADDITIONAL_AGENTS}
+
+# ============================================================================
+# AUTO-DETECTION CONFIGURATION
+# Configuration for automatic integration detection
+# ============================================================================
+auto_detection:
+  enabled: true
+  scan_imports: true      # Detect imports in code
+  scan_configs: true      # Detect in package.json, requirements.txt
+  suggest_missing: true   # Suggest missing agents
+  last_scan: null
+  detected_integrations: []
+
+# ============================================================================
+# METADATA
+# ============================================================================
+metadata:
+  ai_core_version: "${JVIS_VERSION}"
+  last_modified: "${LAST_MODIFIED}"
+  last_verified: null

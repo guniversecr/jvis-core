@@ -1,0 +1,272 @@
+# JVIS Project Journey State
+# This file tracks the current state of your project's journey
+# Location: docs/journey/journey-state.yaml
+
+project:
+  name: "{PROJECT_NAME}"
+  started: "{DATE}"
+  last_updated: "{DATE}"
+
+current_phase: "ideation"  # ideation | validation | planning | development | production
+
+# =============================================================================
+# PHASE STATES
+# =============================================================================
+phases:
+  ideation:
+    status: "in_progress"  # not_started | in_progress | completed | skipped
+    started: "{DATE}"
+    completed: null
+    checkpoints:
+      idea_documented:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      wps_scored:
+        status: "not_started"
+        completed: null
+        score: null  # 1-10
+        notes: ""
+        artifacts: []
+      market_researched:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      competitors_analyzed:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      business_model_defined:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+    gate:
+      status: "pending"  # pending | passed | failed | waived
+      decision: null
+      decision_date: null
+      decision_by: null
+      notes: ""
+
+  validation:
+    status: "not_started"
+    started: null
+    completed: null
+    checkpoints:
+      interview_guide_created:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      interviews_conducted:
+        status: "not_started"
+        completed: null
+        interview_count: 0
+        notes: ""
+        artifacts: []
+      problem_validated:
+        status: "not_started"
+        completed: null
+        validation_rate: null  # percentage
+        notes: ""
+        artifacts: []
+      experiment_designed:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      experiment_executed:
+        status: "not_started"
+        completed: null
+        conversion_rate: null
+        notes: ""
+        artifacts: []
+      solution_validated:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+    gate:
+      status: "pending"
+      decision: null
+      decision_date: null
+      decision_by: null
+      notes: ""
+
+  planning:
+    status: "not_started"
+    started: null
+    completed: null
+    checkpoints:
+      user_personas_defined:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      mvp_scoped:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      prd_created:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      architecture_designed:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      security_planned:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      infrastructure_planned:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      documents_sharded:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      sprint_planned:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+    gate:
+      status: "pending"
+      decision: null
+      decision_date: null
+      decision_by: null
+      notes: ""
+
+  development:
+    status: "not_started"
+    started: null
+    completed: null
+    checkpoints:
+      project_scaffolded:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      database_setup:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      core_features_implemented:
+        status: "not_started"
+        completed: null
+        stories_completed: 0
+        stories_total: 0
+        notes: ""
+        artifacts: []
+      qa_passed:
+        status: "not_started"
+        completed: null
+        gates_passed: 0
+        gates_total: 0
+        notes: ""
+        artifacts: []
+      security_audited:
+        status: "not_started"
+        completed: null
+        vulnerabilities_critical: 0
+        vulnerabilities_high: 0
+        notes: ""
+        artifacts: []
+      integration_tested:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      documentation_complete:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+    gate:
+      status: "pending"
+      decision: null
+      decision_date: null
+      decision_by: null
+      notes: ""
+
+  production:
+    status: "not_started"
+    started: null
+    completed: null
+    checkpoints:
+      staging_deployed:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      staging_validated:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      production_deployed:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      monitoring_active:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      launch_executed:
+        status: "not_started"
+        completed: null
+        notes: ""
+        artifacts: []
+      pmf_measured:
+        status: "not_started"
+        completed: null
+        pmf_score: null  # percentage
+        notes: ""
+        artifacts: []
+      iterate_or_scale:
+        status: "not_started"
+        completed: null
+        decision: null  # iterate | scale | pivot | kill
+        notes: ""
+        artifacts: []
+    gate:
+      status: "pending"
+      decision: null
+      decision_date: null
+      decision_by: null
+      notes: ""
+
+# =============================================================================
+# JOURNEY METRICS
+# =============================================================================
+metrics:
+  total_checkpoints: 35
+  completed_checkpoints: 0
+  progress_percentage: 0
+  gates_passed: 0
+  gates_total: 5
+  blocked_items: []
+
+# =============================================================================
+# HISTORY
+# =============================================================================
+history: []
+  # - date: "2024-01-15"
+  #   action: "checkpoint_completed"
+  #   checkpoint: "idea_documented"
+  #   phase: "ideation"
+  #   notes: "Initial idea brief created"

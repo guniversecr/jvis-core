@@ -1,0 +1,61 @@
+"""Item CRUD tests for {{ project_name }}."""
+
+from flask.testing import FlaskClient
+
+
+class TestItemCRUD:
+    """Test Item CRUD operations via Flask routes."""
+
+    def test_create_item(self, client: FlaskClient) -> None:
+        response = client.post(
+            "/api/items",
+            json={"name": "Test Item", "description": "A test item"},
+        )
+        assert response.status_code == 201
+        data = response.get_json()
+        assert data["name"] == "Test Item"
+        assert data["description"] == "A test item"
+        assert "id" in data
+
+    def test_list_items(self, client: FlaskClient) -> None:
+        client.post("/api/items", json={"name": "Item 1"})
+        client.post("/api/items", json={"name": "Item 2"})
+
+        response = client.get("/api/items")
+        assert response.status_code == 200
+        data = response.get_json()
+        assert len(data) == 2
+
+    def test_get_item(self, client: FlaskClient) -> None:
+        create_res = client.post("/api/items", json={"name": "Test"})
+        item_id = create_res.get_json()["id"]
+
+        response = client.get(f"/api/items/{item_id}")
+        assert response.status_code == 200
+        assert response.get_json()["name"] == "Test"
+
+    def test_update_item(self, client: FlaskClient) -> None:
+        create_res = client.post("/api/items", json={"name": "Old Name"})
+        item_id = create_res.get_json()["id"]
+
+        response = client.patch(
+            f"/api/items/{item_id}",
+            json={"name": "New Name"},
+        )
+        assert response.status_code == 200
+        assert response.get_json()["name"] == "New Name"
+
+    def test_delete_item(self, client: FlaskClient) -> None:
+        create_res = client.post("/api/items", json={"name": "To Delete"})
+        item_id = create_res.get_json()["id"]
+
+        response = client.delete(f"/api/items/{item_id}")
+        assert response.status_code == 204
+
+    def test_get_nonexistent_returns_404(self, client: FlaskClient) -> None:
+        response = client.get("/api/items/nonexistent-id")
+        assert response.status_code == 404
+
+    def test_create_without_name_returns_400(self, client: FlaskClient) -> None:
+        response = client.post("/api/items", json={"description": "no name"})
+        assert response.status_code == 400

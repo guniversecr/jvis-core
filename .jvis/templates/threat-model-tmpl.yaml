@@ -1,0 +1,412 @@
+# JVIS Threat Model Template
+# Version: 1.0
+# Usage: Create comprehensive threat models for security analysis
+# Location: docs/security/threat-model-{{system_name}}.md
+
+---
+template:
+  id: threat-model-template-v1
+  name: Threat Model
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/security/threat-model-{{system_name}}.md
+    title: "Threat Model: {{system_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Threat Model Metadata
+      system: "{{system_name}}"
+      organization: "{{organization_name}}"
+      created: "{{YYYY-MM-DD}}"
+      status: "{{status}}"
+      owner: "{{security_lead}}"
+      ---
+
+      # Threat Model: {{system_name}}
+
+      | Field | Value |
+      |-------|-------|
+      | **System** | {{system_name}} |
+      | **Organization** | {{organization_name}} |
+      | **Version** | {{system_version}} |
+      | **Classification** | {{classification}} |
+      | **Security Lead** | {{security_lead}} |
+      | **Last Review** | {{last_review}} |
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Provide high-level summary of the threat model.
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      ### System Overview
+      {{system_overview}}
+
+      ### Risk Summary
+      | Risk Level | Count | Critical Assets |
+      |------------|-------|-----------------|
+      | Critical | {{critical_count}} | {{critical_assets}} |
+      | High | {{high_count}} | {{high_assets}} |
+      | Medium | {{medium_count}} | {{medium_assets}} |
+      | Low | {{low_count}} | {{low_assets}} |
+
+      ### Key Findings
+      1. {{finding_1}}
+      2. {{finding_2}}
+      3. {{finding_3}}
+
+      ### Priority Recommendations
+      1. {{recommendation_1}}
+      2. {{recommendation_2}}
+      3. {{recommendation_3}}
+
+  - id: system-description
+    title: System Description
+    instruction: |
+      Describe the system architecture and components.
+    elicit: true
+    template: |
+      ## System Description
+
+      ### Architecture Overview
+      {{architecture_overview}}
+
+      ### Components
+      | Component | Description | Technology | Owner |
+      |-----------|-------------|------------|-------|
+      | {{component_1}} | {{comp_desc_1}} | {{tech_1}} | {{owner_1}} |
+      | {{component_2}} | {{comp_desc_2}} | {{tech_2}} | {{owner_2}} |
+      | {{component_3}} | {{comp_desc_3}} | {{tech_3}} | {{owner_3}} |
+      | {{component_4}} | {{comp_desc_4}} | {{tech_4}} | {{owner_4}} |
+      | {{component_5}} | {{comp_desc_5}} | {{tech_5}} | {{owner_5}} |
+
+      ### Data Flows
+      | Source | Destination | Data Type | Protocol | Encryption |
+      |--------|-------------|-----------|----------|------------|
+      | {{source_1}} | {{dest_1}} | {{data_type_1}} | {{protocol_1}} | {{encrypt_1}} |
+      | {{source_2}} | {{dest_2}} | {{data_type_2}} | {{protocol_2}} | {{encrypt_2}} |
+      | {{source_3}} | {{dest_3}} | {{data_type_3}} | {{protocol_3}} | {{encrypt_3}} |
+      | {{source_4}} | {{dest_4}} | {{data_type_4}} | {{protocol_4}} | {{encrypt_4}} |
+
+      ### External Dependencies
+      | Dependency | Type | Risk Level |
+      |------------|------|------------|
+      | {{dep_1}} | {{dep_type_1}} | {{dep_risk_1}} |
+      | {{dep_2}} | {{dep_type_2}} | {{dep_risk_2}} |
+      | {{dep_3}} | {{dep_type_3}} | {{dep_risk_3}} |
+
+  - id: assets
+    title: Assets & Data
+    instruction: |
+      Identify and classify assets requiring protection.
+    elicit: true
+    template: |
+      ## Assets & Data
+
+      ### Critical Assets
+      | Asset | Type | Classification | Value |
+      |-------|------|----------------|-------|
+      | {{asset_1}} | {{asset_type_1}} | {{class_1}} | {{value_1}} |
+      | {{asset_2}} | {{asset_type_2}} | {{class_2}} | {{value_2}} |
+      | {{asset_3}} | {{asset_type_3}} | {{class_3}} | {{value_3}} |
+      | {{asset_4}} | {{asset_type_4}} | {{class_4}} | {{value_4}} |
+
+      ### Data Classification
+      | Data Category | Classification | Retention | Location |
+      |---------------|----------------|-----------|----------|
+      | {{data_cat_1}} | {{data_class_1}} | {{retention_1}} | {{location_1}} |
+      | {{data_cat_2}} | {{data_class_2}} | {{retention_2}} | {{location_2}} |
+      | {{data_cat_3}} | {{data_class_3}} | {{retention_3}} | {{location_3}} |
+
+      ### Regulatory Requirements
+      | Regulation | Scope | Requirements |
+      |------------|-------|--------------|
+      | {{reg_1}} | {{reg_scope_1}} | {{reg_req_1}} |
+      | {{reg_2}} | {{reg_scope_2}} | {{reg_req_2}} |
+
+      ### Asset Owners
+      {{asset_owners}}
+
+  - id: trust-boundaries
+    title: Trust Boundaries
+    template: |
+      ## Trust Boundaries
+
+      ### Boundary Diagram
+      {{boundary_diagram}}
+
+      ### Trust Zones
+      | Zone | Components | Trust Level | Access Control |
+      |------|------------|-------------|----------------|
+      | {{zone_1}} | {{zone_comp_1}} | {{trust_1}} | {{access_1}} |
+      | {{zone_2}} | {{zone_comp_2}} | {{trust_2}} | {{access_2}} |
+      | {{zone_3}} | {{zone_comp_3}} | {{trust_3}} | {{access_3}} |
+      | {{zone_4}} | {{zone_comp_4}} | {{trust_4}} | {{access_4}} |
+
+      ### Boundary Crossings
+      | Crossing | From Zone | To Zone | Protection |
+      |----------|-----------|---------|------------|
+      | {{crossing_1}} | {{from_1}} | {{to_1}} | {{protection_1}} |
+      | {{crossing_2}} | {{from_2}} | {{to_2}} | {{protection_2}} |
+      | {{crossing_3}} | {{from_3}} | {{to_3}} | {{protection_3}} |
+
+  - id: threat-actors
+    title: Threat Actors
+    instruction: |
+      Identify and characterize potential threat actors.
+    elicit: true
+    template: |
+      ## Threat Actors
+
+      ### Actor Profiles
+      | Actor | Motivation | Capability | Likelihood |
+      |-------|------------|------------|------------|
+      | {{actor_1}} | {{motivation_1}} | {{capability_1}} | {{likelihood_1}} |
+      | {{actor_2}} | {{motivation_2}} | {{capability_2}} | {{likelihood_2}} |
+      | {{actor_3}} | {{motivation_3}} | {{capability_3}} | {{likelihood_3}} |
+      | {{actor_4}} | {{motivation_4}} | {{capability_4}} | {{likelihood_4}} |
+      | {{actor_5}} | {{motivation_5}} | {{capability_5}} | {{likelihood_5}} |
+
+      ### Actor Details
+
+      #### {{actor_detail_1}}
+      - **Description:** {{actor_desc_1}}
+      - **Resources:** {{actor_resources_1}}
+      - **TTPs:** {{actor_ttps_1}}
+      - **Historical Activity:** {{actor_history_1}}
+
+      #### {{actor_detail_2}}
+      - **Description:** {{actor_desc_2}}
+      - **Resources:** {{actor_resources_2}}
+      - **TTPs:** {{actor_ttps_2}}
+      - **Historical Activity:** {{actor_history_2}}
+
+      ### Insider Threats
+      {{insider_threats}}
+
+  - id: stride-analysis
+    title: STRIDE Analysis
+    instruction: |
+      Analyze threats using STRIDE methodology.
+    elicit: true
+    template: |
+      ## STRIDE Analysis
+
+      ### Spoofing
+      | Threat | Component | Attack Vector | Risk |
+      |--------|-----------|---------------|------|
+      | {{spoof_threat_1}} | {{spoof_comp_1}} | {{spoof_vector_1}} | {{spoof_risk_1}} |
+      | {{spoof_threat_2}} | {{spoof_comp_2}} | {{spoof_vector_2}} | {{spoof_risk_2}} |
+
+      ### Tampering
+      | Threat | Component | Attack Vector | Risk |
+      |--------|-----------|---------------|------|
+      | {{tamper_threat_1}} | {{tamper_comp_1}} | {{tamper_vector_1}} | {{tamper_risk_1}} |
+      | {{tamper_threat_2}} | {{tamper_comp_2}} | {{tamper_vector_2}} | {{tamper_risk_2}} |
+
+      ### Repudiation
+      | Threat | Component | Attack Vector | Risk |
+      |--------|-----------|---------------|------|
+      | {{repud_threat_1}} | {{repud_comp_1}} | {{repud_vector_1}} | {{repud_risk_1}} |
+      | {{repud_threat_2}} | {{repud_comp_2}} | {{repud_vector_2}} | {{repud_risk_2}} |
+
+      ### Information Disclosure
+      | Threat | Component | Attack Vector | Risk |
+      |--------|-----------|---------------|------|
+      | {{info_threat_1}} | {{info_comp_1}} | {{info_vector_1}} | {{info_risk_1}} |
+      | {{info_threat_2}} | {{info_comp_2}} | {{info_vector_2}} | {{info_risk_2}} |
+
+      ### Denial of Service
+      | Threat | Component | Attack Vector | Risk |
+      |--------|-----------|---------------|------|
+      | {{dos_threat_1}} | {{dos_comp_1}} | {{dos_vector_1}} | {{dos_risk_1}} |
+      | {{dos_threat_2}} | {{dos_comp_2}} | {{dos_vector_2}} | {{dos_risk_2}} |
+
+      ### Elevation of Privilege
+      | Threat | Component | Attack Vector | Risk |
+      |--------|-----------|---------------|------|
+      | {{eop_threat_1}} | {{eop_comp_1}} | {{eop_vector_1}} | {{eop_risk_1}} |
+      | {{eop_threat_2}} | {{eop_comp_2}} | {{eop_vector_2}} | {{eop_risk_2}} |
+
+  - id: attack-surface
+    title: Attack Surface
+    template: |
+      ## Attack Surface
+
+      ### Entry Points
+      | Entry Point | Protocol | Authentication | Exposed To |
+      |-------------|----------|----------------|------------|
+      | {{entry_1}} | {{entry_proto_1}} | {{entry_auth_1}} | {{entry_exposed_1}} |
+      | {{entry_2}} | {{entry_proto_2}} | {{entry_auth_2}} | {{entry_exposed_2}} |
+      | {{entry_3}} | {{entry_proto_3}} | {{entry_auth_3}} | {{entry_exposed_3}} |
+      | {{entry_4}} | {{entry_proto_4}} | {{entry_auth_4}} | {{entry_exposed_4}} |
+
+      ### APIs
+      | API | Authentication | Rate Limiting | Sensitive Data |
+      |-----|----------------|---------------|----------------|
+      | {{api_1}} | {{api_auth_1}} | {{api_rate_1}} | {{api_data_1}} |
+      | {{api_2}} | {{api_auth_2}} | {{api_rate_2}} | {{api_data_2}} |
+      | {{api_3}} | {{api_auth_3}} | {{api_rate_3}} | {{api_data_3}} |
+
+      ### Network Exposure
+      {{network_exposure}}
+
+      ### Third-Party Integrations
+      | Integration | Access Level | Data Shared | Risk |
+      |-------------|--------------|-------------|------|
+      | {{integ_1}} | {{integ_access_1}} | {{integ_data_1}} | {{integ_risk_1}} |
+      | {{integ_2}} | {{integ_access_2}} | {{integ_data_2}} | {{integ_risk_2}} |
+
+  - id: risk-assessment
+    title: Risk Assessment
+    instruction: |
+      Assess and prioritize identified risks.
+    elicit: true
+    template: |
+      ## Risk Assessment
+
+      ### Risk Matrix
+      | Risk ID | Threat | Likelihood | Impact | Risk Score | Priority |
+      |---------|--------|------------|--------|------------|----------|
+      | {{risk_id_1}} | {{risk_threat_1}} | {{risk_like_1}} | {{risk_impact_1}} | {{risk_score_1}} | {{risk_priority_1}} |
+      | {{risk_id_2}} | {{risk_threat_2}} | {{risk_like_2}} | {{risk_impact_2}} | {{risk_score_2}} | {{risk_priority_2}} |
+      | {{risk_id_3}} | {{risk_threat_3}} | {{risk_like_3}} | {{risk_impact_3}} | {{risk_score_3}} | {{risk_priority_3}} |
+      | {{risk_id_4}} | {{risk_threat_4}} | {{risk_like_4}} | {{risk_impact_4}} | {{risk_score_4}} | {{risk_priority_4}} |
+      | {{risk_id_5}} | {{risk_threat_5}} | {{risk_like_5}} | {{risk_impact_5}} | {{risk_score_5}} | {{risk_priority_5}} |
+
+      ### Critical Risks
+      {{critical_risks_detail}}
+
+      ### Risk Scoring Methodology
+      **Likelihood Scale:** {{likelihood_scale}}
+      **Impact Scale:** {{impact_scale}}
+      **Score Calculation:** {{score_calculation}}
+
+  - id: existing-controls
+    title: Existing Controls
+    template: |
+      ## Existing Controls
+
+      ### Security Controls
+      | Control | Type | Threats Addressed | Effectiveness |
+      |---------|------|-------------------|---------------|
+      | {{control_1}} | {{ctrl_type_1}} | {{ctrl_threats_1}} | {{ctrl_effect_1}} |
+      | {{control_2}} | {{ctrl_type_2}} | {{ctrl_threats_2}} | {{ctrl_effect_2}} |
+      | {{control_3}} | {{ctrl_type_3}} | {{ctrl_threats_3}} | {{ctrl_effect_3}} |
+      | {{control_4}} | {{ctrl_type_4}} | {{ctrl_threats_4}} | {{ctrl_effect_4}} |
+
+      ### Authentication & Authorization
+      {{auth_controls}}
+
+      ### Encryption
+      | Data State | Method | Key Management |
+      |------------|--------|----------------|
+      | At Rest | {{encrypt_rest}} | {{key_rest}} |
+      | In Transit | {{encrypt_transit}} | {{key_transit}} |
+      | In Use | {{encrypt_use}} | {{key_use}} |
+
+      ### Monitoring & Detection
+      {{monitoring_controls}}
+
+      ### Control Gaps
+      {{control_gaps}}
+
+  - id: mitigations
+    title: Mitigations
+    instruction: |
+      Recommend mitigations for identified threats.
+    elicit: true
+    template: |
+      ## Mitigations
+
+      ### Recommended Mitigations
+      | Risk ID | Mitigation | Type | Priority | Effort | Owner |
+      |---------|------------|------|----------|--------|-------|
+      | {{mit_risk_1}} | {{mitigation_1}} | {{mit_type_1}} | {{mit_priority_1}} | {{mit_effort_1}} | {{mit_owner_1}} |
+      | {{mit_risk_2}} | {{mitigation_2}} | {{mit_type_2}} | {{mit_priority_2}} | {{mit_effort_2}} | {{mit_owner_2}} |
+      | {{mit_risk_3}} | {{mitigation_3}} | {{mit_type_3}} | {{mit_priority_3}} | {{mit_effort_3}} | {{mit_owner_3}} |
+      | {{mit_risk_4}} | {{mitigation_4}} | {{mit_type_4}} | {{mit_priority_4}} | {{mit_effort_4}} | {{mit_owner_4}} |
+      | {{mit_risk_5}} | {{mitigation_5}} | {{mit_type_5}} | {{mit_priority_5}} | {{mit_effort_5}} | {{mit_owner_5}} |
+
+      ### Mitigation Details
+
+      #### {{mit_detail_1_name}}
+      - **Description:** {{mit_detail_1_desc}}
+      - **Implementation:** {{mit_detail_1_impl}}
+      - **Residual Risk:** {{mit_detail_1_residual}}
+
+      #### {{mit_detail_2_name}}
+      - **Description:** {{mit_detail_2_desc}}
+      - **Implementation:** {{mit_detail_2_impl}}
+      - **Residual Risk:** {{mit_detail_2_residual}}
+
+      ### Accepted Risks
+      | Risk | Reason | Expiration | Owner |
+      |------|--------|------------|-------|
+      | {{accept_risk_1}} | {{accept_reason_1}} | {{accept_exp_1}} | {{accept_owner_1}} |
+      | {{accept_risk_2}} | {{accept_reason_2}} | {{accept_exp_2}} | {{accept_owner_2}} |
+
+  - id: implementation-plan
+    title: Implementation Plan
+    template: |
+      ## Implementation Plan
+
+      ### Phase 1: Immediate (0-30 days)
+      | Action | Owner | Due Date | Status |
+      |--------|-------|----------|--------|
+      | {{phase1_action_1}} | {{phase1_owner_1}} | {{phase1_due_1}} | {{phase1_status_1}} |
+      | {{phase1_action_2}} | {{phase1_owner_2}} | {{phase1_due_2}} | {{phase1_status_2}} |
+
+      ### Phase 2: Short-term (30-90 days)
+      | Action | Owner | Due Date | Status |
+      |--------|-------|----------|--------|
+      | {{phase2_action_1}} | {{phase2_owner_1}} | {{phase2_due_1}} | {{phase2_status_1}} |
+      | {{phase2_action_2}} | {{phase2_owner_2}} | {{phase2_due_2}} | {{phase2_status_2}} |
+
+      ### Phase 3: Long-term (90+ days)
+      | Action | Owner | Due Date | Status |
+      |--------|-------|----------|--------|
+      | {{phase3_action_1}} | {{phase3_owner_1}} | {{phase3_due_1}} | {{phase3_status_1}} |
+      | {{phase3_action_2}} | {{phase3_owner_2}} | {{phase3_due_2}} | {{phase3_status_2}} |
+
+      ### Resource Requirements
+      {{resource_requirements}}
+
+  - id: review-maintenance
+    title: Review & Maintenance
+    template: |
+      ## Review & Maintenance
+
+      ### Review Schedule
+      | Review Type | Frequency | Next Due | Owner |
+      |-------------|-----------|----------|-------|
+      | Full Review | {{full_freq}} | {{full_due}} | {{full_owner}} |
+      | Incremental | {{incr_freq}} | {{incr_due}} | {{incr_owner}} |
+      | Trigger-based | {{trigger_cond}} | N/A | {{trigger_owner}} |
+
+      ### Change Triggers
+      - {{trigger_1}}
+      - {{trigger_2}}
+      - {{trigger_3}}
+
+      ### Stakeholders
+      | Name | Role | Responsibility |
+      |------|------|----------------|
+      | {{stake_name_1}} | {{stake_role_1}} | {{stake_resp_1}} |
+      | {{stake_name_2}} | {{stake_role_2}} | {{stake_resp_2}} |
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial threat model |

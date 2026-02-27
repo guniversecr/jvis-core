@@ -1,0 +1,72 @@
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import request from 'supertest';
+import { app } from '../../src/app.js';
+
+describe('Items API', () => {
+  let createdId: string;
+
+  describe('POST /api/items', () => {
+    it('should create an item', async () => {
+      const res = await request(app)
+        .post('/api/items')
+        .send({ name: 'Test Item', description: 'A test item' })
+        .expect(201);
+
+      expect(res.body).toHaveProperty('id');
+      expect(res.body.name).toBe('Test Item');
+      createdId = res.body.id;
+    });
+
+    it('should return 400 for invalid data', async () => {
+      await request(app)
+        .post('/api/items')
+        .send({ name: '' })
+        .expect(400);
+    });
+  });
+
+  describe('GET /api/items', () => {
+    it('should list all items', async () => {
+      const res = await request(app)
+        .get('/api/items')
+        .expect(200);
+
+      expect(Array.isArray(res.body)).toBe(true);
+    });
+  });
+
+  describe('GET /api/items/:id', () => {
+    it('should return an item by id', async () => {
+      const res = await request(app)
+        .get(`/api/items/${createdId}`)
+        .expect(200);
+
+      expect(res.body.name).toBe('Test Item');
+    });
+
+    it('should return 404 for non-existent item', async () => {
+      await request(app)
+        .get('/api/items/non-existent-id')
+        .expect(404);
+    });
+  });
+
+  describe('PATCH /api/items/:id', () => {
+    it('should update an item', async () => {
+      const res = await request(app)
+        .patch(`/api/items/${createdId}`)
+        .send({ name: 'Updated Item' })
+        .expect(200);
+
+      expect(res.body.name).toBe('Updated Item');
+    });
+  });
+
+  describe('DELETE /api/items/:id', () => {
+    it('should delete an item', async () => {
+      await request(app)
+        .delete(`/api/items/${createdId}`)
+        .expect(204);
+    });
+  });
+});

@@ -1,0 +1,301 @@
+# JVIS Project Brief Template
+# Version: 1.0
+# Usage: Foundation document created before PRD to establish project context
+# Location: docs/project-brief.md
+
+---
+template:
+  id: project-brief-template-v1
+  name: Project Brief
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/project-brief.md
+    title: "{{project_name}} Project Brief"
+
+workflow:
+  mode: interactive
+  elicitation: basic
+
+sections:
+  - id: header
+    title: Project Brief
+    content: |
+      # {{project_name}} - Project Brief
+
+      **Document Version:** 1.0
+      **Created:** {{YYYY-MM-DD}}
+      **Last Updated:** {{YYYY-MM-DD}}
+      **Status:** Draft
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Provide a concise 2-3 sentence overview of the project. This should answer:
+      - What is being built?
+      - Who is it for?
+      - What problem does it solve?
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      {{executive_summary}}
+
+  - id: problem-statement
+    title: Problem Statement
+    instruction: |
+      Clearly articulate the problem being solved:
+
+      1. What is the current pain point or gap?
+      2. Who experiences this problem?
+      3. What is the impact of this problem?
+      4. Why is now the right time to solve it?
+
+      Be specific and avoid solution language in this section.
+    elicit: true
+    sections:
+      - id: current-state
+        title: Current State
+        template: |
+          ### Current State
+          {{current_state_description}}
+      - id: pain-points
+        title: Pain Points
+        type: bullet-list
+        template: "- {{pain_point}}"
+      - id: impact
+        title: Business Impact
+        template: |
+          ### Impact
+          {{impact_description}}
+
+  - id: target-users
+    title: Target Users
+    instruction: |
+      Define who will use this product/feature:
+
+      1. Primary user persona(s)
+      2. Secondary users (if any)
+      3. Key characteristics and needs
+      4. Current alternatives they use
+
+      Be specific about demographics, behaviors, and motivations.
+    elicit: true
+    sections:
+      - id: primary-persona
+        title: Primary User
+        template: |
+          ### Primary User Persona
+
+          **Name:** {{persona_name}}
+          **Role/Type:** {{persona_role}}
+          **Demographics:** {{demographics}}
+
+          **Goals:**
+          - {{goal_1}}
+          - {{goal_2}}
+
+          **Frustrations:**
+          - {{frustration_1}}
+          - {{frustration_2}}
+
+          **Current Solutions:** {{current_solutions}}
+      - id: secondary-personas
+        title: Secondary Users
+        condition: Has secondary user personas
+        repeatable: true
+        template: |
+          ### {{persona_name}}
+          **Role:** {{role}}
+          **Relevance:** {{why_important}}
+
+  - id: proposed-solution
+    title: Proposed Solution
+    instruction: |
+      Describe the proposed solution at a high level:
+
+      1. What will be built?
+      2. How does it solve the problem?
+      3. What makes this approach the right choice?
+
+      Keep this conceptual - detailed specs come later in the PRD.
+    elicit: true
+    sections:
+      - id: solution-overview
+        title: Solution Overview
+        template: |
+          ## Proposed Solution
+
+          {{solution_description}}
+      - id: key-capabilities
+        title: Key Capabilities
+        type: bullet-list
+        template: "- **{{capability_name}}:** {{capability_description}}"
+      - id: differentiation
+        title: Differentiation
+        template: |
+          ### Why This Approach
+          {{differentiation_rationale}}
+
+  - id: success-metrics
+    title: Success Metrics
+    instruction: |
+      Define how success will be measured:
+
+      1. What are the key metrics?
+      2. What are the target values?
+      3. How will they be tracked?
+
+      Include both leading and lagging indicators.
+    elicit: true
+    sections:
+      - id: kpis
+        title: Key Performance Indicators
+        type: table
+        columns: [Metric, Current, Target, Measurement Method]
+        examples:
+          - "| User Adoption Rate | 0% | 50% in 6 months | Analytics dashboard |"
+          - "| Task Completion Time | 15 min | 5 min | User session logs |"
+          - "| Customer Satisfaction | N/A | >4.0/5.0 | NPS surveys |"
+      - id: success-criteria
+        title: Success Criteria
+        type: bullet-list
+        template: "- [ ] {{criterion}}"
+
+  - id: mvp-scope
+    title: MVP Scope
+    instruction: |
+      Define what's in and out of scope for the MVP:
+
+      1. Core features that MUST be in MVP
+      2. Features that are nice-to-have but can wait
+      3. Features explicitly out of scope
+
+      Be ruthless about scope - focus on solving the core problem.
+    elicit: true
+    sections:
+      - id: must-have
+        title: Must-Have (MVP)
+        type: bullet-list
+        template: "- {{feature}}"
+      - id: nice-to-have
+        title: Nice-to-Have (Post-MVP)
+        type: bullet-list
+        template: "- {{feature}}"
+      - id: out-of-scope
+        title: Out of Scope
+        type: bullet-list
+        template: "- {{feature}}"
+
+  - id: constraints
+    title: Constraints & Assumptions
+    instruction: |
+      Document known constraints and assumptions:
+
+      1. Technical constraints (platforms, integrations, etc.)
+      2. Business constraints (budget, timeline, resources)
+      3. Regulatory/compliance constraints
+      4. Key assumptions being made
+
+      Being explicit about constraints helps set realistic expectations.
+    elicit: true
+    sections:
+      - id: technical-constraints
+        title: Technical Constraints
+        type: bullet-list
+        template: "- {{constraint}}"
+      - id: business-constraints
+        title: Business Constraints
+        type: bullet-list
+        template: "- {{constraint}}"
+      - id: assumptions
+        title: Key Assumptions
+        type: bullet-list
+        template: "- {{assumption}}"
+
+  - id: risks
+    title: Risks & Mitigations
+    instruction: |
+      Identify key risks and mitigation strategies:
+
+      1. What could go wrong?
+      2. What's the likelihood and impact?
+      3. How will we mitigate or respond?
+    elicit: true
+    type: table
+    columns: [Risk, Likelihood, Impact, Mitigation]
+    examples:
+      - "| Technical complexity | Medium | High | Spike during planning phase |"
+      - "| User adoption | Medium | High | Beta testing with target users |"
+      - "| Scope creep | High | Medium | Strict change control process |"
+
+  - id: timeline
+    title: High-Level Timeline
+    instruction: |
+      Provide a rough timeline:
+
+      1. Key milestones
+      2. Target dates (or relative timeframes)
+      3. Dependencies on external factors
+
+      This is high-level planning - detailed scheduling comes later.
+    elicit: true
+    sections:
+      - id: milestones
+        title: Key Milestones
+        type: table
+        columns: [Milestone, Target Date, Dependencies]
+        examples:
+          - "| Project Brief Complete | Week 1 | Stakeholder alignment |"
+          - "| PRD Complete | Week 2 | Business Analyst review |"
+          - "| Architecture Complete | Week 3 | Tech lead availability |"
+          - "| MVP Launch | Week 12 | Development capacity |"
+
+  - id: stakeholders
+    title: Stakeholders
+    instruction: |
+      Identify key stakeholders:
+
+      1. Who needs to approve this project?
+      2. Who will be impacted?
+      3. Who has relevant expertise?
+    elicit: true
+    type: table
+    columns: [Name/Role, Stake, Involvement Level]
+    examples:
+      - "| Product Owner | Decision maker | Approver |"
+      - "| Engineering Lead | Technical feasibility | Contributor |"
+      - "| Customer Success | User feedback | Consulted |"
+
+  - id: next-steps
+    title: Next Steps
+    instruction: |
+      Define immediate next steps:
+
+      1. Who needs to review/approve this brief?
+      2. What decisions need to be made?
+      3. When does PRD creation begin?
+    sections:
+      - id: actions
+        title: Immediate Actions
+        type: numbered-list
+        items:
+          - "Review and approve Project Brief"
+          - "Schedule PRD kickoff with Product Manager"
+          - "Begin technical discovery with Architect"
+      - id: handoff
+        title: Handoff to PRD
+        template: |
+          ### Handoff to Product Manager
+
+          Once this brief is approved, the Product Manager (/pm) should:
+          1. Review this brief thoroughly
+          2. Schedule stakeholder interviews if needed
+          3. Begin PRD creation using prd-tmpl.yaml
+          4. Reference this brief for context and constraints
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial creation |

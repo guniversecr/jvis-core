@@ -1,0 +1,82 @@
+id: vue-vite
+name: "Vue + Vite + TypeScript"
+description: "Vue 3 with Composition API, Vite, Pinia, Vue Router, TypeScript strict, Vitest"
+type: frontend
+language: typescript
+framework: vue
+requires_database: false
+agents: [frontend, dev, qa, architect, pm, sm]
+
+dev_command: "npm run dev"
+dev_port: 5173
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run dev"
+
+directories:
+  - src
+  - src/components
+  - src/components/ui
+  - src/components/layout
+  - src/composables
+  - src/views
+  - src/stores
+  - src/services
+  - src/types
+  - src/utils
+  - src/router
+  - public
+  - tests
+  - tests/unit
+  - tests/unit/components
+
+files:
+  # Config
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "tsconfig.node.json", dst: "tsconfig.node.json"}
+  - {src: "vite.config.ts", dst: "vite.config.ts"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: ".env.example", dst: ".env.example"}
+  - {src: ".eslintrc.cjs", dst: ".eslintrc.cjs"}
+  - {src: "index.html.j2", dst: "index.html"}
+
+  # Entry points
+  - {src: "src/main.ts.j2", dst: "src/main.ts"}
+  - {src: "src/App.vue.j2", dst: "src/App.vue"}
+  - {src: "src/vite-env.d.ts", dst: "src/vite-env.d.ts"}
+
+  # Types
+  - {src: "src/types/item.ts", dst: "src/types/item.ts"}
+
+  # Utils
+  - {src: "src/utils/config.ts.j2", dst: "src/utils/config.ts"}
+
+  # Services
+  - {src: "src/services/api.ts", dst: "src/services/api.ts"}
+
+  # Composables
+  - {src: "src/composables/useItems.ts", dst: "src/composables/useItems.ts"}
+
+  # Router
+  - {src: "src/router/index.ts", dst: "src/router/index.ts"}
+
+  # Stores
+  - {src: "src/stores/items.ts", dst: "src/stores/items.ts"}
+
+  # Views
+  - {src: "src/views/HomeView.vue", dst: "src/views/HomeView.vue"}
+  - {src: "src/views/NotFoundView.vue", dst: "src/views/NotFoundView.vue"}
+
+  # Components
+  - {src: "src/components/layout/AppLayout.vue.j2", dst: "src/components/layout/AppLayout.vue"}
+  - {src: "src/components/ui/ItemCard.vue", dst: "src/components/ui/ItemCard.vue"}
+  - {src: "src/components/ui/ItemForm.vue", dst: "src/components/ui/ItemForm.vue"}
+  - {src: "src/components/ui/ItemList.vue", dst: "src/components/ui/ItemList.vue"}
+
+  # Tests
+  - {src: "tests/setup.ts", dst: "tests/setup.ts"}
+  - {src: "tests/unit/components/ItemCard.test.ts", dst: "tests/unit/components/ItemCard.test.ts"}

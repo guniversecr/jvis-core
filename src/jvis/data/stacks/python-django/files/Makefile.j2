@@ -1,0 +1,40 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: dev
+dev:  ## Start development server
+	python manage.py runserver 0.0.0.0:8000
+
+.PHONY: test
+test:  ## Run tests
+	pytest --cov=core --cov-report=term-missing
+
+.PHONY: lint
+lint:  ## Run linters
+	ruff check core/ config/ tests/
+	mypy core/ config/
+
+.PHONY: format
+format:  ## Format code
+	ruff format core/ config/ tests/
+	ruff check --fix core/ config/ tests/
+
+.PHONY: migrate
+migrate:  ## Run database migrations
+	python manage.py migrate
+
+.PHONY: migrations
+migrations:  ## Create new migrations
+	python manage.py makemigrations
+
+.PHONY: up
+up:  ## Start with Docker Compose
+	docker compose up --build
+
+.PHONY: down
+down:  ## Stop Docker Compose
+	docker compose down

@@ -1,0 +1,65 @@
+"""Item CRUD endpoints."""
+
+from flask import Blueprint, jsonify, request
+
+from src.models import Item
+from src.services.item_service import ItemService
+
+items_bp = Blueprint("items", __name__)
+
+
+@items_bp.get("/items")
+def list_items():
+    """GET /api/items — List all items."""
+    items = ItemService.get_all()
+    return jsonify([item.to_dict() for item in items]), 200
+
+
+@items_bp.post("/items")
+def create_item():
+    """POST /api/items — Create a new item."""
+    data = request.get_json()
+    if not data or not data.get("name"):
+        return jsonify({"error": "name is required"}), 400
+
+    item = ItemService.create(
+        name=data["name"],
+        description=data.get("description", ""),
+    )
+    return jsonify(item.to_dict()), 201
+
+
+@items_bp.get("/items/<item_id>")
+def get_item(item_id: str):
+    """GET /api/items/:id — Get item by ID."""
+    item = ItemService.get_by_id(item_id)
+    if item is None:
+        return jsonify({"error": "Item not found"}), 404
+    return jsonify(item.to_dict()), 200
+
+
+@items_bp.patch("/items/<item_id>")
+def update_item(item_id: str):
+    """PATCH /api/items/:id — Update an item."""
+    item = ItemService.get_by_id(item_id)
+    if item is None:
+        return jsonify({"error": "Item not found"}), 404
+
+    data = request.get_json()
+    item = ItemService.update(
+        item,
+        name=data.get("name"),
+        description=data.get("description"),
+    )
+    return jsonify(item.to_dict()), 200
+
+
+@items_bp.delete("/items/<item_id>")
+def delete_item(item_id: str):
+    """DELETE /api/items/:id — Delete an item."""
+    item = ItemService.get_by_id(item_id)
+    if item is None:
+        return jsonify({"error": "Item not found"}), 404
+
+    ItemService.delete(item)
+    return "", 204

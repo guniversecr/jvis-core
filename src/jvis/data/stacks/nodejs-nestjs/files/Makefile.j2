@@ -1,0 +1,46 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: dev
+dev:  ## Start development server (watch mode)
+	nest start --watch
+
+.PHONY: build
+build:  ## Build for production
+	nest build
+
+.PHONY: start
+start:  ## Start production server
+	node dist/main
+
+.PHONY: test
+test:  ## Run tests
+	jest
+
+.PHONY: test-cov
+test-cov:  ## Run tests with coverage
+	jest --coverage
+
+.PHONY: test-e2e
+test-e2e:  ## Run e2e tests
+	jest --config ./tests/jest-e2e.json
+
+.PHONY: lint
+lint:  ## Run linter
+	eslint "{src,tests}/**/*.ts" --fix
+
+.PHONY: format
+format:  ## Format code
+	prettier --write "src/**/*.ts" "tests/**/*.ts"
+
+.PHONY: up
+up:  ## Start with Docker Compose
+	docker compose up --build
+
+.PHONY: down
+down:  ## Stop Docker Compose
+	docker compose down

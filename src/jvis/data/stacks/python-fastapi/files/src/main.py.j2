@@ -1,0 +1,20 @@
+"""{{ project_description }}"""
+
+from fastapi import FastAPI
+
+from src.controllers.api.health import router as health_router
+from src.controllers.api.items import router as items_router
+
+app = FastAPI(
+    title="{{ project_name }}",
+    description="{{ project_description }}",
+    version="0.1.0",
+)
+
+app.include_router(health_router, prefix="/api", tags=["health"])
+app.include_router(items_router, prefix="/api", tags=["items"])
+
+
+@app.get("/")
+async def root() -> dict[str, str]:
+    return {"service": "{{ project_name }}", "status": "running"}

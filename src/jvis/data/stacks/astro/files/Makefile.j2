@@ -1,0 +1,38 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: dev
+dev:  ## Start development server
+	npm run dev
+
+.PHONY: build
+build:  ## Build for production
+	npm run build
+
+.PHONY: test
+test:  ## Run tests
+	npx vitest run
+
+.PHONY: check
+check:  ## Run Astro type checking
+	npm run check
+
+.PHONY: lint
+lint:  ## Run linter
+	npx eslint src/
+
+.PHONY: format
+format:  ## Format code with Prettier
+	npx prettier --write "src/**/*.{astro,ts,tsx,js,css}"
+
+.PHONY: up
+up:  ## Start with Docker Compose
+	docker compose up --build
+
+.PHONY: down
+down:  ## Stop Docker Compose
+	docker compose down

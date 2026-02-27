@@ -1,0 +1,102 @@
+name: JVIS CI
+
+on:
+  push:
+    branches: [main, develop, feature/*]
+  pull_request:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-tests:
+    name: Smoke Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: '3.13'
+
+      - name: Install package
+        run: pip install -e .
+
+      - name: Make scripts executable
+        run: chmod +x tests/smoke/*.sh
+
+      - name: Run CLI Smoke Tests
+        run: bash tests/smoke/test_cli.sh
+
+      - name: Run Agent Smoke Tests
+        run: bash tests/smoke/test_agents.sh
+
+      - name: Run Template Smoke Tests
+        run: bash tests/smoke/test_templates.sh
+
+  validate-configs:
+    name: Validate Configs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4.3.1
+
+      - name: Setup Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install pyyaml==6.0.2
+
+      - name: Validate YAML configs
+        run: |
+          python3 -c "
+          import yaml
+          import sys
+          from pathlib import Path
+
+          errors = []
+          count = 0
+
+          # Validate actual YAML configs (agents, schemas, manifests).
+          # Skip .jvis/templates/ — those are Jinja2/markdown templates with .yaml
+          # extension that embed '---' and markdown tables, not parseable YAML.
+          config_dirs = [
+              Path('.jvis/agents'),
+              Path('.jvis/agent-engine/schemas'),
+              Path('src/jvis/data/stacks'),
+          ]
+          config_files = [
+              Path('.jvis/core-config.yaml'),
+              Path('.jvis/VERSION.yaml'),
+              Path('.jvis/editions.yaml'),
+          ]
+
+          for d in config_dirs:
+              if d.exists():
+                  for p in d.rglob('*.yaml'):
+                      count += 1
+                      try:
+                          yaml.safe_load(p.read_text())
+                      except Exception as e:
+                          errors.append(str(p) + ': ' + str(e))
+
+          for p in config_files:
+              if p.exists():
+                  count += 1
+                  try:
+                      yaml.safe_load(p.read_text())
+                  except Exception as e:
+                      errors.append(str(p) + ': ' + str(e))
+
+          if errors:
+              for e in errors:
+                  print('ERROR: ' + e)
+              sys.exit(1)
+          print(f'All {count} YAML configs valid')
+          "
+

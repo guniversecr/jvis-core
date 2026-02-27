@@ -1,0 +1,191 @@
+# JVIS Story Template
+# Version: 1.0
+# Usage: Copy this template to create new story files
+# Location: {devStoryLocation}/{epicNum}.{storyNum}.story.md
+
+---
+# Story Metadata
+epic: "{epicNum}"
+story: "{storyNum}"
+title: "{Story Title}"
+status: "Draft"  # Draft | Ready | In Progress | Review | Done | Blocked
+priority: "Medium"  # Critical | High | Medium | Low
+complexity: "Medium"  # XS | S | M | L | XL
+type: "feature"  # feature | bugfix | refactor | spike | chore
+
+# Ownership
+assignee: ""
+reviewer: ""
+created: "{YYYY-MM-DD}"
+updated: "{YYYY-MM-DD}"
+
+# Links
+epic_ref: "docs/epics/{epicNum}.epic.md"
+prd_ref: "docs/prd/PRD.md#{section}"
+architecture_ref: "docs/architecture/index.md"
+---
+
+# {epicNum}.{storyNum} - {Story Title}
+
+## Story Statement
+
+As a **{user type}**,
+I want **{goal/desire}**,
+So that **{benefit/value}**.
+
+## Acceptance Criteria
+
+### AC-1: {First Criterion Title}
+- [ ] Given {precondition}
+- [ ] When {action}
+- [ ] Then {expected result}
+
+### AC-2: {Second Criterion Title}
+- [ ] Given {precondition}
+- [ ] When {action}
+- [ ] Then {expected result}
+
+### AC-3: {Third Criterion Title}
+- [ ] Given {precondition}
+- [ ] When {action}
+- [ ] Then {expected result}
+
+## Dev Notes
+
+### Previous Story Insights
+<!-- Key learnings from previous story implementation -->
+- {insight 1}
+- {insight 2}
+
+### Data Models
+<!-- Specific schemas, validation rules, relationships -->
+<!-- [Source: architecture/{filename}.md#{section}] -->
+```yaml
+# Example model structure
+{ModelName}:
+  fields:
+    - name: id
+      type: UUID
+      required: true
+    - name: {field}
+      type: {type}
+      validation: {rules}
+```
+
+### API Specifications
+<!-- Endpoint details, request/response formats -->
+<!-- [Source: architecture/rest-api-spec.md#{section}] -->
+```
+{METHOD} /api/v1/{endpoint}
+Request:
+  - Headers: Authorization: Bearer {token}
+  - Body: { field: value }
+Response:
+  - 200: { data: {...} }
+  - 400: { error: "validation error" }
+  - 401: { error: "unauthorized" }
+```
+
+### Component Specifications
+<!-- UI component details for frontend stories -->
+<!-- [Source: architecture/components.md#{section}] -->
+- Component: `{ComponentName}`
+- Location: `src/components/{path}/`
+- Props: `{ prop1: Type, prop2: Type }`
+- State: `{ state1: Type }`
+
+### File Locations
+<!-- Exact paths where new code should be created -->
+| File | Purpose |
+|------|---------|
+| `src/{path}/{file}.{ext}` | {description} |
+| `tests/{path}/{file}.test.{ext}` | {test description} |
+
+### Testing Requirements
+<!-- Specific test cases from testing-strategy.md -->
+<!-- [Source: architecture/testing-strategy.md#{section}] -->
+- [ ] Unit tests for {component/function}
+- [ ] Integration tests for {flow}
+- [ ] E2E tests for {user journey}
+
+### Technical Constraints
+<!-- Version requirements, performance, security -->
+- Performance: {constraint}
+- Security: {constraint}
+- Dependencies: {constraint}
+
+## Tasks / Subtasks
+
+### Phase 1: Setup & Foundation
+- [ ] **Task 1.1**: {task description} (AC: 1)
+  - [ ] Subtask: {detail}
+  - [ ] Subtask: {detail}
+
+### Phase 2: Core Implementation
+- [ ] **Task 2.1**: {task description} (AC: 1, 2)
+  - [ ] Subtask: {detail}
+  - [ ] Subtask: {detail}
+
+### Phase 3: Testing & Validation
+- [ ] **Task 3.1**: Write unit tests (AC: all)
+  - [ ] Test: {test case}
+  - [ ] Test: {test case}
+- [ ] **Task 3.2**: Write integration tests (AC: all)
+
+### Phase 4: Documentation & Cleanup
+- [ ] **Task 4.1**: Update relevant documentation
+- [ ] **Task 4.2**: Code cleanup and refactoring
+
+## Dependencies
+
+### Blocked By
+- [ ] {dependency description} - Status: {status}
+
+### Blocks
+- [ ] Story {X.Y}: {description}
+
+## QA Notes
+
+### Test Scenarios
+| Scenario | Steps | Expected | Status |
+|----------|-------|----------|--------|
+| Happy path | 1. {step} 2. {step} | {result} | ⬜ |
+| Edge case | 1. {step} 2. {step} | {result} | ⬜ |
+| Error case | 1. {step} 2. {step} | {error} | ⬜ |
+
+### Non-Functional Requirements
+- [ ] Performance: {requirement}
+- [ ] Security: {requirement}
+- [ ] Accessibility: {requirement}
+
+## Dev Agent Record
+
+### Implementation Log
+<!-- Filled by Dev Agent during implementation -->
+```
+[{timestamp}] Started implementation
+[{timestamp}] {progress note}
+[{timestamp}] Completed
+```
+
+### Completion Notes
+<!-- Filled by Dev Agent upon completion -->
+- Actual implementation: {description}
+- Deviations from plan: {description}
+- Technical decisions: {description}
+
+### Debug Log References
+<!-- Links to debug logs if issues were encountered -->
+- {log reference}
+
+### Challenges & Lessons Learned
+<!-- For future story preparation -->
+- Challenge: {description}
+- Solution: {description}
+- Lesson: {insight}
+
+---
+## Status History
+| Date | Status | Notes |
+|------|--------|-------|
+| {date} | Draft | Initial creation |

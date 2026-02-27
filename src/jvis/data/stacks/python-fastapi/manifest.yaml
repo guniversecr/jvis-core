@@ -1,0 +1,82 @@
+id: python-fastapi
+name: "Python FastAPI + Clean Architecture"
+description: "FastAPI with Clean Architecture, SQLAlchemy async, Ruff, MyPy strict"
+type: backend
+language: python
+framework: fastapi
+requires_database: true
+agents: [api, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "python -m uvicorn src.main:app --reload --host 0.0.0.0 --port 8000"
+dev_port: 8000
+getting_started:
+  prerequisites: "Python 3.12+"
+  commands:
+    - "python3.13 -m venv .venv   # use your Python 3.12+ binary"
+    - "source .venv/bin/activate"
+    - "pip install -r requirements.txt"
+    - "python -m uvicorn src.main:app --port 8000"
+
+directories:
+  - src
+  - src/domain
+  - src/domain/entities
+  - src/domain/value_objects
+  - src/domain/interfaces
+  - src/domain/exceptions
+  - src/domain/schemas
+  - src/use_cases
+  - src/use_cases/dto
+  - src/infrastructure
+  - src/infrastructure/repositories
+  - src/infrastructure/database
+  - src/infrastructure/config
+  - src/controllers
+  - src/controllers/api
+  - tests
+  - tests/unit
+  - tests/unit/domain
+  - tests/unit/use_cases
+  - tests/integration
+  - tests/integration/api
+  - alembic
+  - alembic/versions
+
+files:
+  # Config & build
+  - {src: "pyproject.toml.j2", dst: "pyproject.toml"}
+  - {src: "requirements.txt.j2", dst: "requirements.txt"}
+  - {src: "requirements-dev.txt", dst: "requirements-dev.txt"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: ".env.example.j2", dst: ".env.example"}
+  - {src: "alembic.ini.j2", dst: "alembic.ini"}
+  # Alembic
+  - {src: "alembic/env.py.j2", dst: "alembic/env.py"}
+  # Application — entry point
+  - {src: "src/main.py.j2", dst: "src/main.py"}
+  - {src: "src/__init__.py", dst: "src/__init__.py"}
+  # Domain layer
+  - {src: "src/domain/__init__.py", dst: "src/domain/__init__.py"}
+  - {src: "src/domain/entities/__init__.py", dst: "src/domain/entities/__init__.py"}
+  - {src: "src/domain/entities/base.py", dst: "src/domain/entities/base.py"}
+  - {src: "src/domain/entities/item.py", dst: "src/domain/entities/item.py"}
+  - {src: "src/domain/schemas/__init__.py", dst: "src/domain/schemas/__init__.py"}
+  - {src: "src/domain/schemas/item.py", dst: "src/domain/schemas/item.py"}
+  # Use cases layer
+  - {src: "src/use_cases/__init__.py", dst: "src/use_cases/__init__.py"}
+  - {src: "src/use_cases/item_service.py.j2", dst: "src/use_cases/item_service.py"}
+  # Infrastructure layer
+  - {src: "src/infrastructure/__init__.py", dst: "src/infrastructure/__init__.py"}
+  - {src: "src/infrastructure/config/settings.py.j2", dst: "src/infrastructure/config/settings.py"}
+  - {src: "src/infrastructure/database.py.j2", dst: "src/infrastructure/database.py"}
+  - {src: "src/infrastructure/repositories/item_repository.py.j2", dst: "src/infrastructure/repositories/item_repository.py"}
+  # Controllers layer
+  - {src: "src/controllers/__init__.py", dst: "src/controllers/__init__.py"}
+  - {src: "src/controllers/api/health.py", dst: "src/controllers/api/health.py"}
+  - {src: "src/controllers/api/items.py.j2", dst: "src/controllers/api/items.py"}
+  # Tests
+  - {src: "tests/conftest.py.j2", dst: "tests/conftest.py"}
+  - {src: "tests/test_health.py.j2", dst: "tests/test_health.py"}
+  - {src: "tests/test_items.py.j2", dst: "tests/test_items.py"}

@@ -1,0 +1,53 @@
+id: nextjs
+name: "Next.js + TypeScript"
+description: "Next.js App Router with TypeScript, React Server Components, API routes"
+type: fullstack
+language: typescript
+framework: nextjs
+requires_database: true
+agents: [frontend, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "npm run dev"
+dev_port: 3000
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run dev"
+
+directories:
+  - src/app
+  - src/app/api/health
+  - src/app/api/items
+  - src/app/api/items/[id]
+  - src/app/items
+  - src/components
+  - src/lib
+  - src/types
+  - public
+  - prisma
+  - tests
+
+files:
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "next.config.ts", dst: "next.config.ts"}
+  - {src: "vitest.config.ts", dst: "vitest.config.ts"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: "src/app/layout.tsx.j2", dst: "src/app/layout.tsx"}
+  - {src: "src/app/page.tsx.j2", dst: "src/app/page.tsx"}
+  - {src: "src/app/api/health/route.ts", dst: "src/app/api/health/route.ts"}
+  - {src: "src/app/api/items/route.ts", dst: "src/app/api/items/route.ts"}
+  - {src: "src/app/api/items/[id]/route.ts", dst: "src/app/api/items/[id]/route.ts"}
+  - {src: "src/app/items/page.tsx", dst: "src/app/items/page.tsx"}
+  - {src: "src/types/item.ts", dst: "src/types/item.ts"}
+  - {src: "src/lib/db.ts", dst: "src/lib/db.ts"}
+  - {src: "src/components/.gitkeep", dst: "src/components/.gitkeep"}
+  - {src: "public/.gitkeep", dst: "public/.gitkeep"}
+  - {src: "prisma/schema.prisma.j2", dst: "prisma/schema.prisma"}
+  - {src: "tests/health.test.ts.j2", dst: "tests/health.test.ts"}
+  - {src: "tests/items.test.ts", dst: "tests/items.test.ts"}
+  - {src: ".eslintrc.json", dst: ".eslintrc.json"}
+  - {src: ".env.example.j2", dst: ".env.example"}

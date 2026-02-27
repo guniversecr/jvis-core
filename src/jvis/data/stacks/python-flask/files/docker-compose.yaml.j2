@@ -1,0 +1,47 @@
+services:
+  app:
+    build:
+      context: .
+      target: development
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+{% if database_type == "postgresql" %}
+      - DATABASE_URL=postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@db:5432/{{ project_name }}
+{% elif database_type == "mysql" %}
+      - DATABASE_URL=mysql+pymysql://${DB_USER:-root}:${DB_PASSWORD:-root}@db:3306/{{ project_name }}
+{% else %}
+      - DATABASE_URL=sqlite:///./{{ project_name }}.db
+{% endif %}
+{% if database_type in ["postgresql", "mysql"] %}
+    depends_on:
+      - db
+{% endif %}
+
+{% if database_type == "postgresql" %}
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: {{ project_name }}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+{% elif database_type == "mysql" %}
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: {{ project_name }}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+{% endif %}
+
+volumes:
+  db-data:

@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Tests\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+/**
+ * Health endpoint tests for {{ project_name }}.
+ */
+class HealthControllerTest extends WebTestCase
+{
+    public function testHealthEndpointReturnsHealthyStatus(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/api/health');
+
+        self::assertResponseIsSuccessful();
+        self::assertResponseHeaderSame('content-type', 'application/json');
+
+        $responseData = json_decode(
+            $client->getResponse()->getContent(),
+            true,
+            512,
+            JSON_THROW_ON_ERROR
+        );
+
+        self::assertArrayHasKey('status', $responseData);
+        self::assertSame('healthy', $responseData['status']);
+        self::assertArrayHasKey('timestamp', $responseData);
+    }
+
+    public function testHealthEndpointOnlyAcceptsGet(): void
+    {
+        $client = static::createClient();
+        $client->request('POST', '/api/health');
+
+        self::assertResponseStatusCodeSame(405);
+    }
+}

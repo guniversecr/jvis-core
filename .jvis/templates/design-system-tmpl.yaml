@@ -1,0 +1,507 @@
+# JVIS Design System Template
+# Version: 1.0
+# Usage: Document UI design system for development
+# Location: docs/design/design-system.md
+
+---
+template:
+  id: design-system-template-v1
+  name: Design System
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/design/design-system.md
+    title: "{{project_name}} Design System"
+
+workflow:
+  mode: interactive
+  elicitation: basic
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Document Metadata
+      project: "{{project_name}}"
+      version: "{{version}}"
+      created: "{{YYYY-MM-DD}}"
+      updated: "{{YYYY-MM-DD}}"
+      status: "Active"
+      ---
+
+      # {{project_name}} Design System
+
+      > A comprehensive guide for building consistent user interfaces.
+
+  - id: design-tokens
+    title: Design Tokens
+    instruction: |
+      Define the foundational design tokens used across the system.
+    elicit: true
+    sections:
+      - id: colors
+        title: Color Tokens
+        template: |
+          ## Design Tokens
+
+          ### Colors
+
+          #### Brand Colors
+          ```css
+          :root {
+            --color-primary: {{primary_color}};
+            --color-primary-light: {{primary_light}};
+            --color-primary-dark: {{primary_dark}};
+            --color-secondary: {{secondary_color}};
+            --color-accent: {{accent_color}};
+          }
+          ```
+
+          #### Semantic Colors
+          ```css
+          :root {
+            --color-success: {{success_color}};
+            --color-warning: {{warning_color}};
+            --color-error: {{error_color}};
+            --color-info: {{info_color}};
+          }
+          ```
+
+          #### Neutral Colors
+          ```css
+          :root {
+            --color-gray-50: {{gray_50}};
+            --color-gray-100: {{gray_100}};
+            --color-gray-200: {{gray_200}};
+            --color-gray-300: {{gray_300}};
+            --color-gray-400: {{gray_400}};
+            --color-gray-500: {{gray_500}};
+            --color-gray-600: {{gray_600}};
+            --color-gray-700: {{gray_700}};
+            --color-gray-800: {{gray_800}};
+            --color-gray-900: {{gray_900}};
+          }
+          ```
+
+          #### Background & Surface
+          ```css
+          :root {
+            --color-background: {{background_color}};
+            --color-surface: {{surface_color}};
+            --color-surface-elevated: {{surface_elevated}};
+          }
+          ```
+
+          #### Text Colors
+          ```css
+          :root {
+            --color-text-primary: {{text_primary}};
+            --color-text-secondary: {{text_secondary}};
+            --color-text-disabled: {{text_disabled}};
+            --color-text-inverse: {{text_inverse}};
+          }
+          ```
+      - id: spacing
+        title: Spacing
+        template: |
+          ### Spacing Scale
+
+          ```css
+          :root {
+            --space-0: 0;
+            --space-1: {{space_1}};    /* 4px */
+            --space-2: {{space_2}};    /* 8px */
+            --space-3: {{space_3}};    /* 12px */
+            --space-4: {{space_4}};    /* 16px */
+            --space-5: {{space_5}};    /* 20px */
+            --space-6: {{space_6}};    /* 24px */
+            --space-8: {{space_8}};    /* 32px */
+            --space-10: {{space_10}};  /* 40px */
+            --space-12: {{space_12}};  /* 48px */
+            --space-16: {{space_16}};  /* 64px */
+          }
+          ```
+
+          | Token | Value | Usage |
+          |-------|-------|-------|
+          | `--space-1` | 4px | Tight spacing, icon gaps |
+          | `--space-2` | 8px | Inline elements, small gaps |
+          | `--space-4` | 16px | Standard element spacing |
+          | `--space-6` | 24px | Section padding |
+          | `--space-8` | 32px | Large section gaps |
+      - id: typography-tokens
+        title: Typography
+        template: |
+          ### Typography
+
+          #### Font Families
+          ```css
+          :root {
+            --font-sans: {{font_sans}};
+            --font-mono: {{font_mono}};
+          }
+          ```
+
+          #### Font Sizes
+          ```css
+          :root {
+            --text-xs: {{text_xs}};    /* 12px */
+            --text-sm: {{text_sm}};    /* 14px */
+            --text-base: {{text_base}}; /* 16px */
+            --text-lg: {{text_lg}};    /* 18px */
+            --text-xl: {{text_xl}};    /* 20px */
+            --text-2xl: {{text_2xl}};  /* 24px */
+            --text-3xl: {{text_3xl}};  /* 30px */
+            --text-4xl: {{text_4xl}};  /* 36px */
+          }
+          ```
+
+          #### Font Weights
+          ```css
+          :root {
+            --font-light: 300;
+            --font-normal: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+          }
+          ```
+
+          #### Line Heights
+          ```css
+          :root {
+            --leading-tight: 1.25;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.75;
+          }
+          ```
+      - id: borders-shadows
+        title: Borders & Shadows
+        template: |
+          ### Borders
+
+          ```css
+          :root {
+            --border-width: 1px;
+            --border-width-2: 2px;
+            --border-radius-sm: {{radius_sm}};
+            --border-radius: {{radius_base}};
+            --border-radius-lg: {{radius_lg}};
+            --border-radius-full: 9999px;
+            --border-color: {{border_color}};
+          }
+          ```
+
+          ### Shadows
+
+          ```css
+          :root {
+            --shadow-sm: {{shadow_sm}};
+            --shadow: {{shadow_base}};
+            --shadow-md: {{shadow_md}};
+            --shadow-lg: {{shadow_lg}};
+            --shadow-xl: {{shadow_xl}};
+          }
+          ```
+
+  - id: components
+    title: Components
+    instruction: |
+      Document the component library specifications.
+    elicit: true
+    sections:
+      - id: buttons
+        title: Buttons
+        template: |
+          ## Components
+
+          ### Buttons
+
+          #### Variants
+          | Variant | Use Case | Background | Text |
+          |---------|----------|------------|------|
+          | Primary | Main actions | `--color-primary` | White |
+          | Secondary | Secondary actions | `--color-gray-200` | `--color-text-primary` |
+          | Outline | Tertiary actions | Transparent | `--color-primary` |
+          | Ghost | Subtle actions | Transparent | `--color-text-secondary` |
+          | Destructive | Destructive actions | `--color-error` | White |
+
+          #### Sizes
+          | Size | Height | Padding | Font Size |
+          |------|--------|---------|-----------|
+          | Small | 32px | 12px 16px | 14px |
+          | Medium | 40px | 12px 20px | 16px |
+          | Large | 48px | 16px 24px | 18px |
+
+          #### States
+          - Default
+          - Hover: Darken background 10%
+          - Active: Darken background 20%
+          - Focus: Add focus ring
+          - Disabled: 50% opacity, no interactions
+
+          #### Code Example
+          ```tsx
+          <Button variant="primary" size="medium">
+            Click me
+          </Button>
+          ```
+      - id: inputs
+        title: Form Inputs
+        template: |
+          ### Form Inputs
+
+          #### Text Input
+          | Property | Value |
+          |----------|-------|
+          | Height | 40px |
+          | Padding | 12px 16px |
+          | Border | 1px solid `--border-color` |
+          | Border Radius | `--border-radius` |
+          | Font Size | 16px |
+
+          #### States
+          | State | Border | Background |
+          |-------|--------|------------|
+          | Default | `--border-color` | White |
+          | Focus | `--color-primary` | White |
+          | Error | `--color-error` | White |
+          | Disabled | `--color-gray-200` | `--color-gray-50` |
+
+          #### Code Example
+          ```tsx
+          <Input
+            label="Email"
+            placeholder="you@example.com"
+            error="Invalid email address"
+          />
+          ```
+      - id: cards
+        title: Cards
+        template: |
+          ### Cards
+
+          #### Default Card
+          | Property | Value |
+          |----------|-------|
+          | Background | `--color-surface` |
+          | Border Radius | `--border-radius-lg` |
+          | Padding | `--space-6` |
+          | Shadow | `--shadow` |
+
+          #### Elevated Card
+          | Property | Value |
+          |----------|-------|
+          | Background | `--color-surface-elevated` |
+          | Shadow | `--shadow-lg` |
+
+          #### Interactive Card
+          - Hover: `--shadow-xl`
+          - Cursor: pointer
+          - Transition: 150ms ease
+      - id: modals
+        title: Modals
+        template: |
+          ### Modals
+
+          #### Structure
+          - Overlay: rgba(0, 0, 0, 0.5)
+          - Container: centered, max-width 500px
+          - Border Radius: `--border-radius-lg`
+          - Padding: `--space-6`
+          - Shadow: `--shadow-xl`
+
+          #### Sizes
+          | Size | Max Width |
+          |------|-----------|
+          | Small | 400px |
+          | Medium | 500px |
+          | Large | 700px |
+          | Full | 90vw |
+
+          #### Animations
+          - Enter: fade in + scale from 95%
+          - Exit: fade out + scale to 95%
+          - Duration: 200ms
+
+  - id: patterns
+    title: UI Patterns
+    instruction: |
+      Document common UI patterns and layouts.
+    elicit: true
+    template: |
+      ## UI Patterns
+
+      ### Layout Grid
+      - Columns: 12
+      - Gutter: `--space-6` (24px)
+      - Max Width: 1280px
+      - Side Padding: `--space-4` (mobile), `--space-8` (desktop)
+
+      ### Breakpoints
+      | Name | Min Width | Typical Devices |
+      |------|-----------|-----------------|
+      | sm | 640px | Large phones |
+      | md | 768px | Tablets |
+      | lg | 1024px | Laptops |
+      | xl | 1280px | Desktops |
+      | 2xl | 1536px | Large screens |
+
+      ### Z-Index Scale
+      | Layer | Z-Index | Usage |
+      |-------|---------|-------|
+      | Base | 0 | Default |
+      | Dropdown | 10 | Dropdown menus |
+      | Sticky | 20 | Sticky headers |
+      | Modal | 30 | Modal overlays |
+      | Popover | 40 | Popovers, tooltips |
+      | Toast | 50 | Toast notifications |
+
+      ### Common Layouts
+      - **App Shell**: Fixed header, scrollable content
+      - **Dashboard**: Sidebar + main content
+      - **Auth**: Centered card on background
+      - **Marketing**: Full-width sections
+
+  - id: motion
+    title: Motion & Animation
+    instruction: |
+      Define animation and transition standards.
+    elicit: true
+    template: |
+      ## Motion & Animation
+
+      ### Timing Functions
+      ```css
+      :root {
+        --ease-in: cubic-bezier(0.4, 0, 1, 1);
+        --ease-out: cubic-bezier(0, 0, 0.2, 1);
+        --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      ```
+
+      ### Durations
+      | Type | Duration | Usage |
+      |------|----------|-------|
+      | Instant | 0ms | Immediate feedback |
+      | Fast | 100ms | Micro-interactions |
+      | Normal | 200ms | Standard transitions |
+      | Slow | 300ms | Complex transitions |
+      | Deliberate | 500ms | Major state changes |
+
+      ### Animation Principles
+      1. **Purpose**: Every animation should have a purpose
+      2. **Duration**: Keep under 500ms for interactions
+      3. **Easing**: Use ease-out for entrances, ease-in for exits
+      4. **Respect Motion Preferences**: Honor `prefers-reduced-motion`
+
+      ### Common Animations
+      - **Fade**: opacity 0 → 1
+      - **Slide Up**: translateY(8px) → translateY(0)
+      - **Scale**: scale(0.95) → scale(1)
+      - **Skeleton**: shimmer animation for loading
+
+  - id: accessibility
+    title: Accessibility
+    instruction: |
+      Document accessibility requirements and standards.
+    elicit: true
+    template: |
+      ## Accessibility
+
+      ### Color Contrast
+      - Normal text (< 18px): minimum 4.5:1
+      - Large text (≥ 18px): minimum 3:1
+      - UI components: minimum 3:1
+
+      ### Focus States
+      - All interactive elements must have visible focus
+      - Focus ring: 2px solid `--color-primary`, 2px offset
+      - Never remove focus outline without replacement
+
+      ### Keyboard Navigation
+      - All functionality accessible via keyboard
+      - Logical tab order
+      - Escape closes modals/dropdowns
+      - Arrow keys for menu navigation
+
+      ### Screen Readers
+      - All images have alt text
+      - Form inputs have labels
+      - ARIA attributes where needed
+      - Announce dynamic content changes
+
+      ### Motion
+      ```css
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+      ```
+
+  - id: dark-mode
+    title: Dark Mode
+    instruction: |
+      Define dark mode color mappings.
+    elicit: true
+    template: |
+      ## Dark Mode
+
+      ### Color Mappings
+      | Token | Light | Dark |
+      |-------|-------|------|
+      | `--color-background` | {{light_bg}} | {{dark_bg}} |
+      | `--color-surface` | {{light_surface}} | {{dark_surface}} |
+      | `--color-text-primary` | {{light_text}} | {{dark_text}} |
+      | `--color-border` | {{light_border}} | {{dark_border}} |
+
+      ### Implementation
+      ```css
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --color-background: {{dark_bg}};
+          --color-surface: {{dark_surface}};
+          --color-text-primary: {{dark_text}};
+        }
+      }
+
+      [data-theme="dark"] {
+        --color-background: {{dark_bg}};
+        --color-surface: {{dark_surface}};
+        --color-text-primary: {{dark_text}};
+      }
+      ```
+
+  - id: icons
+    title: Icons
+    template: |
+      ## Icons
+
+      ### Icon Library
+      **Library:** {{icon_library}}
+      **Style:** {{icon_style}}
+
+      ### Sizes
+      | Size | Dimensions | Usage |
+      |------|------------|-------|
+      | xs | 12px | Inline with small text |
+      | sm | 16px | Inline with body text |
+      | md | 20px | Buttons, inputs |
+      | lg | 24px | Standalone icons |
+      | xl | 32px | Feature icons |
+
+      ### Usage
+      ```tsx
+      import { IconName } from '{{icon_import}}';
+
+      <IconName size={20} />
+      ```
+
+---
+## Version History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial system |

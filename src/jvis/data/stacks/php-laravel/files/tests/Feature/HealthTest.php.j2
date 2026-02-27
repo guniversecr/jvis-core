@@ -1,0 +1,42 @@
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+
+/**
+ * Health endpoint tests for {{ project_name }}.
+ */
+class HealthTest extends TestCase
+{
+    public function test_health_endpoint_returns_healthy_status(): void
+    {
+        $response = $this->getJson('/api/health');
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'status' => 'healthy',
+            ])
+            ->assertJsonStructure([
+                'status',
+                'timestamp',
+            ]);
+    }
+
+    public function test_root_endpoint_returns_application_info(): void
+    {
+        $response = $this->getJson('/');
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'status' => 'running',
+            ])
+            ->assertJsonStructure([
+                'name',
+                'version',
+                'status',
+            ]);
+    }
+}

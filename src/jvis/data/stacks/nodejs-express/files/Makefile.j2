@@ -1,0 +1,41 @@
+.PHONY: dev build start test lint format db-migrate db-generate db-studio
+
+dev:
+	npm run dev
+
+build:
+	npm run build
+
+start:
+	npm run start
+
+test:
+	npm run test
+
+test-coverage:
+	npm run test:coverage
+
+lint:
+	npm run lint
+
+format:
+	npm run format
+
+db-migrate:
+	npx prisma migrate dev
+
+db-generate:
+	npx prisma generate
+
+db-studio:
+	npx prisma studio
+
+docker-up:
+	docker compose up -d
+
+docker-down:
+	docker compose down
+
+install:
+	npm install
+	npx prisma generate

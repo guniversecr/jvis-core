@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Tests\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class ItemControllerTest extends WebTestCase
+{
+    private static string $createdId = '';
+
+    public function test_create_item(): void
+    {
+        $client = static::createClient();
+        $client->request('POST', '/api/items', [], [], [
+            'CONTENT_TYPE' => 'application/json',
+        ], json_encode(['name' => 'Test Item', 'description' => 'A test item']));
+
+        $this->assertResponseStatusCodeSame(201);
+        $data = json_decode($client->getResponse()->getContent(), true);
+        $this->assertArrayHasKey('id', $data);
+        $this->assertEquals('Test Item', $data['name']);
+        self::$createdId = $data['id'];
+    }
+
+    public function test_create_item_validation(): void
+    {
+        $client = static::createClient();
+        $client->request('POST', '/api/items', [], [], [
+            'CONTENT_TYPE' => 'application/json',
+        ], json_encode(['name' => '']));
+
+        $this->assertResponseStatusCodeSame(400);
+    }
+
+    public function test_list_items(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/api/items');
+
+        $this->assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true);
+        $this->assertIsArray($data);
+    }
+
+    public function test_show_item(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/api/items/' . self::$createdId);
+
+        $this->assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals('Test Item', $data['name']);
+    }
+
+    public function test_update_item(): void
+    {
+        $client = static::createClient();
+        $client->request('PATCH', '/api/items/' . self::$createdId, [], [], [
+            'CONTENT_TYPE' => 'application/json',
+        ], json_encode(['name' => 'Updated Item']));
+
+        $this->assertResponseIsSuccessful();
+        $data = json_decode($client->getResponse()->getContent(), true);
+        $this->assertEquals('Updated Item', $data['name']);
+    }
+
+    public function test_delete_item(): void
+    {
+        $client = static::createClient();
+        $client->request('DELETE', '/api/items/' . self::$createdId);
+
+        $this->assertResponseStatusCodeSame(204);
+    }
+
+    public function test_show_nonexistent_item(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/api/items/nonexistent-uuid');
+
+        $this->assertResponseStatusCodeSame(404);
+    }
+}

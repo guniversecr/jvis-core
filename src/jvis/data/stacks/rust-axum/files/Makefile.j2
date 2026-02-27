@@ -1,0 +1,38 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: dev
+dev:  ## Start development server with auto-reload
+	cargo watch -x run
+
+.PHONY: build
+build:  ## Build release binary
+	cargo build --release
+
+.PHONY: test
+test:  ## Run all tests
+	cargo test
+
+.PHONY: lint
+lint:  ## Run clippy linter
+	cargo clippy -- -D warnings
+
+.PHONY: format
+format:  ## Format code
+	cargo fmt
+
+.PHONY: check
+check:  ## Run cargo check
+	cargo check
+
+.PHONY: up
+up:  ## Start with Docker Compose
+	docker compose up --build
+
+.PHONY: down
+down:  ## Stop Docker Compose
+	docker compose down

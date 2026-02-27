@@ -1,0 +1,13 @@
+<template>
+  <main>
+    <h1>{{ '{{' }} appName {{ '}}' }}</h1>
+    <p>{{ project_description }}</p>
+    <nav>
+      <NuxtLink to="/items">Manage Items</NuxtLink>
+    </nav>
+  </main>
+</template>
+
+<script setup lang="ts">
+const appName = '{{ project_name }}';
+</script>

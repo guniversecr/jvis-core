@@ -1,0 +1,49 @@
+.DEFAULT_GOAL := help
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | \
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: dev
+dev:  ## Start development server
+	php artisan serve --host=0.0.0.0 --port=8000
+
+.PHONY: test
+test:  ## Run tests
+	php artisan test --parallel
+
+.PHONY: lint
+lint:  ## Run code style fixer (dry-run)
+	./vendor/bin/pint --test
+
+.PHONY: format
+format:  ## Fix code style
+	./vendor/bin/pint
+
+.PHONY: migrate
+migrate:  ## Run database migrations
+	php artisan migrate
+
+.PHONY: migrate-fresh
+migrate-fresh:  ## Drop all tables and re-run migrations
+	php artisan migrate:fresh --seed
+
+.PHONY: seed
+seed:  ## Run database seeders
+	php artisan db:seed
+
+.PHONY: cache-clear
+cache-clear:  ## Clear all caches
+	php artisan config:clear
+	php artisan cache:clear
+	php artisan route:clear
+	php artisan view:clear
+
+.PHONY: up
+up:  ## Start with Docker Compose
+	docker compose up --build
+
+.PHONY: down
+down:  ## Stop Docker Compose
+	docker compose down

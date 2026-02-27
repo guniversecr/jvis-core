@@ -1,0 +1,407 @@
+# JVIS Unit Economics Template
+# Version: 1.0
+# Usage: Analyze and document unit economics for products/services
+# Location: docs/finance/unit-economics-{{product_name}}.md
+
+---
+template:
+  id: unit-economics-template-v1
+  name: Unit Economics
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/finance/unit-economics-{{product_name}}.md
+    title: "Unit Economics: {{product_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Unit Economics Metadata
+      product: "{{product_name}}"
+      company: "{{company_name}}"
+      created: "{{YYYY-MM-DD}}"
+      status: "{{status}}"
+      owner: "{{finance_owner}}"
+      ---
+
+      # Unit Economics: {{product_name}}
+
+      | Field | Value |
+      |-------|-------|
+      | **Product/Service** | {{product_name}} |
+      | **Company** | {{company_name}} |
+      | **Business Model** | {{business_model}} |
+      | **Analysis Period** | {{analysis_period}} |
+      | **Owner** | {{finance_owner}} |
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Summarize key unit economics metrics and insights.
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      ### Key Metrics
+      | Metric | Value | Industry Benchmark |
+      |--------|-------|-------------------|
+      | LTV | {{ltv_value}} | {{ltv_benchmark}} |
+      | CAC | {{cac_value}} | {{cac_benchmark}} |
+      | LTV:CAC | {{ltv_cac_ratio}} | {{ltv_cac_benchmark}} |
+      | Payback Period | {{payback_period}} | {{payback_benchmark}} |
+      | Gross Margin | {{gross_margin}} | {{margin_benchmark}} |
+
+      ### Key Findings
+      1. {{finding_1}}
+      2. {{finding_2}}
+      3. {{finding_3}}
+
+      ### Recommendations
+      1. {{recommendation_1}}
+      2. {{recommendation_2}}
+      3. {{recommendation_3}}
+
+  - id: revenue-per-unit
+    title: Revenue Per Unit
+    instruction: |
+      Break down revenue components per unit.
+    elicit: true
+    template: |
+      ## Revenue Per Unit
+
+      ### Pricing Structure
+      | Component | Amount | Frequency |
+      |-----------|--------|-----------|
+      | Base Price | {{base_price}} | {{base_freq}} |
+      | Add-ons/Upsells | {{addon_price}} | {{addon_freq}} |
+      | Cross-sells | {{crosssell_price}} | {{crosssell_freq}} |
+      | Expansion Revenue | {{expansion_price}} | {{expansion_freq}} |
+
+      ### Average Revenue Per User (ARPU)
+      | Period | ARPU | Growth |
+      |--------|------|--------|
+      | Monthly | {{arpu_monthly}} | {{arpu_growth_monthly}} |
+      | Annual | {{arpu_annual}} | {{arpu_growth_annual}} |
+      | Lifetime | {{arpu_lifetime}} | - |
+
+      ### Revenue by Segment
+      | Segment | ARPU | % of Revenue |
+      |---------|------|--------------|
+      | {{segment_1}} | {{arpu_1}} | {{pct_1}} |
+      | {{segment_2}} | {{arpu_2}} | {{pct_2}} |
+      | {{segment_3}} | {{arpu_3}} | {{pct_3}} |
+
+      ### Pricing Optimization
+      {{pricing_optimization}}
+
+  - id: cost-per-unit
+    title: Cost Per Unit
+    instruction: |
+      Detail all costs associated with delivering one unit.
+    elicit: true
+    template: |
+      ## Cost Per Unit
+
+      ### Variable Costs
+      | Cost Item | Amount | % of Revenue |
+      |-----------|--------|--------------|
+      | COGS | {{cogs_amount}} | {{cogs_pct}} |
+      | Payment Processing | {{payment_amount}} | {{payment_pct}} |
+      | Hosting/Infrastructure | {{hosting_amount}} | {{hosting_pct}} |
+      | Support Cost | {{support_amount}} | {{support_pct}} |
+      | Delivery/Fulfillment | {{delivery_amount}} | {{delivery_pct}} |
+      | **Total Variable** | **{{total_variable}}** | **{{variable_pct}}** |
+
+      ### Semi-Variable Costs
+      | Cost Item | Fixed Portion | Variable Portion |
+      |-----------|---------------|------------------|
+      | {{semi_cost_1}} | {{fixed_1}} | {{var_1}} |
+      | {{semi_cost_2}} | {{fixed_2}} | {{var_2}} |
+
+      ### Contribution Margin
+      **Revenue Per Unit:** {{revenue_per_unit}}
+      **Variable Cost Per Unit:** {{variable_per_unit}}
+      **Contribution Margin:** {{contribution_margin}}
+      **Contribution Margin %:** {{contribution_pct}}
+
+      ### Cost Trends
+      {{cost_trends}}
+
+  - id: customer-acquisition
+    title: Customer Acquisition Cost (CAC)
+    instruction: |
+      Calculate and analyze customer acquisition costs.
+    elicit: true
+    template: |
+      ## Customer Acquisition Cost (CAC)
+
+      ### CAC Calculation
+      | Component | Amount | Period |
+      |-----------|--------|--------|
+      | Marketing Spend | {{marketing_spend}} | {{marketing_period}} |
+      | Sales Costs | {{sales_costs}} | {{sales_period}} |
+      | Onboarding Costs | {{onboarding_costs}} | {{onboarding_period}} |
+      | **Total Acquisition Cost** | **{{total_acquisition}}** | - |
+      | New Customers | {{new_customers}} | - |
+      | **CAC** | **{{cac_value}}** | - |
+
+      ### CAC by Channel
+      | Channel | Spend | Customers | CAC | LTV:CAC |
+      |---------|-------|-----------|-----|---------|
+      | {{channel_1}} | {{spend_1}} | {{customers_1}} | {{cac_1}} | {{ratio_1}} |
+      | {{channel_2}} | {{spend_2}} | {{customers_2}} | {{cac_2}} | {{ratio_2}} |
+      | {{channel_3}} | {{spend_3}} | {{customers_3}} | {{cac_3}} | {{ratio_3}} |
+      | {{channel_4}} | {{spend_4}} | {{customers_4}} | {{cac_4}} | {{ratio_4}} |
+
+      ### CAC Trends
+      | Period | CAC | Change |
+      |--------|-----|--------|
+      | {{period_1}} | {{cac_period_1}} | - |
+      | {{period_2}} | {{cac_period_2}} | {{change_2}} |
+      | {{period_3}} | {{cac_period_3}} | {{change_3}} |
+
+      ### CAC Optimization
+      {{cac_optimization}}
+
+  - id: lifetime-value
+    title: Customer Lifetime Value (LTV)
+    instruction: |
+      Calculate and analyze customer lifetime value.
+    elicit: true
+    template: |
+      ## Customer Lifetime Value (LTV)
+
+      ### LTV Calculation
+      | Component | Value | Notes |
+      |-----------|-------|-------|
+      | ARPU (Monthly) | {{arpu_monthly}} | {{arpu_notes}} |
+      | Gross Margin | {{gross_margin}} | {{margin_notes}} |
+      | Customer Lifespan | {{customer_lifespan}} | {{lifespan_notes}} |
+      | **LTV** | **{{ltv_value}}** | - |
+
+      ### LTV Formula
+      **Method Used:** {{ltv_method}}
+      **Formula:** {{ltv_formula}}
+
+      ### LTV by Segment
+      | Segment | LTV | Lifespan | ARPU |
+      |---------|-----|----------|------|
+      | {{ltv_segment_1}} | {{ltv_1}} | {{lifespan_1}} | {{segment_arpu_1}} |
+      | {{ltv_segment_2}} | {{ltv_2}} | {{lifespan_2}} | {{segment_arpu_2}} |
+      | {{ltv_segment_3}} | {{ltv_3}} | {{lifespan_3}} | {{segment_arpu_3}} |
+
+      ### Cohort Analysis
+      | Cohort | 3-Month LTV | 6-Month LTV | 12-Month LTV |
+      |--------|-------------|-------------|--------------|
+      | {{cohort_1}} | {{cohort_3m_1}} | {{cohort_6m_1}} | {{cohort_12m_1}} |
+      | {{cohort_2}} | {{cohort_3m_2}} | {{cohort_6m_2}} | {{cohort_12m_2}} |
+      | {{cohort_3}} | {{cohort_3m_3}} | {{cohort_6m_3}} | {{cohort_12m_3}} |
+
+      ### LTV Improvement Levers
+      {{ltv_improvement}}
+
+  - id: ltv-cac-analysis
+    title: LTV:CAC Analysis
+    template: |
+      ## LTV:CAC Analysis
+
+      ### Ratio Calculation
+      | Metric | Value |
+      |--------|-------|
+      | LTV | {{ltv_final}} |
+      | CAC | {{cac_final}} |
+      | **LTV:CAC Ratio** | **{{ltv_cac_ratio}}** |
+
+      ### Benchmark Comparison
+      | Benchmark | Value | Status |
+      |-----------|-------|--------|
+      | Good (3:1) | 3.0 | {{status_good}} |
+      | Excellent (4:1+) | 4.0 | {{status_excellent}} |
+      | Current | {{ltv_cac_ratio}} | {{current_status}} |
+
+      ### Ratio by Segment
+      | Segment | LTV:CAC | Status |
+      |---------|---------|--------|
+      | {{ratio_segment_1}} | {{segment_ratio_1}} | {{segment_status_1}} |
+      | {{ratio_segment_2}} | {{segment_ratio_2}} | {{segment_status_2}} |
+      | {{ratio_segment_3}} | {{segment_ratio_3}} | {{segment_status_3}} |
+
+      ### Interpretation
+      {{ratio_interpretation}}
+
+  - id: payback-period
+    title: Payback Period
+    template: |
+      ## Payback Period
+
+      ### Calculation
+      | Component | Value |
+      |-----------|-------|
+      | CAC | {{payback_cac}} |
+      | Monthly Revenue | {{monthly_revenue}} |
+      | Gross Margin | {{payback_margin}} |
+      | **Payback Period** | **{{payback_months}} months** |
+
+      ### Payback by Channel
+      | Channel | CAC | Monthly Margin | Payback |
+      |---------|-----|----------------|---------|
+      | {{pb_channel_1}} | {{pb_cac_1}} | {{pb_margin_1}} | {{pb_months_1}} |
+      | {{pb_channel_2}} | {{pb_cac_2}} | {{pb_margin_2}} | {{pb_months_2}} |
+      | {{pb_channel_3}} | {{pb_cac_3}} | {{pb_margin_3}} | {{pb_months_3}} |
+
+      ### Cash Flow Impact
+      {{cash_flow_impact}}
+
+      ### Payback Optimization
+      {{payback_optimization}}
+
+  - id: churn-retention
+    title: Churn & Retention
+    instruction: |
+      Analyze customer churn and retention metrics.
+    elicit: true
+    template: |
+      ## Churn & Retention
+
+      ### Churn Metrics
+      | Metric | Value | Trend |
+      |--------|-------|-------|
+      | Monthly Churn Rate | {{monthly_churn}} | {{churn_trend}} |
+      | Annual Churn Rate | {{annual_churn}} | - |
+      | Net Revenue Retention | {{nrr}} | {{nrr_trend}} |
+      | Gross Revenue Retention | {{grr}} | {{grr_trend}} |
+
+      ### Churn Analysis
+      | Reason | % of Churn | Action |
+      |--------|------------|--------|
+      | {{churn_reason_1}} | {{churn_pct_1}} | {{churn_action_1}} |
+      | {{churn_reason_2}} | {{churn_pct_2}} | {{churn_action_2}} |
+      | {{churn_reason_3}} | {{churn_pct_3}} | {{churn_action_3}} |
+
+      ### Retention Cohorts
+      | Cohort | Month 1 | Month 3 | Month 6 | Month 12 |
+      |--------|---------|---------|---------|----------|
+      | {{ret_cohort_1}} | {{m1_1}} | {{m3_1}} | {{m6_1}} | {{m12_1}} |
+      | {{ret_cohort_2}} | {{m1_2}} | {{m3_2}} | {{m6_2}} | {{m12_2}} |
+
+      ### Retention Strategies
+      {{retention_strategies}}
+
+  - id: break-even
+    title: Break-Even Analysis
+    template: |
+      ## Break-Even Analysis
+
+      ### Unit Break-Even
+      | Component | Value |
+      |-----------|-------|
+      | Fixed Costs (Monthly) | {{fixed_costs}} |
+      | Contribution Margin | {{unit_contribution}} |
+      | **Break-Even Units** | **{{breakeven_units}}** |
+
+      ### Revenue Break-Even
+      | Component | Value |
+      |-----------|-------|
+      | Fixed Costs (Monthly) | {{fixed_costs_rev}} |
+      | Contribution Margin % | {{contribution_margin_pct}} |
+      | **Break-Even Revenue** | **{{breakeven_revenue}}** |
+
+      ### Sensitivity Analysis
+      | Scenario | Price Change | Cost Change | Break-Even |
+      |----------|--------------|-------------|------------|
+      | Base | - | - | {{base_breakeven}} |
+      | {{scenario_1}} | {{price_1}} | {{cost_1}} | {{be_1}} |
+      | {{scenario_2}} | {{price_2}} | {{cost_2}} | {{be_2}} |
+      | {{scenario_3}} | {{price_3}} | {{cost_3}} | {{be_3}} |
+
+      ### Time to Break-Even
+      {{time_breakeven}}
+
+  - id: scalability
+    title: Scalability Analysis
+    template: |
+      ## Scalability Analysis
+
+      ### Economies of Scale
+      | Scale Level | CAC | COGS/Unit | Gross Margin |
+      |-------------|-----|-----------|--------------|
+      | Current | {{current_cac}} | {{current_cogs}} | {{current_gm}} |
+      | 2x Scale | {{2x_cac}} | {{2x_cogs}} | {{2x_gm}} |
+      | 5x Scale | {{5x_cac}} | {{5x_cogs}} | {{5x_gm}} |
+      | 10x Scale | {{10x_cac}} | {{10x_cogs}} | {{10x_gm}} |
+
+      ### Marginal Economics
+      **Next 100 Units:** {{marginal_100}}
+      **Next 1000 Units:** {{marginal_1000}}
+      **At Scale:** {{marginal_scale}}
+
+      ### Constraints
+      | Constraint | Impact | Solution |
+      |------------|--------|----------|
+      | {{constraint_1}} | {{impact_1}} | {{solution_1}} |
+      | {{constraint_2}} | {{impact_2}} | {{solution_2}} |
+
+  - id: projections
+    title: Financial Projections
+    instruction: |
+      Project unit economics over time.
+    elicit: true
+    template: |
+      ## Financial Projections
+
+      ### Unit Economics Forecast
+      | Metric | Current | Year 1 | Year 2 | Year 3 |
+      |--------|---------|--------|--------|--------|
+      | ARPU | {{arpu_current}} | {{arpu_y1}} | {{arpu_y2}} | {{arpu_y3}} |
+      | CAC | {{cac_current}} | {{cac_y1}} | {{cac_y2}} | {{cac_y3}} |
+      | LTV | {{ltv_current}} | {{ltv_y1}} | {{ltv_y2}} | {{ltv_y3}} |
+      | LTV:CAC | {{ratio_current}} | {{ratio_y1}} | {{ratio_y2}} | {{ratio_y3}} |
+      | Gross Margin | {{gm_current}} | {{gm_y1}} | {{gm_y2}} | {{gm_y3}} |
+
+      ### Assumptions
+      | Assumption | Value | Rationale |
+      |------------|-------|-----------|
+      | {{assumption_1}} | {{value_1}} | {{rationale_1}} |
+      | {{assumption_2}} | {{value_2}} | {{rationale_2}} |
+      | {{assumption_3}} | {{value_3}} | {{rationale_3}} |
+
+      ### Scenarios
+      | Scenario | LTV:CAC | Payback | Profitability |
+      |----------|---------|---------|---------------|
+      | Optimistic | {{opt_ratio}} | {{opt_payback}} | {{opt_profit}} |
+      | Base | {{base_ratio}} | {{base_payback}} | {{base_profit}} |
+      | Conservative | {{con_ratio}} | {{con_payback}} | {{con_profit}} |
+
+  - id: action-plan
+    title: Action Plan
+    template: |
+      ## Action Plan
+
+      ### Improvement Priorities
+      | Priority | Initiative | Impact | Effort | Owner |
+      |----------|------------|--------|--------|-------|
+      | 1 | {{initiative_1}} | {{impact_1}} | {{effort_1}} | {{owner_1}} |
+      | 2 | {{initiative_2}} | {{impact_2}} | {{effort_2}} | {{owner_2}} |
+      | 3 | {{initiative_3}} | {{impact_3}} | {{effort_3}} | {{owner_3}} |
+
+      ### Metrics to Track
+      | Metric | Current | Target | Timeline |
+      |--------|---------|--------|----------|
+      | {{track_metric_1}} | {{track_current_1}} | {{track_target_1}} | {{track_time_1}} |
+      | {{track_metric_2}} | {{track_current_2}} | {{track_target_2}} | {{track_time_2}} |
+      | {{track_metric_3}} | {{track_current_3}} | {{track_target_3}} | {{track_time_3}} |
+
+      ### Review Cadence
+      {{review_cadence}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial analysis |

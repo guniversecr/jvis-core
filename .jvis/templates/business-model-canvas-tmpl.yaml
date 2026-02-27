@@ -1,0 +1,419 @@
+# JVIS Business Model Canvas Template
+# Version: 1.0
+# Usage: Strategic planning and business model analysis
+# Location: docs/strategy/business-model-canvas.md
+
+---
+template:
+  id: business-model-canvas-template-v1
+  name: Business Model Canvas
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/strategy/business-model-canvas.md
+    title: "{{project_name}} Business Model Canvas"
+
+workflow:
+  mode: interactive
+  elicitation: basic
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Document Metadata
+      title: "Business Model Canvas"
+      project: "{{project_name}}"
+      created: "{{YYYY-MM-DD}}"
+      updated: "{{YYYY-MM-DD}}"
+      version: "1.0"
+      status: "Draft"
+      ---
+
+      # Business Model Canvas: {{project_name}}
+
+      > Based on the Business Model Canvas by Alexander Osterwalder
+
+  - id: value-propositions
+    title: Value Propositions
+    instruction: |
+      Define the value you deliver to customers:
+
+      1. What problems do you solve?
+      2. What needs do you satisfy?
+      3. What makes your offering unique?
+      4. What bundles of products/services do you offer?
+
+      Focus on the core value, not features.
+    elicit: true
+    template: |
+      ## Value Propositions
+
+      ### Core Value Statement
+      {{core_value_statement}}
+
+      ### Problems Solved
+      | Problem | How We Solve It | Value Delivered |
+      |---------|-----------------|-----------------|
+      | {{problem_1}} | {{solution_1}} | {{value_1}} |
+      | {{problem_2}} | {{solution_2}} | {{value_2}} |
+      | {{problem_3}} | {{solution_3}} | {{value_3}} |
+
+      ### Key Differentiators
+      - {{differentiator_1}}
+      - {{differentiator_2}}
+      - {{differentiator_3}}
+
+      ### Value Categories
+      - **Performance:** {{performance_value}}
+      - **Customization:** {{customization_value}}
+      - **Design:** {{design_value}}
+      - **Price:** {{price_value}}
+      - **Risk Reduction:** {{risk_reduction_value}}
+      - **Convenience:** {{convenience_value}}
+
+  - id: customer-segments
+    title: Customer Segments
+    instruction: |
+      Define who you create value for:
+
+      1. Who are your most important customers?
+      2. What are their characteristics?
+      3. How do they differ from each other?
+    elicit: true
+    template: |
+      ## Customer Segments
+
+      ### Segment Overview
+      | Segment | Size | Priority | Value Proposition Match |
+      |---------|------|----------|------------------------|
+      | {{segment_1}} | {{size_1}} | {{priority_1}} | {{match_1}} |
+      | {{segment_2}} | {{size_2}} | {{priority_2}} | {{match_2}} |
+
+      ### Primary Segment: {{primary_segment_name}}
+
+      **Demographics:**
+      - {{demographic_1}}
+      - {{demographic_2}}
+
+      **Needs:**
+      - {{need_1}}
+      - {{need_2}}
+
+      **Behaviors:**
+      - {{behavior_1}}
+      - {{behavior_2}}
+
+      ### Secondary Segment: {{secondary_segment_name}}
+
+      **Demographics:**
+      - {{sec_demographic_1}}
+      - {{sec_demographic_2}}
+
+      **Needs:**
+      - {{sec_need_1}}
+      - {{sec_need_2}}
+
+      ### Market Type
+      - [ ] Mass Market
+      - [ ] Niche Market
+      - [ ] Segmented
+      - [ ] Diversified
+      - [ ] Multi-sided Platform
+
+  - id: channels
+    title: Channels
+    instruction: |
+      Define how you reach and deliver value to customers:
+
+      1. How do customers want to be reached?
+      2. How do you reach them now?
+      3. How are your channels integrated?
+      4. Which channels work best and are most cost-efficient?
+    elicit: true
+    template: |
+      ## Channels
+
+      ### Channel Phases
+      | Phase | Channel | Description | Cost | Effectiveness |
+      |-------|---------|-------------|------|---------------|
+      | Awareness | {{awareness_channel}} | {{awareness_desc}} | {{awareness_cost}} | {{awareness_eff}} |
+      | Evaluation | {{eval_channel}} | {{eval_desc}} | {{eval_cost}} | {{eval_eff}} |
+      | Purchase | {{purchase_channel}} | {{purchase_desc}} | {{purchase_cost}} | {{purchase_eff}} |
+      | Delivery | {{delivery_channel}} | {{delivery_desc}} | {{delivery_cost}} | {{delivery_eff}} |
+      | After Sales | {{aftersales_channel}} | {{aftersales_desc}} | {{aftersales_cost}} | {{aftersales_eff}} |
+
+      ### Channel Types
+      - **Own Direct:** {{own_direct_channels}}
+      - **Own Indirect:** {{own_indirect_channels}}
+      - **Partner:** {{partner_channels}}
+
+      ### Channel Strategy
+      {{channel_strategy}}
+
+  - id: customer-relationships
+    title: Customer Relationships
+    instruction: |
+      Define how you interact with customers:
+
+      1. What type of relationship does each segment expect?
+      2. Which relationships have you established?
+      3. How costly are they?
+      4. How are they integrated with the business model?
+    elicit: true
+    template: |
+      ## Customer Relationships
+
+      ### Relationship Types by Segment
+      | Segment | Relationship Type | Acquisition | Retention | Upselling |
+      |---------|-------------------|-------------|-----------|-----------|
+      | {{segment_1}} | {{rel_type_1}} | {{acq_1}} | {{ret_1}} | {{up_1}} |
+      | {{segment_2}} | {{rel_type_2}} | {{acq_2}} | {{ret_2}} | {{up_2}} |
+
+      ### Relationship Categories
+      - [ ] Personal Assistance
+      - [ ] Dedicated Personal Assistance
+      - [ ] Self-Service
+      - [ ] Automated Services
+      - [ ] Communities
+      - [ ] Co-creation
+
+      ### Customer Lifecycle Strategy
+      **Acquisition:** {{acquisition_strategy}}
+
+      **Retention:** {{retention_strategy}}
+
+      **Growth:** {{growth_strategy}}
+
+  - id: revenue-streams
+    title: Revenue Streams
+    instruction: |
+      Define how you generate revenue:
+
+      1. What value are customers willing to pay for?
+      2. How do they currently pay?
+      3. How would they prefer to pay?
+      4. How much does each revenue stream contribute?
+    elicit: true
+    template: |
+      ## Revenue Streams
+
+      ### Revenue Model
+      | Stream | Type | Pricing | Contribution | Growth |
+      |--------|------|---------|--------------|--------|
+      | {{stream_1}} | {{type_1}} | {{pricing_1}} | {{contrib_1}} | {{growth_1}} |
+      | {{stream_2}} | {{type_2}} | {{pricing_2}} | {{contrib_2}} | {{growth_2}} |
+      | {{stream_3}} | {{type_3}} | {{pricing_3}} | {{contrib_3}} | {{growth_3}} |
+
+      ### Revenue Types
+      - [ ] Asset Sale
+      - [ ] Usage Fee
+      - [ ] Subscription
+      - [ ] Lending/Renting/Leasing
+      - [ ] Licensing
+      - [ ] Brokerage Fees
+      - [ ] Advertising
+
+      ### Pricing Mechanisms
+      - **Fixed:** {{fixed_pricing}}
+      - **Dynamic:** {{dynamic_pricing}}
+
+      ### Revenue Projections
+      | Year | Revenue | Growth Rate |
+      |------|---------|-------------|
+      | Y1 | {{y1_revenue}} | - |
+      | Y2 | {{y2_revenue}} | {{y2_growth}} |
+      | Y3 | {{y3_revenue}} | {{y3_growth}} |
+
+  - id: key-resources
+    title: Key Resources
+    instruction: |
+      Define the assets required to deliver value:
+
+      1. What resources does your value proposition require?
+      2. What about your distribution channels?
+      3. Customer relationships?
+      4. Revenue streams?
+    elicit: true
+    template: |
+      ## Key Resources
+
+      ### Resource Inventory
+      | Resource | Type | Critical? | Own/Partner | Status |
+      |----------|------|-----------|-------------|--------|
+      | {{resource_1}} | {{type_1}} | {{critical_1}} | {{own_1}} | {{status_1}} |
+      | {{resource_2}} | {{type_2}} | {{critical_2}} | {{own_2}} | {{status_2}} |
+      | {{resource_3}} | {{type_3}} | {{critical_3}} | {{own_3}} | {{status_3}} |
+
+      ### Resource Categories
+      **Physical:**
+      - {{physical_1}}
+      - {{physical_2}}
+
+      **Intellectual:**
+      - {{intellectual_1}}
+      - {{intellectual_2}}
+
+      **Human:**
+      - {{human_1}}
+      - {{human_2}}
+
+      **Financial:**
+      - {{financial_1}}
+      - {{financial_2}}
+
+  - id: key-activities
+    title: Key Activities
+    instruction: |
+      Define the most important things you must do:
+
+      1. What activities does your value proposition require?
+      2. Distribution channels?
+      3. Customer relationships?
+      4. Revenue streams?
+    elicit: true
+    template: |
+      ## Key Activities
+
+      ### Activity Overview
+      | Activity | Category | Importance | Insource/Outsource |
+      |----------|----------|------------|-------------------|
+      | {{activity_1}} | {{cat_1}} | {{imp_1}} | {{source_1}} |
+      | {{activity_2}} | {{cat_2}} | {{imp_2}} | {{source_2}} |
+      | {{activity_3}} | {{cat_3}} | {{imp_3}} | {{source_3}} |
+
+      ### Activity Categories
+      **Production:**
+      - {{production_1}}
+      - {{production_2}}
+
+      **Problem Solving:**
+      - {{problem_solving_1}}
+      - {{problem_solving_2}}
+
+      **Platform/Network:**
+      - {{platform_1}}
+      - {{platform_2}}
+
+  - id: key-partnerships
+    title: Key Partnerships
+    instruction: |
+      Define your network of partners:
+
+      1. Who are your key partners and suppliers?
+      2. What resources do you acquire from partners?
+      3. What activities do partners perform?
+    elicit: true
+    template: |
+      ## Key Partnerships
+
+      ### Partner Overview
+      | Partner | Type | Purpose | Value Exchange |
+      |---------|------|---------|----------------|
+      | {{partner_1}} | {{type_1}} | {{purpose_1}} | {{exchange_1}} |
+      | {{partner_2}} | {{type_2}} | {{purpose_2}} | {{exchange_2}} |
+      | {{partner_3}} | {{type_3}} | {{purpose_3}} | {{exchange_3}} |
+
+      ### Partnership Types
+      - [ ] Strategic Alliance (non-competitors)
+      - [ ] Coopetition (strategic partnerships between competitors)
+      - [ ] Joint Ventures
+      - [ ] Buyer-Supplier Relationships
+
+      ### Partnership Motivations
+      - **Optimization & Economy of Scale:** {{optimization_partners}}
+      - **Risk Reduction:** {{risk_partners}}
+      - **Resource Acquisition:** {{resource_partners}}
+
+  - id: cost-structure
+    title: Cost Structure
+    instruction: |
+      Define the costs incurred to operate:
+
+      1. What are the most important costs?
+      2. Which key resources are most expensive?
+      3. Which key activities are most expensive?
+    elicit: true
+    template: |
+      ## Cost Structure
+
+      ### Cost Overview
+      | Cost Category | Type | Amount | % of Total | Trend |
+      |---------------|------|--------|------------|-------|
+      | {{cost_1}} | {{type_1}} | {{amount_1}} | {{pct_1}} | {{trend_1}} |
+      | {{cost_2}} | {{type_2}} | {{amount_2}} | {{pct_2}} | {{trend_2}} |
+      | {{cost_3}} | {{type_3}} | {{amount_3}} | {{pct_3}} | {{trend_3}} |
+
+      ### Business Model Orientation
+      - [ ] Cost-Driven
+      - [ ] Value-Driven
+
+      ### Cost Characteristics
+      **Fixed Costs:**
+      - {{fixed_1}}
+      - {{fixed_2}}
+
+      **Variable Costs:**
+      - {{variable_1}}
+      - {{variable_2}}
+
+      ### Economies
+      - **Economies of Scale:** {{economies_scale}}
+      - **Economies of Scope:** {{economies_scope}}
+
+  - id: canvas-summary
+    title: Canvas Summary
+    template: |
+      ## Business Model Canvas Summary
+
+      ```
+      ┌─────────────────────────────────────────────────────────────────────────────┐
+      │                           BUSINESS MODEL CANVAS                              │
+      ├────────────────┬────────────────┬────────────────┬────────────────┬─────────┤
+      │                │                │                │                │         │
+      │  KEY PARTNERS  │ KEY ACTIVITIES │    VALUE       │  CUSTOMER      │CUSTOMER │
+      │                │                │  PROPOSITIONS  │  RELATIONSHIPS │SEGMENTS │
+      │  {{partners}}  │ {{activities}} │                │                │         │
+      │                │                │ {{value_prop}} │ {{relations}}  │{{segs}} │
+      │                ├────────────────┤                ├────────────────┤         │
+      │                │                │                │                │         │
+      │                │ KEY RESOURCES  │                │   CHANNELS     │         │
+      │                │                │                │                │         │
+      │                │ {{resources}}  │                │ {{channels}}   │         │
+      │                │                │                │                │         │
+      ├────────────────┴────────────────┴────────────────┴────────────────┴─────────┤
+      │           COST STRUCTURE                    │      REVENUE STREAMS          │
+      │           {{costs}}                         │      {{revenues}}             │
+      └─────────────────────────────────────────────┴───────────────────────────────┘
+      ```
+
+  - id: validation
+    title: Validation & Next Steps
+    instruction: |
+      Define how to validate and iterate on the business model.
+    elicit: true
+    template: |
+      ## Validation & Next Steps
+
+      ### Key Assumptions to Test
+      | Assumption | Risk Level | Validation Method | Status |
+      |------------|------------|-------------------|--------|
+      | {{assumption_1}} | {{risk_1}} | {{method_1}} | {{status_1}} |
+      | {{assumption_2}} | {{risk_2}} | {{method_2}} | {{status_2}} |
+
+      ### Experiments Planned
+      1. {{experiment_1}}
+      2. {{experiment_2}}
+      3. {{experiment_3}}
+
+      ### Next Steps
+      1. {{next_step_1}}
+      2. {{next_step_2}}
+      3. {{next_step_3}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial canvas |

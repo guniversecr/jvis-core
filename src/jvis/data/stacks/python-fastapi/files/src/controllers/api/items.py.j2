@@ -1,0 +1,58 @@
+"""Item CRUD endpoints."""
+
+{% if database_type in ("postgresql", "mysql") %}
+import uuid
+
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from src.domain.schemas.item import ItemCreate, ItemList, ItemResponse, ItemUpdate
+from src.infrastructure.database import get_session
+from src.infrastructure.repositories.item_repository import ItemRepository
+from src.use_cases.item_service import ItemService
+
+router = APIRouter()
+
+
+def _get_service(session: AsyncSession = Depends(get_session)) -> ItemService:
+    return ItemService(ItemRepository(session))
+
+
+@router.post("/items", response_model=ItemResponse, status_code=201)
+async def create_item(body: ItemCreate, service: ItemService = Depends(_get_service)) -> ItemResponse:
+    item = await service.create_item(name=body.name, description=body.description)
+    return ItemResponse.model_validate(item)
+
+
+@router.get("/items", response_model=ItemList)
+async def list_items(
+    offset: int = 0, limit: int = 100, service: ItemService = Depends(_get_service)
+) -> ItemList:
+    items = await service.list_items(offset=offset, limit=limit)
+    return ItemList(items=[ItemResponse.model_validate(i) for i in items], count=len(items))
+
+
+@router.get("/items/{item_id}", response_model=ItemResponse)
+async def get_item(item_id: uuid.UUID, service: ItemService = Depends(_get_service)) -> ItemResponse:
+    item = await service.get_item(item_id)
+    return ItemResponse.model_validate(item)
+
+
+@router.patch("/items/{item_id}", response_model=ItemResponse)
+async def update_item(
+    item_id: uuid.UUID, body: ItemUpdate, service: ItemService = Depends(_get_service)
+) -> ItemResponse:
+    item = await service.update_item(item_id, name=body.name, description=body.description)
+    return ItemResponse.model_validate(item)
+
+
+@router.delete("/items/{item_id}", status_code=204)
+async def delete_item(item_id: uuid.UUID, service: ItemService = Depends(_get_service)) -> None:
+    await service.delete_item(item_id)
+{% else %}
+from fastapi import APIRouter
+
+router = APIRouter()
+
+# DynamoDB — implement endpoints with boto3 service.
+{% endif %}

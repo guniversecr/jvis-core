@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ItemApp from '../components/ItemApp';
+---
+
+<Layout title="{{ project_name }}">
+  <main>
+    <ItemApp client:load />
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+</style>

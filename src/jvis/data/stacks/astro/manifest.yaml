@@ -1,0 +1,50 @@
+id: astro
+name: "Astro"
+description: "Astro with content-first architecture, island hydration, TypeScript"
+type: frontend
+language: typescript
+framework: astro
+requires_database: false
+agents: [frontend, dev, qa, architect, pm, sm]
+
+dev_command: "npm run dev"
+dev_port: 4321
+getting_started:
+  prerequisites: "Node.js 20+"
+  commands:
+    - "npm install"
+    - "npm run dev"
+
+directories:
+  - src
+  - src/pages
+  - src/layouts
+  - src/components
+  - src/types
+  - src/utils
+  - src/services
+  - src/styles
+  - public
+  - tests
+  - tests/unit
+
+files:
+  - {src: "package.json.j2", dst: "package.json"}
+  - {src: "tsconfig.json", dst: "tsconfig.json"}
+  - {src: "astro.config.mjs", dst: "astro.config.mjs"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: ".env.example", dst: ".env.example"}
+  - {src: "src/pages/index.astro.j2", dst: "src/pages/index.astro"}
+  - {src: "src/pages/404.astro.j2", dst: "src/pages/404.astro"}
+  - {src: "src/layouts/Layout.astro.j2", dst: "src/layouts/Layout.astro"}
+  - {src: "src/types/item.ts", dst: "src/types/item.ts"}
+  - {src: "src/utils/config.ts.j2", dst: "src/utils/config.ts"}
+  - {src: "src/services/api.ts", dst: "src/services/api.ts"}
+  - {src: "src/components/ItemApp.tsx", dst: "src/components/ItemApp.tsx"}
+  - {src: "src/components/ItemCard.tsx", dst: "src/components/ItemCard.tsx"}
+  - {src: "src/components/ItemForm.tsx", dst: "src/components/ItemForm.tsx"}
+  - {src: "src/components/ItemList.tsx", dst: "src/components/ItemList.tsx"}
+  - {src: "src/styles/global.css", dst: "src/styles/global.css"}
+  - {src: "public/favicon.svg", dst: "public/favicon.svg"}
+  - {src: "tests/unit/api.test.ts", dst: "tests/unit/api.test.ts"}

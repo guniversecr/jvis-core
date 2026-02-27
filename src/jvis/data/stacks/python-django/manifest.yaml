@@ -1,0 +1,51 @@
+id: python-django
+name: "Python Django"
+description: "Django with MVT pattern, Django ORM, Admin panel, DRF"
+type: backend
+language: python
+framework: django
+requires_database: true
+agents: [api, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "python manage.py runserver 0.0.0.0:8000"
+dev_port: 8000
+getting_started:
+  prerequisites: "Python 3.12+"
+  commands:
+    - "python3.13 -m venv .venv   # use your Python 3.12+ binary"
+    - "source .venv/bin/activate"
+    - "pip install -r requirements.txt"
+    - "python manage.py migrate"
+    - "python manage.py runserver 0.0.0.0:8000"
+
+directories:
+  - config
+  - core
+  - core/migrations
+  - tests
+
+files:
+  - {src: "pyproject.toml.j2", dst: "pyproject.toml"}
+  - {src: "requirements.txt.j2", dst: "requirements.txt"}
+  - {src: "requirements-dev.txt", dst: "requirements-dev.txt"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: "manage.py.j2", dst: "manage.py"}
+  - {src: "config/__init__.py", dst: "config/__init__.py"}
+  - {src: "config/settings.py.j2", dst: "config/settings.py"}
+  - {src: "config/urls.py.j2", dst: "config/urls.py"}
+  - {src: "config/wsgi.py.j2", dst: "config/wsgi.py"}
+  - {src: "config/asgi.py.j2", dst: "config/asgi.py"}
+  - {src: "core/__init__.py", dst: "core/__init__.py"}
+  - {src: "core/apps.py", dst: "core/apps.py"}
+  - {src: "core/models.py", dst: "core/models.py"}
+  - {src: "core/admin.py", dst: "core/admin.py"}
+  - {src: "core/serializers.py", dst: "core/serializers.py"}
+  - {src: "core/urls.py", dst: "core/urls.py"}
+  - {src: "core/views.py", dst: "core/views.py"}
+  - {src: "core/migrations/__init__.py", dst: "core/migrations/__init__.py"}
+  - {src: "tests/__init__.py", dst: "tests/__init__.py"}
+  - {src: "tests/test_health.py.j2", dst: "tests/test_health.py"}
+  - {src: "tests/test_items.py", dst: "tests/test_items.py"}
+  - {src: ".env.example.j2", dst: ".env.example"}

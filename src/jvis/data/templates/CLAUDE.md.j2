@@ -1,0 +1,42 @@
+# CLAUDE.md
+
+## Project: {{ project_name }}
+
+This project uses JVIS for AI-assisted development.
+
+## Development Workflow
+
+```
+1. /pm          → Create PRD
+2. /architect   → Design architecture
+3. /sm          → Create stories
+4. /dev         → Implement
+5. /qa          → Review & quality gates (PASS/CONCERNS/FAIL)
+6. Commit only after QA PASS
+```
+
+## Agent Commands
+
+All agents support these commands (use `*` prefix):
+
+```bash
+*help          # Show available commands
+*load-context  # Load project context (auto on start)
+*save-context  # Save session (mandatory before exit)
+*exit          # Leave agent mode (runs save-context first)
+```
+
+## Best Practices
+
+1. Start new chat when switching agents
+2. Always use `*exit` to end sessions (saves context)
+3. Never skip document sharding before development
+4. Commit only after QA approval
+5. For brownfield: document first, assess risks, then develop
+
+## References
+
+- Agent configs: `.jvis/agents/`
+- Inter-agent docs: `docs/notes/`
+- Security docs: `docs/security/`
+- QA docs: `docs/qa/`

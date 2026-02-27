@@ -1,0 +1,293 @@
+# JVIS Brainstorming Output Template
+# Version: 1.0
+# Usage: Document output from brainstorming sessions
+# Location: docs/analysis/brainstorming-{session_name}.md
+
+---
+template:
+  id: brainstorming-output-template-v1
+  name: Brainstorming Session Output
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/analysis/brainstorming-{{session_name}}.md
+    title: "Brainstorming: {{session_topic}}"
+
+workflow:
+  mode: interactive
+  elicitation: basic
+
+sections:
+  - id: header
+    title: Session Header
+    template: |
+      ---
+      # Session Metadata
+      session_id: "{{session_id}}"
+      topic: "{{session_topic}}"
+      date: "{{YYYY-MM-DD}}"
+      duration: "{{duration_minutes}} minutes"
+      facilitator: "Business Analyst Agent"
+      participants: {{participant_count}}
+      technique: "{{brainstorming_technique}}"
+      ---
+
+      # Brainstorming Session: {{session_topic}}
+
+  - id: session-overview
+    title: Session Overview
+    instruction: |
+      Document the session context:
+
+      1. What problem or opportunity was explored?
+      2. What was the desired outcome?
+      3. What technique was used?
+      4. Who participated?
+    elicit: true
+    sections:
+      - id: objective
+        title: Session Objective
+        template: |
+          ## Session Overview
+
+          ### Objective
+          {{session_objective}}
+
+          ### Problem Statement
+          {{problem_statement}}
+
+          ### Desired Outcomes
+          - {{outcome_1}}
+          - {{outcome_2}}
+      - id: technique
+        title: Technique Used
+        template: |
+          ### Brainstorming Technique
+
+          **Method:** {{technique_name}}
+
+          **Description:** {{technique_description}}
+
+          **Why This Technique:** {{technique_rationale}}
+      - id: participants
+        title: Participants
+        type: table
+        columns: [Name/Role, Expertise, Contribution Focus]
+
+  - id: ideas-generated
+    title: Ideas Generated
+    instruction: |
+      Document ALL ideas generated during the session.
+      No filtering at this stage - capture everything.
+      Group by category or theme if applicable.
+    elicit: true
+    sections:
+      - id: raw-ideas
+        title: Raw Ideas
+        template: |
+          ## Ideas Generated
+
+          ### All Ideas (Unfiltered)
+
+          | # | Idea | Category | Contributor |
+          |---|------|----------|-------------|
+          {{#ideas}}
+          | {{number}} | {{idea_description}} | {{category}} | {{contributor}} |
+          {{/ideas}}
+      - id: idea-clusters
+        title: Idea Clusters
+        repeatable: true
+        template: |
+          ### Cluster: {{cluster_name}}
+
+          **Theme:** {{cluster_theme}}
+
+          **Ideas in this cluster:**
+          - {{idea_1}}
+          - {{idea_2}}
+          - {{idea_3}}
+
+          **Potential:** {{cluster_potential}}
+
+  - id: evaluation
+    title: Idea Evaluation
+    instruction: |
+      Evaluate ideas using agreed-upon criteria.
+      Common criteria: feasibility, impact, effort, alignment.
+    elicit: true
+    sections:
+      - id: evaluation-criteria
+        title: Evaluation Criteria
+        template: |
+          ## Idea Evaluation
+
+          ### Evaluation Criteria
+
+          | Criterion | Weight | Description |
+          |-----------|--------|-------------|
+          | {{criterion_1}} | {{weight_1}}% | {{description_1}} |
+          | {{criterion_2}} | {{weight_2}}% | {{description_2}} |
+          | {{criterion_3}} | {{weight_3}}% | {{description_3}} |
+          | {{criterion_4}} | {{weight_4}}% | {{description_4}} |
+      - id: scored-ideas
+        title: Scored Ideas
+        type: table
+        columns: [Idea, Feasibility, Impact, Effort, Alignment, Total Score]
+        examples:
+          - "| Idea A | 8 | 9 | 6 | 8 | 7.8 |"
+          - "| Idea B | 6 | 7 | 8 | 9 | 7.5 |"
+      - id: impact-effort-matrix
+        title: Impact-Effort Matrix
+        template: |
+          ### Impact-Effort Matrix
+
+          | Quadrant | Ideas |
+          |----------|-------|
+          | **Quick Wins** (High Impact, Low Effort) | {{quick_wins}} |
+          | **Major Projects** (High Impact, High Effort) | {{major_projects}} |
+          | **Fill-Ins** (Low Impact, Low Effort) | {{fill_ins}} |
+          | **Avoid** (Low Impact, High Effort) | {{avoid}} |
+
+  - id: top-ideas
+    title: Top Ideas
+    instruction: |
+      Highlight the top 3-5 ideas that emerged from evaluation.
+      Provide detailed analysis for each.
+    elicit: true
+    repeatable: true
+    sections:
+      - id: top-idea
+        title: "Top Idea: {{idea_name}}"
+        template: |
+          ### {{rank}}. {{idea_name}}
+
+          **Score:** {{total_score}}/10
+          **Category:** {{category}}
+
+          #### Description
+          {{detailed_description}}
+
+          #### Value Proposition
+          {{value_proposition}}
+
+          #### Implementation Approach
+          {{implementation_approach}}
+
+          #### Risks & Challenges
+          - {{risk_1}}
+          - {{risk_2}}
+
+          #### Resource Requirements
+          - {{resource_1}}
+          - {{resource_2}}
+
+          #### Success Metrics
+          - {{metric_1}}
+          - {{metric_2}}
+
+  - id: connections
+    title: Connections & Combinations
+    instruction: |
+      Identify connections between ideas and potential combinations.
+    elicit: true
+    template: |
+      ## Connections & Combinations
+
+      ### Idea Synergies
+
+      | Idea A | Idea B | Combined Value |
+      |--------|--------|----------------|
+      | {{idea_a}} | {{idea_b}} | {{combined_value}} |
+
+      ### Combination Opportunities
+
+      {{combination_description}}
+
+  - id: parking-lot
+    title: Parking Lot
+    instruction: |
+      Document ideas that need more research or are out of scope
+      but worth revisiting later.
+    elicit: true
+    template: |
+      ## Parking Lot
+
+      ### Needs More Research
+      - {{research_item_1}}
+      - {{research_item_2}}
+
+      ### Out of Current Scope
+      - {{out_of_scope_1}}
+      - {{out_of_scope_2}}
+
+      ### Future Consideration
+      - {{future_item_1}}
+      - {{future_item_2}}
+
+  - id: action-items
+    title: Action Items
+    instruction: |
+      Document concrete next steps from this session.
+    elicit: true
+    sections:
+      - id: immediate-actions
+        title: Immediate Actions
+        type: table
+        columns: [Action, Owner, Due Date, Priority]
+        examples:
+          - "| Research competitor X | Analyst | 2024-01-15 | High |"
+          - "| Prototype idea A | Dev | 2024-01-20 | Medium |"
+      - id: follow-up-sessions
+        title: Follow-up Sessions
+        template: |
+          ### Follow-up Sessions Needed
+
+          | Topic | Purpose | Suggested Date |
+          |-------|---------|----------------|
+          | {{topic}} | {{purpose}} | {{date}} |
+
+  - id: recommendations
+    title: Recommendations
+    instruction: |
+      Provide analyst recommendations based on the session output.
+    elicit: true
+    template: |
+      ## Analyst Recommendations
+
+      ### Primary Recommendation
+      {{primary_recommendation}}
+
+      ### Supporting Recommendations
+      1. {{recommendation_1}}
+      2. {{recommendation_2}}
+      3. {{recommendation_3}}
+
+      ### Rationale
+      {{rationale}}
+
+      ### Next Steps
+      1. {{next_step_1}}
+      2. {{next_step_2}}
+      3. {{next_step_3}}
+
+  - id: appendix
+    title: Appendix
+    template: |
+      ## Appendix
+
+      ### Session Notes
+      {{raw_notes}}
+
+      ### Resources Referenced
+      - {{resource_1}}
+      - {{resource_2}}
+
+      ### Related Documents
+      - {{related_doc_1}}
+      - {{related_doc_2}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | Business Analyst | Initial session output |

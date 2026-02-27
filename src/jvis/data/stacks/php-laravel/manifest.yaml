@@ -1,0 +1,79 @@
+id: php-laravel
+name: "PHP Laravel"
+description: "Laravel with Eloquent ORM, Artisan CLI, API resources"
+type: backend
+language: php
+framework: laravel
+requires_database: true
+agents: [dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "php artisan serve --host 0.0.0.0 --port 8000"
+dev_port: 8000
+getting_started:
+  prerequisites: "PHP 8.3+ and Composer"
+  commands:
+    - "composer install"
+    - "php artisan key:generate"
+    - "php artisan migrate"
+    - "php artisan serve --host 0.0.0.0 --port 8000"
+
+directories:
+  - app/Http/Controllers
+  - app/Http/Requests
+  - app/Models
+  - app/Providers
+  - bootstrap/cache
+  - config
+  - database/factories
+  - database/migrations
+  - database/seeders
+  - resources/views
+  - routes
+  - storage/app
+  - storage/logs
+  - tests/Feature
+
+files:
+  # Config
+  - {src: "composer.json.j2", dst: "composer.json"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: "artisan", dst: "artisan"}
+  - {src: "phpunit.xml.j2", dst: "phpunit.xml"}
+  - {src: "pint.json", dst: "pint.json"}
+  - {src: ".env.example.j2", dst: ".env.example"}
+
+  # Bootstrap
+  - {src: "bootstrap/app.php", dst: "bootstrap/app.php"}
+
+  # Config
+  - {src: "config/app.php.j2", dst: "config/app.php"}
+
+  # Routes
+  - {src: "routes/api.php", dst: "routes/api.php"}
+  - {src: "routes/web.php", dst: "routes/web.php"}
+
+  # Controllers
+  - {src: "app/Http/Controllers/Controller.php", dst: "app/Http/Controllers/Controller.php"}
+  - {src: "app/Http/Controllers/HealthController.php", dst: "app/Http/Controllers/HealthController.php"}
+  - {src: "app/Http/Controllers/ItemController.php", dst: "app/Http/Controllers/ItemController.php"}
+
+  # Requests
+  - {src: "app/Http/Requests/StoreItemRequest.php", dst: "app/Http/Requests/StoreItemRequest.php"}
+  - {src: "app/Http/Requests/UpdateItemRequest.php", dst: "app/Http/Requests/UpdateItemRequest.php"}
+
+  # Models
+  - {src: "app/Models/Item.php", dst: "app/Models/Item.php"}
+
+  # Providers
+  - {src: "app/Providers/AppServiceProvider.php", dst: "app/Providers/AppServiceProvider.php"}
+
+  # Database
+  - {src: "database/migrations/0001_01_01_000001_create_items_table.php", dst: "database/migrations/0001_01_01_000001_create_items_table.php"}
+  - {src: "database/seeders/DatabaseSeeder.php", dst: "database/seeders/DatabaseSeeder.php"}
+
+  # Tests
+  - {src: "tests/TestCase.php", dst: "tests/TestCase.php"}
+  - {src: "tests/Feature/HealthTest.php.j2", dst: "tests/Feature/HealthTest.php"}
+  - {src: "tests/Feature/ItemTest.php.j2", dst: "tests/Feature/ItemTest.php"}

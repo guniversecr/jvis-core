@@ -1,0 +1,416 @@
+# JVIS Pricing Strategy Template
+# Version: 1.0
+# Usage: Define and document product/service pricing strategy
+# Location: docs/strategy/pricing-strategy-{{product_name}}.md
+
+---
+template:
+  id: pricing-strategy-template-v1
+  name: Pricing Strategy
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/strategy/pricing-strategy-{{product_name}}.md
+    title: "Pricing Strategy: {{product_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Pricing Strategy Metadata
+      product: "{{product_name}}"
+      company: "{{company_name}}"
+      created: "{{YYYY-MM-DD}}"
+      status: "{{status}}"
+      owner: "{{pricing_owner}}"
+      ---
+
+      # Pricing Strategy: {{product_name}}
+
+      | Field | Value |
+      |-------|-------|
+      | **Product/Service** | {{product_name}} |
+      | **Company** | {{company_name}} |
+      | **Market** | {{target_market}} |
+      | **Version** | {{strategy_version}} |
+      | **Owner** | {{pricing_owner}} |
+
+  - id: executive-summary
+    title: Executive Summary
+    instruction: |
+      Summarize the pricing strategy and key recommendations.
+    elicit: true
+    template: |
+      ## Executive Summary
+
+      ### Pricing Strategy Overview
+      {{strategy_overview}}
+
+      ### Recommended Pricing
+      | Tier/Product | Price | Positioning |
+      |--------------|-------|-------------|
+      | {{tier_1}} | {{price_1}} | {{positioning_1}} |
+      | {{tier_2}} | {{price_2}} | {{positioning_2}} |
+      | {{tier_3}} | {{price_3}} | {{positioning_3}} |
+
+      ### Key Strategic Decisions
+      1. {{decision_1}}
+      2. {{decision_2}}
+      3. {{decision_3}}
+
+      ### Expected Outcomes
+      | Metric | Target |
+      |--------|--------|
+      | Revenue | {{target_revenue}} |
+      | Margin | {{target_margin}} |
+      | Market Share | {{target_share}} |
+      | Customer Acquisition | {{target_acquisition}} |
+
+  - id: pricing-objectives
+    title: Pricing Objectives
+    instruction: |
+      Define the strategic objectives for pricing.
+    elicit: true
+    template: |
+      ## Pricing Objectives
+
+      ### Primary Objective
+      {{primary_objective}}
+
+      ### Business Goals
+      | Goal | Metric | Target | Timeline |
+      |------|--------|--------|----------|
+      | {{goal_1}} | {{metric_1}} | {{target_1}} | {{timeline_1}} |
+      | {{goal_2}} | {{metric_2}} | {{target_2}} | {{timeline_2}} |
+      | {{goal_3}} | {{metric_3}} | {{target_3}} | {{timeline_3}} |
+
+      ### Pricing Strategy Type
+      **Selected:** {{strategy_type}}
+      *(Options: Penetration, Skimming, Value-Based, Competitive, Cost-Plus, Premium)*
+
+      **Rationale:** {{strategy_rationale}}
+
+      ### Trade-offs
+      {{strategy_tradeoffs}}
+
+  - id: market-analysis
+    title: Market Analysis
+    instruction: |
+      Analyze market conditions affecting pricing.
+    elicit: true
+    template: |
+      ## Market Analysis
+
+      ### Market Overview
+      {{market_overview}}
+
+      ### Market Size & Growth
+      | Metric | Value | Trend |
+      |--------|-------|-------|
+      | Total Market | {{total_market}} | {{market_trend}} |
+      | Target Segment | {{segment_size}} | {{segment_trend}} |
+      | Growth Rate | {{growth_rate}} | {{growth_direction}} |
+
+      ### Price Sensitivity
+      **Overall Sensitivity:** {{price_sensitivity}}
+      **Price Elasticity:** {{price_elasticity}}
+
+      ### Market Dynamics
+      {{market_dynamics}}
+
+      ### Buyer Behavior
+      {{buyer_behavior}}
+
+  - id: competitive-analysis
+    title: Competitive Analysis
+    instruction: |
+      Map competitive pricing landscape.
+    elicit: true
+    template: |
+      ## Competitive Analysis
+
+      ### Competitor Pricing
+      | Competitor | Product | Price | Positioning | Strengths |
+      |------------|---------|-------|-------------|-----------|
+      | {{comp_1}} | {{comp_prod_1}} | {{comp_price_1}} | {{comp_pos_1}} | {{comp_str_1}} |
+      | {{comp_2}} | {{comp_prod_2}} | {{comp_price_2}} | {{comp_pos_2}} | {{comp_str_2}} |
+      | {{comp_3}} | {{comp_prod_3}} | {{comp_price_3}} | {{comp_pos_3}} | {{comp_str_3}} |
+      | {{comp_4}} | {{comp_prod_4}} | {{comp_price_4}} | {{comp_pos_4}} | {{comp_str_4}} |
+
+      ### Price Range Analysis
+      **Market Floor:** {{price_floor}}
+      **Market Ceiling:** {{price_ceiling}}
+      **Average:** {{price_average}}
+
+      ### Our Position
+      **Target Position:** {{our_position}}
+      **Rationale:** {{position_rationale}}
+
+      ### Competitive Response Scenarios
+      | Scenario | Competitor Action | Our Response |
+      |----------|-------------------|--------------|
+      | {{scenario_1}} | {{action_1}} | {{response_1}} |
+      | {{scenario_2}} | {{action_2}} | {{response_2}} |
+      | {{scenario_3}} | {{action_3}} | {{response_3}} |
+
+  - id: cost-analysis
+    title: Cost Analysis
+    instruction: |
+      Detail cost structure for pricing decisions.
+    elicit: true
+    template: |
+      ## Cost Analysis
+
+      ### Cost Structure
+      | Cost Component | Amount | % of Total | Type |
+      |----------------|--------|------------|------|
+      | {{cost_1}} | {{amount_1}} | {{pct_1}} | {{type_1}} |
+      | {{cost_2}} | {{amount_2}} | {{pct_2}} | {{type_2}} |
+      | {{cost_3}} | {{amount_3}} | {{pct_3}} | {{type_3}} |
+      | {{cost_4}} | {{amount_4}} | {{pct_4}} | {{type_4}} |
+      | {{cost_5}} | {{amount_5}} | {{pct_5}} | {{type_5}} |
+      | **Total** | **{{total_cost}}** | **100%** | |
+
+      ### Unit Economics
+      | Metric | Value |
+      |--------|-------|
+      | COGS per Unit | {{cogs_unit}} |
+      | Variable Cost | {{variable_cost}} |
+      | Fixed Cost Allocation | {{fixed_allocation}} |
+      | Break-even Units | {{breakeven_units}} |
+      | Break-even Revenue | {{breakeven_revenue}} |
+
+      ### Margin Analysis
+      | Price Point | Margin | Margin % |
+      |-------------|--------|----------|
+      | {{point_1}} | {{margin_1}} | {{margin_pct_1}} |
+      | {{point_2}} | {{margin_2}} | {{margin_pct_2}} |
+      | {{point_3}} | {{margin_3}} | {{margin_pct_3}} |
+
+      ### Cost Trends
+      {{cost_trends}}
+
+  - id: value-analysis
+    title: Value Analysis
+    instruction: |
+      Assess customer perceived value and willingness to pay.
+    elicit: true
+    template: |
+      ## Value Analysis
+
+      ### Value Proposition
+      {{value_proposition}}
+
+      ### Customer Value Drivers
+      | Value Driver | Importance | Our Performance | Competitor Avg |
+      |--------------|------------|-----------------|----------------|
+      | {{driver_1}} | {{importance_1}} | {{perf_1}} | {{comp_avg_1}} |
+      | {{driver_2}} | {{importance_2}} | {{perf_2}} | {{comp_avg_2}} |
+      | {{driver_3}} | {{importance_3}} | {{perf_3}} | {{comp_avg_3}} |
+      | {{driver_4}} | {{importance_4}} | {{perf_4}} | {{comp_avg_4}} |
+
+      ### Willingness to Pay
+      **Research Method:** {{wtp_method}}
+      **Results:**
+      | Segment | WTP Range | Sweet Spot |
+      |---------|-----------|------------|
+      | {{seg_1}} | {{wtp_range_1}} | {{sweet_1}} |
+      | {{seg_2}} | {{wtp_range_2}} | {{sweet_2}} |
+      | {{seg_3}} | {{wtp_range_3}} | {{sweet_3}} |
+
+      ### Value Quantification
+      {{value_quantification}}
+
+      ### ROI for Customers
+      {{customer_roi}}
+
+  - id: pricing-structure
+    title: Pricing Structure
+    instruction: |
+      Define the detailed pricing architecture.
+    elicit: true
+    template: |
+      ## Pricing Structure
+
+      ### Pricing Model
+      **Model Type:** {{pricing_model}}
+      *(Options: Flat Fee, Tiered, Usage-Based, Per User, Freemium, Hybrid)*
+
+      **Rationale:** {{model_rationale}}
+
+      ### Tier Structure
+      | Tier | Features | Price | Target Customer |
+      |------|----------|-------|-----------------|
+      | {{tier_name_1}} | {{features_1}} | {{tier_price_1}} | {{target_cust_1}} |
+      | {{tier_name_2}} | {{features_2}} | {{tier_price_2}} | {{target_cust_2}} |
+      | {{tier_name_3}} | {{features_3}} | {{tier_price_3}} | {{target_cust_3}} |
+      | {{tier_name_4}} | {{features_4}} | {{tier_price_4}} | {{target_cust_4}} |
+
+      ### Add-Ons & Extras
+      | Add-On | Price | Bundled With |
+      |--------|-------|--------------|
+      | {{addon_1}} | {{addon_price_1}} | {{bundle_1}} |
+      | {{addon_2}} | {{addon_price_2}} | {{bundle_2}} |
+      | {{addon_3}} | {{addon_price_3}} | {{bundle_3}} |
+
+      ### Volume/Quantity Discounts
+      | Quantity | Discount | Effective Price |
+      |----------|----------|-----------------|
+      | {{qty_1}} | {{discount_1}} | {{effective_1}} |
+      | {{qty_2}} | {{discount_2}} | {{effective_2}} |
+      | {{qty_3}} | {{discount_3}} | {{effective_3}} |
+
+      ### Contract Terms
+      {{contract_terms}}
+
+  - id: discounting
+    title: Discounting Strategy
+    template: |
+      ## Discounting Strategy
+
+      ### Discount Policy
+      {{discount_policy}}
+
+      ### Standard Discounts
+      | Discount Type | Amount | Conditions | Approval |
+      |---------------|--------|------------|----------|
+      | {{disc_type_1}} | {{disc_amount_1}} | {{disc_cond_1}} | {{disc_approval_1}} |
+      | {{disc_type_2}} | {{disc_amount_2}} | {{disc_cond_2}} | {{disc_approval_2}} |
+      | {{disc_type_3}} | {{disc_amount_3}} | {{disc_cond_3}} | {{disc_approval_3}} |
+
+      ### Promotional Pricing
+      | Promotion | Discount | Duration | Conditions |
+      |-----------|----------|----------|------------|
+      | {{promo_1}} | {{promo_disc_1}} | {{promo_dur_1}} | {{promo_cond_1}} |
+      | {{promo_2}} | {{promo_disc_2}} | {{promo_dur_2}} | {{promo_cond_2}} |
+
+      ### Approval Matrix
+      | Discount Level | Approver |
+      |----------------|----------|
+      | Up to {{level_1}} | {{approver_1}} |
+      | {{level_2}} - {{level_3}} | {{approver_2}} |
+      | Above {{level_4}} | {{approver_3}} |
+
+      ### Discount Guardrails
+      {{discount_guardrails}}
+
+  - id: segmentation
+    title: Price Segmentation
+    template: |
+      ## Price Segmentation
+
+      ### Segment Pricing
+      | Segment | Price | Rationale |
+      |---------|-------|-----------|
+      | {{segment_1}} | {{seg_price_1}} | {{seg_rationale_1}} |
+      | {{segment_2}} | {{seg_price_2}} | {{seg_rationale_2}} |
+      | {{segment_3}} | {{seg_price_3}} | {{seg_rationale_3}} |
+
+      ### Geographic Pricing
+      | Region | Price | Adjustment | Rationale |
+      |--------|-------|------------|-----------|
+      | {{region_1}} | {{reg_price_1}} | {{adjustment_1}} | {{reg_rationale_1}} |
+      | {{region_2}} | {{reg_price_2}} | {{adjustment_2}} | {{reg_rationale_2}} |
+      | {{region_3}} | {{reg_price_3}} | {{adjustment_3}} | {{reg_rationale_3}} |
+
+      ### Channel Pricing
+      | Channel | Price | Margin |
+      |---------|-------|--------|
+      | {{channel_1}} | {{chan_price_1}} | {{chan_margin_1}} |
+      | {{channel_2}} | {{chan_price_2}} | {{chan_margin_2}} |
+      | {{channel_3}} | {{chan_price_3}} | {{chan_margin_3}} |
+
+  - id: financial-projections
+    title: Financial Projections
+    instruction: |
+      Project financial outcomes of pricing strategy.
+    elicit: true
+    template: |
+      ## Financial Projections
+
+      ### Revenue Projections
+      | Period | Units | Revenue | Growth |
+      |--------|-------|---------|--------|
+      | {{period_1}} | {{units_1}} | {{rev_1}} | {{growth_1}} |
+      | {{period_2}} | {{units_2}} | {{rev_2}} | {{growth_2}} |
+      | {{period_3}} | {{units_3}} | {{rev_3}} | {{growth_3}} |
+      | {{period_4}} | {{units_4}} | {{rev_4}} | {{growth_4}} |
+
+      ### Margin Projections
+      | Period | Gross Margin | Net Margin |
+      |--------|--------------|------------|
+      | {{margin_period_1}} | {{gross_1}} | {{net_1}} |
+      | {{margin_period_2}} | {{gross_2}} | {{net_2}} |
+      | {{margin_period_3}} | {{gross_3}} | {{net_3}} |
+
+      ### Scenario Analysis
+      | Scenario | Price | Volume | Revenue | Margin |
+      |----------|-------|--------|---------|--------|
+      | Optimistic | {{opt_price}} | {{opt_vol}} | {{opt_rev}} | {{opt_margin}} |
+      | Base | {{base_price}} | {{base_vol}} | {{base_rev}} | {{base_margin}} |
+      | Conservative | {{cons_price}} | {{cons_vol}} | {{cons_rev}} | {{cons_margin}} |
+
+      ### Sensitivity Analysis
+      {{sensitivity_analysis}}
+
+  - id: implementation
+    title: Implementation Plan
+    template: |
+      ## Implementation Plan
+
+      ### Rollout Timeline
+      | Milestone | Date | Owner |
+      |-----------|------|-------|
+      | Strategy Approval | {{approve_date}} | {{approve_owner}} |
+      | Systems Update | {{systems_date}} | {{systems_owner}} |
+      | Sales Enablement | {{sales_date}} | {{sales_owner}} |
+      | Customer Communication | {{comms_date}} | {{comms_owner}} |
+      | Go-Live | {{golive_date}} | {{golive_owner}} |
+
+      ### Communication Plan
+      **Internal:** {{internal_comms}}
+      **External:** {{external_comms}}
+      **Customer Notification:** {{customer_notification}}
+
+      ### Sales Enablement
+      {{sales_enablement}}
+
+      ### Systems & Operations
+      {{systems_operations}}
+
+  - id: monitoring
+    title: Monitoring & Optimization
+    template: |
+      ## Monitoring & Optimization
+
+      ### KPIs
+      | KPI | Target | Frequency | Owner |
+      |-----|--------|-----------|-------|
+      | {{kpi_1}} | {{kpi_target_1}} | {{kpi_freq_1}} | {{kpi_owner_1}} |
+      | {{kpi_2}} | {{kpi_target_2}} | {{kpi_freq_2}} | {{kpi_owner_2}} |
+      | {{kpi_3}} | {{kpi_target_3}} | {{kpi_freq_3}} | {{kpi_owner_3}} |
+      | {{kpi_4}} | {{kpi_target_4}} | {{kpi_freq_4}} | {{kpi_owner_4}} |
+
+      ### Review Cadence
+      {{review_cadence}}
+
+      ### Optimization Triggers
+      | Trigger | Action | Owner |
+      |---------|--------|-------|
+      | {{trigger_1}} | {{opt_action_1}} | {{opt_owner_1}} |
+      | {{trigger_2}} | {{opt_action_2}} | {{opt_owner_2}} |
+      | {{trigger_3}} | {{opt_action_3}} | {{opt_owner_3}} |
+
+      ### Testing Plan
+      {{testing_plan}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial strategy |

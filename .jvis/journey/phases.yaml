@@ -1,0 +1,543 @@
+# JVIS Project Journey System
+# Defines all phases, checkpoints, and gates for project lifecycle tracking
+
+version: "1.0"
+description: "Complete project lifecycle from ideation to production"
+
+# =============================================================================
+# PHASE 1: IDEATION
+# =============================================================================
+phases:
+  ideation:
+    name: "Ideation"
+    order: 1
+    description: "Validate the idea before investing development resources"
+    icon: "💡"
+
+    checkpoints:
+      idea_documented:
+        name: "Idea Documented"
+        description: "Clear description of what you want to build"
+        criteria:
+          - "Problem statement defined"
+          - "Target audience identified"
+          - "High-level solution described"
+        artifacts:
+          - "docs/ideation/idea-brief.md"
+        agent: "/analyst"
+        command: "*create-brief"
+
+      wps_scored:
+        name: "Winning Product Score"
+        description: "Idea evaluated with WPS framework"
+        criteria:
+          - "WPS score calculated (minimum 6/10 to proceed)"
+          - "Strengths and weaknesses identified"
+          - "Go/No-Go decision documented"
+        artifacts:
+          - "docs/ideation/wps-score.yaml"
+        agent: "/strategist"
+        command: "*idea-score"
+        gate_blocker: true
+        minimum_score: 6
+
+      market_researched:
+        name: "Market Research"
+        description: "Market size, trends, and opportunity analyzed"
+        criteria:
+          - "TAM/SAM/SOM estimated"
+          - "Market trends identified"
+          - "Timing analysis completed"
+        artifacts:
+          - "docs/ideation/market-research.md"
+        agent: "/strategist"
+        command: "*market-scan"
+
+      competitors_analyzed:
+        name: "Competitor Analysis"
+        description: "Direct and indirect competitors mapped"
+        criteria:
+          - "At least 3 competitors identified"
+          - "Feature comparison matrix created"
+          - "Differentiation strategy defined"
+        artifacts:
+          - "docs/ideation/competitor-analysis.md"
+        agent: "/strategist"
+        command: "*competitor-analysis"
+
+      business_model_defined:
+        name: "Business Model"
+        description: "Revenue model and unit economics outlined"
+        criteria:
+          - "Lean Canvas or Business Model Canvas completed"
+          - "Revenue streams identified"
+          - "Initial pricing strategy"
+        artifacts:
+          - "docs/ideation/business-model.md"
+        agent: "/strategist"
+        command: "*lean-canvas"
+
+    gate:
+      name: "Ideation Gate"
+      description: "Ready to validate with real users?"
+      requirements:
+        - checkpoint: "wps_scored"
+          condition: "score >= 6"
+        - checkpoint: "idea_documented"
+          condition: "complete"
+        - checkpoint: "competitors_analyzed"
+          condition: "complete"
+      decision_maker: "Product Owner / Founder"
+
+  # =============================================================================
+  # PHASE 2: VALIDATION
+  # =============================================================================
+  validation:
+    name: "Validation"
+    order: 2
+    description: "Validate problem and solution with real users before building"
+    icon: "🔬"
+
+    checkpoints:
+      interview_guide_created:
+        name: "Interview Guide"
+        description: "Structured guide for customer interviews"
+        criteria:
+          - "Problem hypotheses defined"
+          - "Questions prepared (no leading questions)"
+          - "Success metrics defined"
+        artifacts:
+          - "docs/validation/interview-guide.md"
+        agent: "/strategist"
+        command: "*interview-guide"
+
+      interviews_conducted:
+        name: "Customer Interviews"
+        description: "Minimum 5-10 interviews with target users"
+        criteria:
+          - "At least 5 interviews completed"
+          - "Pain points validated"
+          - "Willingness to pay explored"
+        artifacts:
+          - "docs/validation/interview-notes/"
+          - "docs/validation/interview-synthesis.md"
+        manual: true
+
+      problem_validated:
+        name: "Problem Validated"
+        description: "Confirmed the problem is real and painful"
+        criteria:
+          - "70%+ of interviewees confirm problem"
+          - "Problem severity quantified"
+          - "Current workarounds documented"
+        artifacts:
+          - "docs/validation/problem-validation.md"
+        gate_blocker: true
+
+      experiment_designed:
+        name: "Validation Experiment"
+        description: "Smoke test or MVP experiment designed"
+        criteria:
+          - "Experiment type selected (landing page, fake door, etc.)"
+          - "Success metrics defined"
+          - "Minimum sample size calculated"
+        artifacts:
+          - "docs/validation/experiment-plan.md"
+        agent: "/strategist"
+        command: "*experiment-design"
+
+      experiment_executed:
+        name: "Experiment Results"
+        description: "Validation experiment completed with data"
+        criteria:
+          - "Experiment ran for minimum duration"
+          - "Conversion/signup data collected"
+          - "Statistical significance achieved (if applicable)"
+        artifacts:
+          - "docs/validation/experiment-results.md"
+        manual: true
+
+      solution_validated:
+        name: "Solution Validated"
+        description: "Confirmed users want your solution"
+        criteria:
+          - "Signup/conversion rate meets threshold"
+          - "User feedback positive"
+          - "Pivot vs proceed decision made"
+        artifacts:
+          - "docs/validation/solution-validation.md"
+        gate_blocker: true
+
+    gate:
+      name: "Validation Gate"
+      description: "Ready to invest in full development?"
+      requirements:
+        - checkpoint: "problem_validated"
+          condition: "complete"
+        - checkpoint: "solution_validated"
+          condition: "complete"
+        - checkpoint: "interviews_conducted"
+          condition: "minimum 5 interviews"
+      decision_maker: "Product Owner / Founder"
+
+  # =============================================================================
+  # PHASE 3: PLANNING
+  # =============================================================================
+  planning:
+    name: "Planning"
+    order: 3
+    description: "Create complete technical and product specifications"
+    icon: "📋"
+
+    checkpoints:
+      user_personas_defined:
+        name: "User Personas"
+        description: "Detailed user personas based on validation"
+        criteria:
+          - "At least 2 primary personas"
+          - "Goals, pain points, behaviors documented"
+          - "User journey mapped"
+        artifacts:
+          - "docs/planning/user-personas.md"
+        agent: "/strategist"
+        command: "*user-personas"
+
+      mvp_scoped:
+        name: "MVP Scope"
+        description: "Minimum viable product defined"
+        criteria:
+          - "Core features identified (max 3-5)"
+          - "Out of scope clearly listed"
+          - "Success metrics for MVP"
+        artifacts:
+          - "docs/planning/mvp-scope.md"
+        agent: "/strategist"
+        command: "*mvp-scope"
+
+      prd_created:
+        name: "PRD Created"
+        description: "Product Requirements Document complete"
+        criteria:
+          - "All features documented"
+          - "User stories drafted"
+          - "Acceptance criteria defined"
+        artifacts:
+          - "docs/prd.md"
+        agent: "/pm"
+        command: "*create-prd"
+
+      architecture_designed:
+        name: "Architecture Designed"
+        description: "System architecture documented"
+        criteria:
+          - "Technology stack selected"
+          - "Component diagram created"
+          - "Data model designed"
+          - "API contracts defined"
+        artifacts:
+          - "docs/architecture.md"
+        agent: "/architect"
+        command: "*design"
+
+      security_planned:
+        name: "Security Plan"
+        description: "Security considerations documented"
+        criteria:
+          - "OWASP Top 10 addressed"
+          - "Authentication/authorization designed"
+          - "Data protection strategy"
+        artifacts:
+          - "docs/security/plans/"
+        agent: "/devsecops"
+        command: "*plan"
+
+      infrastructure_planned:
+        name: "Infrastructure Plan"
+        description: "Deployment and infrastructure designed"
+        criteria:
+          - "Cloud provider selected"
+          - "Environment strategy (dev/staging/prod)"
+          - "CI/CD pipeline planned"
+        artifacts:
+          - "docs/infrastructure.md"
+        agent: "/infra"
+        command: "*plan"
+
+      documents_sharded:
+        name: "Documents Sharded"
+        description: "PRD and Architecture sharded for development"
+        criteria:
+          - "PRD sharded into epics"
+          - "Architecture sharded into components"
+          - "Stories created for first sprint"
+        artifacts:
+          - "docs/prd/"
+          - "docs/architecture/"
+          - "docs/stories/"
+        agent: "/po"
+        command: "*shard-doc"
+
+      sprint_planned:
+        name: "Sprint Planned"
+        description: "First sprint stories ready"
+        criteria:
+          - "Stories prioritized"
+          - "Story points estimated"
+          - "Sprint goal defined"
+        artifacts:
+          - "docs/stories/"
+        agent: "/sm"
+        command: "*plan-sprint"
+
+    gate:
+      name: "Planning Gate"
+      description: "Ready to start development?"
+      requirements:
+        - checkpoint: "prd_created"
+          condition: "complete"
+        - checkpoint: "architecture_designed"
+          condition: "complete"
+        - checkpoint: "documents_sharded"
+          condition: "complete"
+        - checkpoint: "sprint_planned"
+          condition: "complete"
+      decision_maker: "Tech Lead / Architect"
+
+  # =============================================================================
+  # PHASE 4: DEVELOPMENT
+  # =============================================================================
+  development:
+    name: "Development"
+    order: 4
+    description: "Build the MVP with quality gates"
+    icon: "🔨"
+
+    checkpoints:
+      project_scaffolded:
+        name: "Project Scaffolded"
+        description: "Development environment ready"
+        criteria:
+          - "Project structure created"
+          - "Dependencies installed"
+          - "CI/CD pipeline configured"
+          - "Pre-commit hooks active"
+        artifacts:
+          - "src/"
+          - ".github/workflows/"
+          - "package.json or requirements.txt"
+        agent: "/dev"
+
+      database_setup:
+        name: "Database Setup"
+        description: "Database schema and migrations ready"
+        criteria:
+          - "Schema designed and implemented"
+          - "Migrations created"
+          - "Seed data for development"
+        artifacts:
+          - "migrations/"
+          - "src/models/"
+        agent: "/dev"
+
+      core_features_implemented:
+        name: "Core Features"
+        description: "MVP core features implemented"
+        criteria:
+          - "All MVP stories completed"
+          - "Unit tests passing"
+          - "Code reviewed"
+        artifacts:
+          - "src/"
+          - "tests/"
+        agent: "/dev"
+        command: "*develop-story"
+
+      qa_passed:
+        name: "QA Passed"
+        description: "Quality gates approved"
+        criteria:
+          - "All stories have QA gate (PASS or WAIVED)"
+          - "Critical bugs fixed"
+          - "Test coverage meets threshold"
+        artifacts:
+          - "docs/qa/gates/"
+        agent: "/qa"
+        command: "*review"
+        gate_blocker: true
+
+      security_audited:
+        name: "Security Audit"
+        description: "Security audit completed"
+        criteria:
+          - "OWASP Top 10 verified"
+          - "No critical/high vulnerabilities"
+          - "Secrets properly managed"
+        artifacts:
+          - "docs/security/audits/"
+        agent: "/devsecops"
+        command: "*audit"
+        gate_blocker: true
+
+      integration_tested:
+        name: "Integration Tested"
+        description: "End-to-end flows verified"
+        criteria:
+          - "Happy paths tested"
+          - "Error scenarios handled"
+          - "Performance acceptable"
+        artifacts:
+          - "tests/integration/"
+        agent: "/qa"
+
+      documentation_complete:
+        name: "Documentation Complete"
+        description: "User and developer documentation ready"
+        criteria:
+          - "README updated"
+          - "API documentation"
+          - "Deployment guide"
+        artifacts:
+          - "README.md"
+          - "docs/api/"
+          - "docs/deployment.md"
+        agent: "/dev"
+
+    gate:
+      name: "Development Gate"
+      description: "Ready for production?"
+      requirements:
+        - checkpoint: "qa_passed"
+          condition: "all gates PASS or WAIVED"
+        - checkpoint: "security_audited"
+          condition: "no critical issues"
+        - checkpoint: "integration_tested"
+          condition: "complete"
+      decision_maker: "Tech Lead / QA Lead"
+
+  # =============================================================================
+  # PHASE 5: PRODUCTION
+  # =============================================================================
+  production:
+    name: "Production"
+    order: 5
+    description: "Launch and measure success"
+    icon: "🚀"
+
+    checkpoints:
+      staging_deployed:
+        name: "Staging Deployed"
+        description: "Application running in staging environment"
+        criteria:
+          - "Staging environment provisioned"
+          - "Application deployed successfully"
+          - "Smoke tests passing"
+        artifacts:
+          - "terraform/"
+          - "deployment logs"
+        agent: "/infra"
+
+      staging_validated:
+        name: "Staging Validated"
+        description: "Stakeholder approval on staging"
+        criteria:
+          - "Demo to stakeholders completed"
+          - "Acceptance criteria verified"
+          - "Go-live approval received"
+        manual: true
+        gate_blocker: true
+
+      production_deployed:
+        name: "Production Deployed"
+        description: "Application live in production"
+        criteria:
+          - "Production environment ready"
+          - "Zero-downtime deployment"
+          - "Rollback plan tested"
+        artifacts:
+          - "terraform/"
+        agent: "/infra"
+
+      monitoring_active:
+        name: "Monitoring Active"
+        description: "Observability stack operational"
+        criteria:
+          - "Logging configured"
+          - "Metrics dashboard active"
+          - "Alerts configured"
+        artifacts:
+          - "docs/operations/runbook.md"
+        agent: "/infra"
+
+      launch_executed:
+        name: "Launch Executed"
+        description: "Product announced and live"
+        criteria:
+          - "Launch announcement sent"
+          - "First users onboarded"
+          - "Support channels active"
+        manual: true
+
+      pmf_measured:
+        name: "PMF Measured"
+        description: "Product-Market Fit tracked"
+        criteria:
+          - "PMF survey implemented"
+          - "Retention metrics tracked"
+          - "NPS or satisfaction measured"
+        artifacts:
+          - "docs/production/pmf-scorecard.md"
+        agent: "/strategist"
+        command: "*pmf-check"
+
+      iterate_or_scale:
+        name: "Iterate or Scale"
+        description: "Decision on next phase"
+        criteria:
+          - "PMF score evaluated (40%+ = scale)"
+          - "Unit economics validated"
+          - "Roadmap for next phase"
+        artifacts:
+          - "docs/production/next-phase.md"
+        agent: "/strategist"
+        command: "*pivot-decision"
+
+    gate:
+      name: "Production Gate"
+      description: "Ready to scale or iterate?"
+      requirements:
+        - checkpoint: "production_deployed"
+          condition: "complete"
+        - checkpoint: "monitoring_active"
+          condition: "complete"
+        - checkpoint: "pmf_measured"
+          condition: "complete"
+      decision_maker: "Founder / Product Owner"
+
+# =============================================================================
+# META CONFIGURATION
+# =============================================================================
+meta:
+  total_phases: 5
+  total_checkpoints: 35
+  gate_blockers: 6
+
+  status_icons:
+    not_started: "⬜"
+    in_progress: "🔄"
+    completed: "✅"
+    blocked: "🚫"
+    skipped: "⏭️"
+
+  phase_transitions:
+    - from: "ideation"
+      to: "validation"
+      requires_gate: true
+    - from: "validation"
+      to: "planning"
+      requires_gate: true
+    - from: "planning"
+      to: "development"
+      requires_gate: true
+    - from: "development"
+      to: "production"
+      requires_gate: true

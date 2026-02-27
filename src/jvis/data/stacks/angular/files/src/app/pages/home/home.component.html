@@ -1,0 +1,8 @@
+<h1>Items</h1>
+
+@if (error()) {
+  <p class="error-message">{{ error() }}</p>
+}
+
+<app-item-form (submitItem)="onAddItem($event)" />
+<app-item-list [items]="items()" (deleteItem)="onDeleteItem($event)" />

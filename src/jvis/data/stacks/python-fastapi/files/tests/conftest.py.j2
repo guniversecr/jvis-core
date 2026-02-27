@@ -1,0 +1,36 @@
+"""Shared test fixtures."""
+
+import pytest
+from fastapi.testclient import TestClient
+
+from src.main import app
+
+{% if database_type in ("postgresql", "mysql") %}
+from sqlalchemy import StaticPool, create_engine
+from sqlalchemy.orm import Session, sessionmaker
+
+from src.domain.entities.base import Base
+from src.infrastructure.database import get_session
+
+# In-memory SQLite for tests (sync — keeps tests simple and fast)
+_engine = create_engine("sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool)
+_TestSession = sessionmaker(bind=_engine)
+
+Base.metadata.create_all(bind=_engine)
+
+
+def _override_session():  # type: ignore[no-untyped-def]
+    session = _TestSession()
+    try:
+        yield session
+    finally:
+        session.close()
+
+
+app.dependency_overrides[get_session] = _override_session
+{% endif %}
+
+
+@pytest.fixture
+def client() -> TestClient:
+    return TestClient(app)

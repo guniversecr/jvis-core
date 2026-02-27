@@ -1,0 +1,67 @@
+id: php-symfony
+name: "PHP Symfony"
+description: "Symfony with Doctrine ORM, Flex, route attributes, CRUD"
+type: backend
+language: php
+framework: symfony
+requires_database: true
+agents: [dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "symfony server:start --port 8000"
+dev_port: 8000
+getting_started:
+  prerequisites: "PHP 8.3+ and Composer"
+  commands:
+    - "composer install"
+    - "symfony server:start --port 8000"
+
+directories:
+  - bin
+  - public
+  - src
+  - src/Controller
+  - src/Entity
+  - src/Repository
+  - config
+  - config/packages
+  - migrations
+  - var
+  - tests/Controller
+
+files:
+  # Config
+  - {src: "composer.json.j2", dst: "composer.json"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: "phpunit.xml.dist.j2", dst: "phpunit.xml.dist"}
+  - {src: ".env.example.j2", dst: ".env.example"}
+  - {src: ".php-cs-fixer.dist.php", dst: ".php-cs-fixer.dist.php"}
+
+  # Entry points
+  - {src: "public/index.php", dst: "public/index.php"}
+  - {src: "src/Kernel.php", dst: "src/Kernel.php"}
+  - {src: "bin/console", dst: "bin/console"}
+
+  # Config files
+  - {src: "config/routes.yaml", dst: "config/routes.yaml"}
+  - {src: "config/services.yaml", dst: "config/services.yaml"}
+  - {src: "config/packages/framework.yaml", dst: "config/packages/framework.yaml"}
+  - {src: "config/packages/doctrine.yaml.j2", dst: "config/packages/doctrine.yaml"}
+  - {src: "config/packages/validator.yaml", dst: "config/packages/validator.yaml"}
+
+  # Controllers
+  - {src: "src/Controller/HealthController.php", dst: "src/Controller/HealthController.php"}
+  - {src: "src/Controller/ItemController.php", dst: "src/Controller/ItemController.php"}
+
+  # Entity & Repository
+  - {src: "src/Entity/Item.php", dst: "src/Entity/Item.php"}
+  - {src: "src/Repository/ItemRepository.php", dst: "src/Repository/ItemRepository.php"}
+
+  # Placeholders
+  - {src: "migrations/.gitkeep", dst: "migrations/.gitkeep"}
+  - {src: "var/.gitkeep", dst: "var/.gitkeep"}
+
+  # Tests
+  - {src: "tests/Controller/HealthControllerTest.php.j2", dst: "tests/Controller/HealthControllerTest.php"}
+  - {src: "tests/Controller/ItemControllerTest.php.j2", dst: "tests/Controller/ItemControllerTest.php"}

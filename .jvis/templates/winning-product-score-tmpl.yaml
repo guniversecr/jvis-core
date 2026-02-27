@@ -1,0 +1,377 @@
+# JVIS Winning Product Score Template
+# Version: 1.0
+# Usage: Evaluate product-market fit and success potential
+# Location: docs/strategy/winning-product-score-{{product_name}}.md
+
+---
+template:
+  id: winning-product-score-template-v1
+  name: Winning Product Score
+  version: 1.0
+  output:
+    format: markdown
+    filename: docs/strategy/winning-product-score-{{product_name}}.md
+    title: "Winning Product Score: {{product_name}}"
+
+workflow:
+  mode: interactive
+  elicitation: advanced-elicitation
+
+sections:
+  - id: header
+    title: Document Header
+    template: |
+      ---
+      # Winning Product Score Metadata
+      product: "{{product_name}}"
+      company: "{{company_name}}"
+      created: "{{YYYY-MM-DD}}"
+      status: "{{status}}"
+      owner: "{{product_owner}}"
+      ---
+
+      # Winning Product Score: {{product_name}}
+
+      | Field | Value |
+      |-------|-------|
+      | **Product** | {{product_name}} |
+      | **Company** | {{company_name}} |
+      | **Category** | {{product_category}} |
+      | **Stage** | {{product_stage}} |
+      | **Evaluator** | {{evaluator}} |
+      | **Date** | {{evaluation_date}} |
+
+  - id: score-summary
+    title: Score Summary
+    instruction: |
+      Summarize the overall winning product score.
+    elicit: true
+    template: |
+      ## Score Summary
+
+      ### Overall Score
+      **Winning Product Score:** {{overall_score}}/100
+
+      ### Score Breakdown
+      | Dimension | Score | Weight | Weighted Score |
+      |-----------|-------|--------|----------------|
+      | Market Opportunity | {{market_score}}/100 | {{market_weight}}% | {{market_weighted}} |
+      | Problem-Solution Fit | {{problem_score}}/100 | {{problem_weight}}% | {{problem_weighted}} |
+      | Competitive Position | {{competitive_score}}/100 | {{competitive_weight}}% | {{competitive_weighted}} |
+      | Business Model | {{business_score}}/100 | {{business_weight}}% | {{business_weighted}} |
+      | Team & Execution | {{team_score}}/100 | {{team_weight}}% | {{team_weighted}} |
+
+      ### Verdict
+      **Rating:** {{verdict_rating}}
+      **Recommendation:** {{verdict_recommendation}}
+
+      ### Key Strengths
+      1. {{strength_1}}
+      2. {{strength_2}}
+      3. {{strength_3}}
+
+      ### Key Risks
+      1. {{risk_1}}
+      2. {{risk_2}}
+      3. {{risk_3}}
+
+  - id: market-opportunity
+    title: Market Opportunity
+    instruction: |
+      Evaluate the market opportunity and size.
+    elicit: true
+    template: |
+      ## Market Opportunity
+
+      ### Score: {{market_score}}/100
+
+      ### Market Size
+      | Metric | Value | Source |
+      |--------|-------|--------|
+      | TAM | {{tam}} | {{tam_source}} |
+      | SAM | {{sam}} | {{sam_source}} |
+      | SOM | {{som}} | {{som_source}} |
+
+      ### Market Dynamics
+      | Factor | Rating | Notes |
+      |--------|--------|-------|
+      | Market Growth | {{growth_rating}}/10 | {{growth_notes}} |
+      | Market Timing | {{timing_rating}}/10 | {{timing_notes}} |
+      | Market Accessibility | {{access_rating}}/10 | {{access_notes}} |
+      | Regulatory Environment | {{regulatory_rating}}/10 | {{regulatory_notes}} |
+
+      ### Target Market
+      **Primary Segment:** {{primary_segment}}
+      **Segment Size:** {{segment_size}}
+      **Segment Growth:** {{segment_growth}}
+
+      ### Market Trends
+      | Trend | Impact | Timeframe |
+      |-------|--------|-----------|
+      | {{trend_1}} | {{trend_impact_1}} | {{trend_time_1}} |
+      | {{trend_2}} | {{trend_impact_2}} | {{trend_time_2}} |
+      | {{trend_3}} | {{trend_impact_3}} | {{trend_time_3}} |
+
+      ### Market Opportunity Assessment
+      {{market_assessment}}
+
+  - id: problem-solution
+    title: Problem-Solution Fit
+    instruction: |
+      Evaluate the problem being solved and solution fit.
+    elicit: true
+    template: |
+      ## Problem-Solution Fit
+
+      ### Score: {{problem_score}}/100
+
+      ### Problem Analysis
+      | Criterion | Rating | Evidence |
+      |-----------|--------|----------|
+      | Problem Severity | {{severity_rating}}/10 | {{severity_evidence}} |
+      | Problem Frequency | {{frequency_rating}}/10 | {{frequency_evidence}} |
+      | Problem Awareness | {{awareness_rating}}/10 | {{awareness_evidence}} |
+      | Willingness to Pay | {{wtp_rating}}/10 | {{wtp_evidence}} |
+
+      ### Problem Statement
+      {{problem_statement}}
+
+      ### Current Alternatives
+      | Alternative | Limitations |
+      |-------------|-------------|
+      | {{alt_1}} | {{alt_limit_1}} |
+      | {{alt_2}} | {{alt_limit_2}} |
+      | {{alt_3}} | {{alt_limit_3}} |
+
+      ### Solution Evaluation
+      | Criterion | Rating | Notes |
+      |-----------|--------|-------|
+      | Solution Completeness | {{complete_rating}}/10 | {{complete_notes}} |
+      | User Experience | {{ux_rating}}/10 | {{ux_notes}} |
+      | Technical Feasibility | {{tech_rating}}/10 | {{tech_notes}} |
+      | Scalability | {{scale_rating}}/10 | {{scale_notes}} |
+
+      ### Value Proposition
+      {{value_proposition}}
+
+      ### Customer Validation
+      **Interviews Conducted:** {{interviews_count}}
+      **Key Insights:** {{customer_insights}}
+      **Validation Score:** {{validation_score}}/10
+
+  - id: competitive-position
+    title: Competitive Position
+    instruction: |
+      Analyze competitive landscape and differentiation.
+    elicit: true
+    template: |
+      ## Competitive Position
+
+      ### Score: {{competitive_score}}/100
+
+      ### Competitive Landscape
+      | Competitor | Strengths | Weaknesses | Threat Level |
+      |------------|-----------|------------|--------------|
+      | {{competitor_1}} | {{strength_1}} | {{weakness_1}} | {{threat_1}} |
+      | {{competitor_2}} | {{strength_2}} | {{weakness_2}} | {{threat_2}} |
+      | {{competitor_3}} | {{strength_3}} | {{weakness_3}} | {{threat_3}} |
+
+      ### Differentiation Analysis
+      | Factor | Our Position | vs. Competition |
+      |--------|--------------|-----------------|
+      | {{diff_factor_1}} | {{our_pos_1}} | {{vs_comp_1}} |
+      | {{diff_factor_2}} | {{our_pos_2}} | {{vs_comp_2}} |
+      | {{diff_factor_3}} | {{our_pos_3}} | {{vs_comp_3}} |
+
+      ### Sustainable Advantages
+      | Advantage | Durability | Notes |
+      |-----------|------------|-------|
+      | {{advantage_1}} | {{durability_1}} | {{adv_notes_1}} |
+      | {{advantage_2}} | {{durability_2}} | {{adv_notes_2}} |
+
+      ### Barriers to Entry
+      | Barrier | Strength | Our Position |
+      |---------|----------|--------------|
+      | {{barrier_1}} | {{barrier_strength_1}} | {{barrier_pos_1}} |
+      | {{barrier_2}} | {{barrier_strength_2}} | {{barrier_pos_2}} |
+
+      ### Competitive Assessment
+      {{competitive_assessment}}
+
+  - id: business-model
+    title: Business Model
+    instruction: |
+      Evaluate the business model viability.
+    elicit: true
+    template: |
+      ## Business Model
+
+      ### Score: {{business_score}}/100
+
+      ### Revenue Model
+      | Stream | Description | % of Revenue |
+      |--------|-------------|--------------|
+      | {{revenue_stream_1}} | {{stream_desc_1}} | {{stream_pct_1}} |
+      | {{revenue_stream_2}} | {{stream_desc_2}} | {{stream_pct_2}} |
+      | {{revenue_stream_3}} | {{stream_desc_3}} | {{stream_pct_3}} |
+
+      ### Unit Economics
+      | Metric | Value | Benchmark | Score |
+      |--------|-------|-----------|-------|
+      | LTV | {{ltv}} | {{ltv_bench}} | {{ltv_score}}/10 |
+      | CAC | {{cac}} | {{cac_bench}} | {{cac_score}}/10 |
+      | LTV:CAC | {{ltv_cac}} | {{ltv_cac_bench}} | {{ltv_cac_score}}/10 |
+      | Gross Margin | {{gross_margin}} | {{gm_bench}} | {{gm_score}}/10 |
+      | Payback Period | {{payback}} | {{payback_bench}} | {{payback_score}}/10 |
+
+      ### Pricing
+      | Criterion | Rating | Notes |
+      |-----------|--------|-------|
+      | Pricing Power | {{pricing_rating}}/10 | {{pricing_notes}} |
+      | Pricing Clarity | {{clarity_rating}}/10 | {{clarity_notes}} |
+      | Expansion Revenue | {{expansion_rating}}/10 | {{expansion_notes}} |
+
+      ### Growth Levers
+      | Lever | Potential | Priority |
+      |-------|-----------|----------|
+      | {{lever_1}} | {{potential_1}} | {{priority_1}} |
+      | {{lever_2}} | {{potential_2}} | {{priority_2}} |
+      | {{lever_3}} | {{potential_3}} | {{priority_3}} |
+
+      ### Business Model Assessment
+      {{business_assessment}}
+
+  - id: team-execution
+    title: Team & Execution
+    instruction: |
+      Evaluate team capabilities and execution ability.
+    elicit: true
+    template: |
+      ## Team & Execution
+
+      ### Score: {{team_score}}/100
+
+      ### Team Composition
+      | Area | Coverage | Rating |
+      |------|----------|--------|
+      | Technical | {{tech_coverage}} | {{tech_team_rating}}/10 |
+      | Product | {{product_coverage}} | {{product_team_rating}}/10 |
+      | Sales | {{sales_coverage}} | {{sales_team_rating}}/10 |
+      | Marketing | {{marketing_coverage}} | {{marketing_team_rating}}/10 |
+      | Operations | {{ops_coverage}} | {{ops_team_rating}}/10 |
+
+      ### Founder/Leadership
+      | Criterion | Rating | Evidence |
+      |-----------|--------|----------|
+      | Domain Expertise | {{domain_rating}}/10 | {{domain_evidence}} |
+      | Track Record | {{track_rating}}/10 | {{track_evidence}} |
+      | Vision | {{vision_rating}}/10 | {{vision_evidence}} |
+      | Execution | {{execution_rating}}/10 | {{execution_evidence}} |
+
+      ### Execution Capability
+      | Metric | Status | Rating |
+      |--------|--------|--------|
+      | Product Velocity | {{velocity_status}} | {{velocity_rating}}/10 |
+      | Go-to-Market | {{gtm_status}} | {{gtm_rating}}/10 |
+      | Customer Success | {{cs_status}} | {{cs_rating}}/10 |
+      | Operational Excellence | {{ops_status}} | {{ops_rating}}/10 |
+
+      ### Resource Position
+      **Funding:** {{funding_status}}
+      **Runway:** {{runway}}
+      **Key Hires Needed:** {{key_hires}}
+
+      ### Team Assessment
+      {{team_assessment}}
+
+  - id: risk-analysis
+    title: Risk Analysis
+    template: |
+      ## Risk Analysis
+
+      ### Risk Matrix
+      | Risk | Likelihood | Impact | Mitigation | Residual Risk |
+      |------|------------|--------|------------|---------------|
+      | {{risk_1}} | {{likelihood_1}} | {{impact_1}} | {{mitigation_1}} | {{residual_1}} |
+      | {{risk_2}} | {{likelihood_2}} | {{impact_2}} | {{mitigation_2}} | {{residual_2}} |
+      | {{risk_3}} | {{likelihood_3}} | {{impact_3}} | {{mitigation_3}} | {{residual_3}} |
+      | {{risk_4}} | {{likelihood_4}} | {{impact_4}} | {{mitigation_4}} | {{residual_4}} |
+      | {{risk_5}} | {{likelihood_5}} | {{impact_5}} | {{mitigation_5}} | {{residual_5}} |
+
+      ### Critical Assumptions
+      | Assumption | Validity | Risk if Wrong |
+      |------------|----------|---------------|
+      | {{assumption_1}} | {{validity_1}} | {{wrong_risk_1}} |
+      | {{assumption_2}} | {{validity_2}} | {{wrong_risk_2}} |
+      | {{assumption_3}} | {{validity_3}} | {{wrong_risk_3}} |
+
+      ### Kill Conditions
+      - {{kill_1}}
+      - {{kill_2}}
+      - {{kill_3}}
+
+  - id: validation-evidence
+    title: Validation Evidence
+    template: |
+      ## Validation Evidence
+
+      ### Customer Evidence
+      | Evidence Type | Sample Size | Key Finding |
+      |---------------|-------------|-------------|
+      | {{evidence_type_1}} | {{sample_1}} | {{finding_1}} |
+      | {{evidence_type_2}} | {{sample_2}} | {{finding_2}} |
+      | {{evidence_type_3}} | {{sample_3}} | {{finding_3}} |
+
+      ### Traction Metrics
+      | Metric | Current | Growth | Benchmark |
+      |--------|---------|--------|-----------|
+      | {{metric_1}} | {{current_1}} | {{growth_1}} | {{bench_1}} |
+      | {{metric_2}} | {{current_2}} | {{growth_2}} | {{bench_2}} |
+      | {{metric_3}} | {{current_3}} | {{growth_3}} | {{bench_3}} |
+
+      ### Product-Market Fit Indicators
+      | Indicator | Score | Evidence |
+      |-----------|-------|----------|
+      | Retention | {{retention_score}} | {{retention_evidence}} |
+      | NPS | {{nps_score}} | {{nps_evidence}} |
+      | Organic Growth | {{organic_score}} | {{organic_evidence}} |
+      | Word of Mouth | {{wom_score}} | {{wom_evidence}} |
+
+      ### Validation Summary
+      {{validation_summary}}
+
+  - id: recommendations
+    title: Recommendations
+    template: |
+      ## Recommendations
+
+      ### Go/No-Go Decision
+      **Recommendation:** {{go_nogo}}
+      **Confidence Level:** {{confidence}}
+
+      ### Priority Actions
+      | Priority | Action | Owner | Timeline |
+      |----------|--------|-------|----------|
+      | 1 | {{action_1}} | {{owner_1}} | {{timeline_1}} |
+      | 2 | {{action_2}} | {{owner_2}} | {{timeline_2}} |
+      | 3 | {{action_3}} | {{owner_3}} | {{timeline_3}} |
+
+      ### Investment Thesis
+      {{investment_thesis}}
+
+      ### Success Milestones
+      | Milestone | Target | Timeframe |
+      |-----------|--------|-----------|
+      | {{milestone_1}} | {{target_1}} | {{time_1}} |
+      | {{milestone_2}} | {{target_2}} | {{time_2}} |
+      | {{milestone_3}} | {{target_3}} | {{time_3}} |
+
+      ### Review Schedule
+      **Next Review:** {{next_review}}
+      **Review Criteria:** {{review_criteria}}
+
+---
+## Document History
+| Date | Version | Author | Changes |
+|------|---------|--------|---------|
+| {{date}} | 1.0 | {{author}} | Initial evaluation |

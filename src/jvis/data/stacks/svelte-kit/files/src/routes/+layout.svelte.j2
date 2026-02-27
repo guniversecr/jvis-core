@@ -1,0 +1,31 @@
+<script lang="ts">
+  import '../styles/global.css';
+</script>
+
+<nav>
+  <a href="/">{{ project_name }}</a>
+</nav>
+
+<main>
+  <slot />
+</main>
+
+<style>
+  nav {
+    padding: 1rem 2rem;
+    background: #1a1a2e;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+</style>

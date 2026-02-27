@@ -1,0 +1,47 @@
+id: python-flask
+name: "Python Flask"
+description: "Flask with application factory, SQLAlchemy, Blueprints"
+type: backend
+language: python
+framework: flask
+requires_database: true
+agents: [api, dev, qa, architect, pm, sm, devsecops]
+
+dev_command: "python -m flask run --reload --host 0.0.0.0 --port 8000"
+dev_port: 8000
+getting_started:
+  prerequisites: "Python 3.12+"
+  commands:
+    - "python3.13 -m venv .venv   # use your Python 3.12+ binary"
+    - "source .venv/bin/activate"
+    - "pip install -r requirements.txt"
+    - "python -m flask run --reload --port 8000"
+
+directories:
+  - migrations
+  - src
+  - src/routes
+  - src/services
+  - tests
+
+files:
+  - {src: "pyproject.toml.j2", dst: "pyproject.toml"}
+  - {src: "requirements.txt.j2", dst: "requirements.txt"}
+  - {src: "requirements-dev.txt", dst: "requirements-dev.txt"}
+  - {src: "Makefile.j2", dst: "Makefile"}
+  - {src: "Dockerfile", dst: "Dockerfile"}
+  - {src: "docker-compose.yaml.j2", dst: "docker-compose.yaml"}
+  - {src: "src/__init__.py", dst: "src/__init__.py"}
+  - {src: "src/app.py.j2", dst: "src/app.py"}
+  - {src: "src/config.py.j2", dst: "src/config.py"}
+  - {src: "src/models.py", dst: "src/models.py"}
+  - {src: "src/routes/__init__.py", dst: "src/routes/__init__.py"}
+  - {src: "src/routes/health.py", dst: "src/routes/health.py"}
+  - {src: "src/routes/items.py.j2", dst: "src/routes/items.py"}
+  - {src: "src/services/item_service.py", dst: "src/services/item_service.py"}
+  - {src: "tests/conftest.py.j2", dst: "tests/conftest.py"}
+  - {src: "tests/test_health.py.j2", dst: "tests/test_health.py"}
+  - {src: "tests/test_items.py.j2", dst: "tests/test_items.py"}
+  - {src: "wsgi.py.j2", dst: "wsgi.py"}
+  - {src: "migrations/.gitkeep", dst: "migrations/.gitkeep"}
+  - {src: ".env.example.j2", dst: ".env.example"}

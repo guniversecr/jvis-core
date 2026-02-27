@@ -1,0 +1,18 @@
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router';
+</script>
+
+<template>
+  <div class="app-layout">
+    <header>
+      <nav>
+        <RouterLink to="/">
+          <strong>{{ project_name }}</strong>
+        </RouterLink>
+      </nav>
+    </header>
+    <main>
+      <RouterView />
+    </main>
+  </div>
+</template>

@@ -1,0 +1,263 @@
+# JVIS QA Gate Template
+# Version: 1.0
+# Usage: Created by QA Agent after story review
+# Location: {qa.qaLocation}/gates/{epicNum}.{storyNum}-{slug}.yml
+
+---
+# Gate Metadata
+gate_id: "{epicNum}.{storyNum}-{slug}"
+story_ref: "{devStoryLocation}/{epicNum}.{storyNum}.story.md"
+created: "{YYYY-MM-DD HH:MM}"
+reviewed_by: "QA Agent"
+gate_version: "1.0"
+
+# Gate Decision
+decision: "PENDING"  # PASS | CONCERNS | FAIL | WAIVED | PENDING
+confidence: 0  # 0-100 confidence level in decision
+
+# Decision Criteria Weights (must sum to 100)
+criteria_weights:
+  code_quality: 25
+  test_coverage: 25
+  security: 20
+  performance: 15
+  documentation: 15
+---
+
+# QA Gate: {epicNum}.{storyNum} - {Story Title}
+
+## Executive Summary
+
+**Decision**: `{DECISION}`
+**Confidence**: {confidence}%
+**Reviewed**: {date}
+
+### Key Findings
+- {finding 1}
+- {finding 2}
+- {finding 3}
+
+### Blockers (if FAIL)
+- [ ] {blocker 1}
+- [ ] {blocker 2}
+
+### Concerns (if CONCERNS)
+- [ ] {concern 1} - Risk: {High|Medium|Low}
+- [ ] {concern 2} - Risk: {High|Medium|Low}
+
+---
+
+## Detailed Assessment
+
+### 1. Code Quality (Weight: 25%)
+
+**Score**: {0-100}/100
+**Status**: {PASS|FAIL|CONCERNS}
+
+#### Checklist
+- [ ] Code follows project coding standards
+- [ ] No code smells or anti-patterns detected
+- [ ] Proper error handling implemented
+- [ ] Code is readable and maintainable
+- [ ] DRY principle followed (no unnecessary duplication)
+- [ ] SOLID principles applied where applicable
+- [ ] No hardcoded values (uses config/constants)
+
+#### Findings
+| Issue | Severity | Location | Recommendation |
+|-------|----------|----------|----------------|
+| {issue} | {Critical|High|Medium|Low} | {file:line} | {fix} |
+
+#### Static Analysis Results
+```
+Linter: {tool}
+Errors: {count}
+Warnings: {count}
+Info: {count}
+```
+
+---
+
+### 2. Test Coverage (Weight: 25%)
+
+**Score**: {0-100}/100
+**Status**: {PASS|FAIL|CONCERNS}
+
+#### Coverage Metrics
+| Type | Target | Actual | Status |
+|------|--------|--------|--------|
+| Line Coverage | ≥80% | {X}% | {✓|✗} |
+| Branch Coverage | ≥70% | {X}% | {✓|✗} |
+| Function Coverage | ≥80% | {X}% | {✓|✗} |
+
+#### Test Types
+- [ ] Unit tests present and passing
+- [ ] Integration tests present and passing
+- [ ] E2E tests present and passing (if applicable)
+- [ ] Edge cases covered
+- [ ] Error scenarios tested
+- [ ] Regression tests updated
+
+#### Missing Coverage
+| Area | Description | Priority |
+|------|-------------|----------|
+| {area} | {what's missing} | {High|Medium|Low} |
+
+---
+
+### 3. Security (Weight: 20%)
+
+**Score**: {0-100}/100
+**Status**: {PASS|FAIL|CONCERNS}
+
+#### OWASP Top 10 Check
+- [ ] A01: Broken Access Control - {status}
+- [ ] A02: Cryptographic Failures - {status}
+- [ ] A03: Injection - {status}
+- [ ] A04: Insecure Design - {status}
+- [ ] A05: Security Misconfiguration - {status}
+- [ ] A06: Vulnerable Components - {status}
+- [ ] A07: Auth Failures - {status}
+- [ ] A08: Data Integrity Failures - {status}
+- [ ] A09: Logging Failures - {status}
+- [ ] A10: SSRF - {status}
+
+#### Security Findings
+| Vulnerability | Severity | Location | Remediation |
+|--------------|----------|----------|-------------|
+| {vuln} | {Critical|High|Medium|Low} | {location} | {fix} |
+
+#### Sensitive Data Handling
+- [ ] No secrets in code
+- [ ] PII properly handled
+- [ ] Encryption used where required
+- [ ] Audit logging implemented
+
+---
+
+### 4. Performance (Weight: 15%)
+
+**Score**: {0-100}/100
+**Status**: {PASS|FAIL|CONCERNS}
+
+#### Performance Metrics
+| Metric | Target | Actual | Status |
+|--------|--------|--------|--------|
+| Response Time (p95) | <{X}ms | {Y}ms | {✓|✗} |
+| Memory Usage | <{X}MB | {Y}MB | {✓|✗} |
+| CPU Usage | <{X}% | {Y}% | {✓|✗} |
+
+#### Performance Checklist
+- [ ] No N+1 queries detected
+- [ ] Proper indexing on database queries
+- [ ] Caching implemented where appropriate
+- [ ] No memory leaks detected
+- [ ] Async operations used appropriately
+
+#### Bottlenecks Identified
+| Location | Issue | Impact | Recommendation |
+|----------|-------|--------|----------------|
+| {location} | {issue} | {impact} | {fix} |
+
+---
+
+### 5. Documentation (Weight: 15%)
+
+**Score**: {0-100}/100
+**Status**: {PASS|FAIL|CONCERNS}
+
+#### Documentation Checklist
+- [ ] Code comments present where needed
+- [ ] API documentation updated (if applicable)
+- [ ] README updated (if applicable)
+- [ ] Architecture docs updated (if applicable)
+- [ ] Inline documentation clear and accurate
+- [ ] Change log updated
+
+#### Missing Documentation
+| Area | Description | Priority |
+|------|-------------|----------|
+| {area} | {what's missing} | {High|Medium|Low} |
+
+---
+
+## Acceptance Criteria Verification
+
+| AC | Description | Status | Evidence |
+|----|-------------|--------|----------|
+| AC-1 | {description} | {✓|✗|⚠} | {evidence/location} |
+| AC-2 | {description} | {✓|✗|⚠} | {evidence/location} |
+| AC-3 | {description} | {✓|✗|⚠} | {evidence/location} |
+
+---
+
+## Non-Functional Requirements Check
+
+### NFR Assessment
+| Requirement | Target | Actual | Status |
+|-------------|--------|--------|--------|
+| Availability | {target} | {actual} | {✓|✗} |
+| Scalability | {target} | {actual} | {✓|✗} |
+| Maintainability | {target} | {actual} | {✓|✗} |
+| Usability | {target} | {actual} | {✓|✗} |
+
+---
+
+## Risk Assessment
+
+### Risk Matrix
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| {risk} | {High|Medium|Low} | {High|Medium|Low} | {mitigation} |
+
+### Technical Debt Introduced
+| Item | Description | Effort to Fix | Priority |
+|------|-------------|---------------|----------|
+| {item} | {description} | {S|M|L|XL} | {High|Medium|Low} |
+
+---
+
+## Final Score Calculation
+
+| Criteria | Weight | Score | Weighted |
+|----------|--------|-------|----------|
+| Code Quality | 25% | {X}/100 | {Y} |
+| Test Coverage | 25% | {X}/100 | {Y} |
+| Security | 20% | {X}/100 | {Y} |
+| Performance | 15% | {X}/100 | {Y} |
+| Documentation | 15% | {X}/100 | {Y} |
+| **Total** | **100%** | | **{Z}/100** |
+
+### Decision Thresholds
+- **PASS**: Score ≥ 80 AND no Critical/High blockers
+- **CONCERNS**: Score ≥ 60 AND no Critical blockers
+- **FAIL**: Score < 60 OR Critical blockers present
+- **WAIVED**: Explicit approval to proceed despite issues
+
+---
+
+## Recommendations
+
+### Before Merge
+1. {recommendation 1}
+2. {recommendation 2}
+
+### Post-Merge (Technical Debt)
+1. {tech debt item 1}
+2. {tech debt item 2}
+
+---
+
+## Sign-off
+
+| Role | Name/Agent | Decision | Date |
+|------|------------|----------|------|
+| QA | QA Agent | {DECISION} | {date} |
+| Dev | | | |
+| Tech Lead | | | |
+
+---
+## Gate History
+| Date | Decision | Reviewer | Notes |
+|------|----------|----------|-------|
+| {date} | {decision} | {reviewer} | {notes} |

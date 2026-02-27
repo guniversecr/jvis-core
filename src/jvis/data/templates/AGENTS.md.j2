@@ -1,0 +1,62 @@
+# AGENTS.md
+
+Agent definitions for **{{ project_name }}**.
+
+This project uses JVIS for AI-assisted development with specialized agents.
+
+## Available Agents
+
+### Core Development Cycle
+
+| Agent | Command | Purpose |
+|-------|---------|---------|
+| Product Manager | `/pm` | PRD creation and requirements |
+| System Architect | `/architect` | Technical design and architecture |
+| Scrum Master | `/sm` | Story management and sprint planning |
+| Developer | `/dev` | Implementation and coding |
+| QA Architect | `/qa` | Testing and quality gates |
+| API Developer | `/api` | Python FastAPI/Flask development |
+| Prisma Developer | `/prisma` | Node.js Express + Prisma development |
+| Orchestrator | `/master` | Cross-agent coordination |
+
+### Specialized Agents
+
+| Agent | Command | Domain |
+|-------|---------|--------|
+| Analyst | `/analyst` | Requirements analysis |
+| Frontend | `/frontend` | React + Vite |
+| Rust | `/rust` | Rust + Axum |
+| DevSecOps | `/devsecops` | Security, OWASP |
+| Infrastructure | `/infra` | Terraform |
+| Docker | `/docker` | Container management |
+| Kubernetes | `/k8s` | Orchestration |
+| AWS | `/aws` | Cloud services |
+| DBA | `/dba` | Database administration |
+| Data | `/data` | Data pipelines |
+| SRE | `/sre` | Site reliability |
+
+## Workflow
+
+```
+1. /pm          → Create PRD
+2. /architect   → Design architecture
+3. /sm          → Create stories
+4. /dev         → Implement
+5. /qa          → Review & gate (PASS/CONCERNS/FAIL)
+6. Commit only after QA PASS
+```
+
+## Agent Commands
+
+All agents support these commands (use `*` prefix):
+
+- `*help` — Show available commands
+- `*load-context` — Load project context
+- `*save-context` — Save session
+- `*exit` — Leave agent mode
+
+## References
+
+- Agent configs: `.jvis/agents/`
+- Steering files: `.kiro/steering/`
+- Inter-agent docs: `docs/notes/`
