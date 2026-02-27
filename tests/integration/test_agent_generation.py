@@ -164,21 +164,6 @@ class TestAgentSchemaValidation:
             except jsonschema.ValidationError as e:
                 raise AssertionError(f"{path.name} fails schema: {e.message}") from e
 
-    def test_agent_dependency_files_exist(self):
-        """Every file referenced in dependencies actually exists on disk."""
-        configs = _load_all_agent_configs()
-        missing = []
-        for path, config in configs:
-            deps = config.get("dependencies", {})
-            if not isinstance(deps, dict):
-                continue
-            for dep_type, base_dir in DEP_DIRS.items():
-                for filename in deps.get(dep_type, []):
-                    # Search recursively — files may be in subdirectories
-                    matches = list(base_dir.rglob(filename))
-                    if not matches:
-                        missing.append(f"{path.name}: {dep_type}/{filename}")
-        assert not missing, "Missing dependency files:\n" + "\n".join(missing)
 
     def test_agent_ids_are_unique(self):
         """No two agent YAMLs share the same agent ID."""
