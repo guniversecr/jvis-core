@@ -35,7 +35,7 @@ class TestBumpCommand:
         result = runner.invoke(cli, ["bump", "patch", "--dry-run"])
         assert result.exit_code == 0
         assert "Dry run" in result.output or "No files modified" in result.output
-        assert "4.5.3" in result.output
+        assert "4.5.4" in result.output
 
     def test_bump_patch_arithmetic(self) -> None:
         from jvis.commands.bump_cmd import _bump_semver

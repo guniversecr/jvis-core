@@ -61,4 +61,4 @@ class TestProjectStructure:
         version_file = PROJECT_ROOT / ".jvis" / "version"
         assert version_file.exists()
         version = version_file.read_text().strip()
-        assert version == "4.5.3"
+        assert version == "4.5.4"
